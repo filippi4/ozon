@@ -1,12 +1,12 @@
 <?php
 
-namespace Filippovk997\Ozon\Facades;
+namespace KFilippovk\Ozon\Facades;
 
 use DateTime;
 
 /**
  * Custom config
- * @method static \Filippovk997\Ozon\OzonClient config($keys)
+ * @method static \KFilippovk\Ozon\OzonClient config($keys)
  * 
  * Атрибуты и характеристики Ozon
  * @method static mixed getCategoryTree(int $category_id = null, string $language = 'DEFAULT');

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Filippovk997\Ozon;
+namespace KFilippovk\Ozon;
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;

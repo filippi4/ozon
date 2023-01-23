@@ -1,5 +1,5 @@
 {
-    "name": "filippovk997/ozon",
+    "name": "kfilippovk/ozon",
     "description": "Implementation of API methods Ozon for Laravel.",
     "minimum-stability": "stable",
     "license": "proprietary",
@@ -23,16 +23,16 @@
     },
     "autoload": {
         "psr-4": {
-        "Filippovk997\\Ozon\\": "src/"
+        "KFilippovk\\Ozon\\": "src/"
     }
     },
     "extra": {
         "laravel":{
             "providers": [
-                "Filippovk997\\Ozon\\OzonServiceProvider"
+                "KFilippovk\\Ozon\\OzonServiceProvider"
             ],
             "aliases": {
-                "Ozon": "Filippovk997\\Ozon\\Facades\\Ozon"
+                "Ozon": "KFilippovk\\Ozon\\Facades\\Ozon"
             }
         }
     }

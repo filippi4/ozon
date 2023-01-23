@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Filippovk997\Ozon;
+namespace KFilippovk\Ozon;
 
 use Psr\Http\Message\ResponseInterface;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Filippovk997\Ozon;
+namespace KFilippovk\Ozon;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;

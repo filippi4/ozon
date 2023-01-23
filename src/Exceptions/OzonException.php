@@ -1,6 +1,6 @@
 <?php
 
-namespace Filippovk997\Ozon\Exceptions;
+namespace KFilippovk\Ozon\Exceptions;
 
 
 class OzonException extends \RuntimeException
