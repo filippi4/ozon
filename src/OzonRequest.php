@@ -95,5 +95,4 @@ class OzonRequest
     {
         return $this->httpClient;
     }
-
 }

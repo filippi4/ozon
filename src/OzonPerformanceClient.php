@@ -7,7 +7,7 @@ use Illuminate\Validation\ValidationException;
 
 class OzonPerformanceClient
 {
-    private const URL = 'https://performance.ozon.ru';
+    private const URL = 'https://performance.ozon.ru/';
 
     private const DEFAULT_HEADER = [
         'Accept' => 'application/json',
@@ -68,7 +68,7 @@ class OzonPerformanceClient
         $full_path = self::URL . $uri;
         $options = self::DEFAULT_OPTIONS;
 
-        $options['Authorization'] = 'Bearer ' . $this->getToken();
+        $options['headers']['Authorization'] = 'Bearer ' . $this->getToken();
 
         if (count($params)) {
             $full_path .= '?' . http_build_query($params);

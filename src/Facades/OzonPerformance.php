@@ -2,14 +2,14 @@
 
 namespace KFilippovk\Ozon\Facades;
 
-use DateTime;
+use Illuminate\Support\Facades\Facade;
 
 /**
- * Custom config
- * @method static \KFilippovk\Ozon\OzonPerformanceClient config($keys)
+ * @method static OzonPerformance \KFilippovk\Ozon\OzonPerformance config($keys)
+ * @method static void getCampaign(array $campaign_ids, string $adv_object_type, string $state)
  **/
 
-class OzonPerformance extends \Illuminate\Support\Facades\Facade
+class OzonPerformance extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
