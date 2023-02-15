@@ -29,10 +29,12 @@
     "extra": {
         "laravel":{
             "providers": [
-                "KFilippovk\\Ozon\\OzonServiceProvider"
+                "KFilippovk\\Ozon\\OzonServiceProvider",
+                "KFilippovk\\Ozon\\OzonPerformanceServiceProvider"
             ],
             "aliases": {
-                "Ozon": "KFilippovk\\Ozon\\Facades\\Ozon"
+                "Ozon": "KFilippovk\\Ozon\\Facades\\Ozon",
+                "OzonPerformance": "KFilippovk\\Ozon\\Facades\\OzonPerformance"
             }
         }
     }

@@ -5,7 +5,7 @@ namespace KFilippovk\Ozon;
 
 use Illuminate\Support\ServiceProvider;
 
-class OzonServiceProvider extends ServiceProvider
+class OzonPerformanceServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -23,8 +23,8 @@ class OzonServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('ozon', function () {
-            return new Ozon();
+        $this->app->bind('ozon_performance', function () {
+            return new OzonPerformance();
         });
     }
 }
