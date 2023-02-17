@@ -31,4 +31,17 @@ class OzonPerformance extends OzonPerformanceClient
             )
         )))->data;
     }
+
+    /**
+     * Список рекламируемых объектов в кампании
+     * 
+     * @param int $campaign_id Идентификатор кампании
+     * @return mixed
+     */
+    public function getCampaignObjects(int $campaign_id): mixed
+    {
+        return (new OzonData($this->getResponse(
+            'api/client/campaign/' . $campaign_id . '/objects'
+        )))->data;
+    }
 }
