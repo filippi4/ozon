@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static OzonPerformance \KFilippovk\Ozon\OzonPerformance config($keys)
- * @method static void getCampaign(array $campaign_ids, string $adv_object_type, string $state)
+ * @method static mixed getCampaign(array $campaign_ids, string $adv_object_type, string $state)
+ * @method static mixed getCampaignObjects(int $campaign_id)
  **/
 
 class OzonPerformance extends Facade
