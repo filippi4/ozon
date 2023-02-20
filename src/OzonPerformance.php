@@ -14,7 +14,6 @@ class OzonPerformance extends OzonPerformanceClient
         $this->validateKeys($keys);
 
         $this->config = $keys;
-        $this->token = $this->updateToken($this->token);
 
         return $this;
     }

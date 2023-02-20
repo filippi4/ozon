@@ -4,12 +4,9 @@ namespace KFilippovk\Ozon;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
-use KFilippovk\Ozon\Traits\HasToken;
 
 class OzonPerformanceClient
 {
-    use HasToken;
-
     private const CONNECT_TIMEOUT = 5;
     private const TIMEOUT = 5;
 
@@ -24,7 +21,6 @@ class OzonPerformanceClient
         'headers' => self::DEFAULT_HEADER
     ];
 
-    protected ?string $token;
     protected ?array $config;
 
     /**
@@ -33,7 +29,6 @@ class OzonPerformanceClient
     public function __construct()
     {
         $this->config = null;
-        $this->token = null;
     }
 
     /**
@@ -66,7 +61,7 @@ class OzonPerformanceClient
         $options['connect_timeout'] = self::CONNECT_TIMEOUT;
         $options['timeout'] = self::TIMEOUT;
 
-        $options['headers']['Authorization'] = 'Bearer ' . $this->token;
+        $options['headers']['Authorization'] = 'Bearer ' . Token::create($this->config);
 
         if (count($params)) {
             $full_path .= '?' . http_build_query($params);
@@ -90,7 +85,7 @@ class OzonPerformanceClient
         $options['connect_timeout'] = self::CONNECT_TIMEOUT;
         $options['timeout'] = self::TIMEOUT;
 
-        $options['Authorization'] = 'Bearer ' . $this->token;
+        $options['headers']['Authorization'] = 'Bearer ' . Token::create($this->config);
 
         if (count($params)) {
             $options['json'] = $params;
