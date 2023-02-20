@@ -47,12 +47,13 @@ class OzonRequest
      * @throws OzonHttpException
      */
 
-    public static function makeRequest(string $url, array $options, string $method = 'get'): OzonResponse
+    public static function makeRequest(string $url, array $options, string $method = 'get', $is_json = true): OzonResponse
     {
         return new OzonResponse(
             $method === 'get'
                 ? self::runGetRequest($url, $options)
-                : self::runPostRequest($url, $options)
+                : self::runPostRequest($url, $options),
+            $is_json
         );
     }
 
@@ -68,8 +69,7 @@ class OzonRequest
     {
         try {
             return self::getInstance()->getHttpClient()->get($url, $options);
-        }
-        catch (Throwable $exception) {
+        } catch (Throwable $exception) {
             throw new OzonHttpException($exception);
         }
     }

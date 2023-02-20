@@ -4,9 +4,15 @@ namespace KFilippovk\Ozon;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use KFilippovk\Ozon\Traits\HasToken;
 
 class OzonPerformanceClient
 {
+    use HasToken;
+
+    private const CONNECT_TIMEOUT = 5;
+    private const TIMEOUT = 5;
+
     private const URL = 'https://performance.ozon.ru/';
 
     private const DEFAULT_HEADER = [
@@ -18,7 +24,8 @@ class OzonPerformanceClient
         'headers' => self::DEFAULT_HEADER
     ];
 
-    protected $config;
+    protected ?string $token;
+    protected ?array $config;
 
     /**
      * ClientHint constructor.
@@ -26,6 +33,7 @@ class OzonPerformanceClient
     public function __construct()
     {
         $this->config = null;
+        $this->token = null;
     }
 
     /**
@@ -43,19 +51,6 @@ class OzonPerformanceClient
         }
     }
 
-    private function getToken(): string
-    {
-        $full_path = self::URL . 'api/client/token';
-        $options = self::DEFAULT_OPTIONS;
-
-        $params = $this->config;
-        $params['grant_type'] = 'client_credentials';
-        $options['json'] = $params;
-
-        return (new OzonData(OzonRequest::makeRequest($full_path, $options, 'post')))->data
-            ->access_token; 
-    }
-
     /**
      * Create GET request to bank API
      *
@@ -63,18 +58,21 @@ class OzonPerformanceClient
      * @param array $params
      * @return OzonResponse
      */
-    protected function getResponse(string $uri = null, array $params = []): OzonResponse
+    protected function getResponse(string $uri = null, array $params = [], $is_json = true): OzonResponse
     {
         $full_path = self::URL . $uri;
         $options = self::DEFAULT_OPTIONS;
 
-        $options['headers']['Authorization'] = 'Bearer ' . $this->getToken();
+        $options['connect_timeout'] = self::CONNECT_TIMEOUT;
+        $options['timeout'] = self::TIMEOUT;
+
+        $options['headers']['Authorization'] = 'Bearer ' . $this->token;
 
         if (count($params)) {
             $full_path .= '?' . http_build_query($params);
         }
 
-        return OzonRequest::makeRequest($full_path, $options, 'get');
+        return OzonRequest::makeRequest($full_path, $options, 'get', $is_json);
     }
 
     /**
@@ -89,7 +87,10 @@ class OzonPerformanceClient
         $full_path = self::URL . $uri;
         $options = self::DEFAULT_OPTIONS;
 
-        $options['Authorization'] = 'Bearer ' . $this->getToken();
+        $options['connect_timeout'] = self::CONNECT_TIMEOUT;
+        $options['timeout'] = self::TIMEOUT;
+
+        $options['Authorization'] = 'Bearer ' . $this->token;
 
         if (count($params)) {
             $options['json'] = $params;

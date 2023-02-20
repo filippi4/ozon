@@ -2,15 +2,26 @@
 
 namespace KFilippovk\Ozon;
 
+use Carbon\Carbon;
+
 class OzonPerformance extends OzonPerformanceClient
 {
+    private const DT_FORMAT_DATE_TIME_TZ = 'Y-m-d\TH:i:s.v\Z';
+    private const DT_FORMAT_DATE = 'Y-m-d';
+
     public function config(array $keys): OzonPerformance
     {
         $this->validateKeys($keys);
 
         $this->config = $keys;
+        $this->token = $this->updateToken($this->token);
 
         return $this;
+    }
+
+    private function formatDate(?Carbon $dateTime, string $format = self::DT_FORMAT_DATE_TIME_TZ): ?string
+    {
+        return $dateTime ? $dateTime->format($format) : null;
     }
 
     /**
@@ -42,6 +53,29 @@ class OzonPerformance extends OzonPerformanceClient
     {
         return (new OzonData($this->getResponse(
             'api/client/campaign/' . $campaign_id . '/objects'
+        )))->data;
+    }
+
+    /**
+     * Статистика по расходу кампаний
+     * 
+     * @param int $campaign_id Идентификатор кампании
+     * @return mixed
+     */
+    public function getStatisticsExpense(
+        int $campaigns = null,
+        Carbon $dateFrom = null,
+        Carbon $dateTo = null
+    ): mixed {
+        $dateFrom = $this->formatDate($dateFrom, self::DT_FORMAT_DATE);
+        $dateTo = $this->formatDate($dateTo, self::DT_FORMAT_DATE);
+
+        return (new OzonData($this->getResponse(
+            'api/client/statistics/expense',
+            array_merge(
+                array_diff(compact('campaigns', 'dateFrom', 'dateTo'), [''])
+            ),
+            false
         )))->data;
     }
 }

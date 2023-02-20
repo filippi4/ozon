@@ -3,6 +3,7 @@
 
 namespace KFilippovk\Ozon;
 
+use League\Csv\Reader;
 use Psr\Http\Message\ResponseInterface;
 
 class OzonResponse
@@ -14,10 +15,14 @@ class OzonResponse
     private $output = [];
 
 
-    public function __construct(ResponseInterface $response)
+    public function __construct(ResponseInterface $response, $is_json = true)
     {
         $this->response = $response;
-        $this->parseResponse();
+        if ($is_json) {
+            $this->parseResponse();
+        } else {
+            $this->parseResponseCsv();
+        }
     }
 
     /**
@@ -31,6 +36,23 @@ class OzonResponse
         $this->output = [
             'status' => $status,
             'data' => json_decode($response, true),
+        ];
+    }
+
+    /**
+     * Parse response in CSV format
+     */
+    private function parseResponseCsv(): void
+    {
+        $status = $this->response ? $this->response->getStatusCode() : 500;
+        $response = $this->response ? $this->response->getBody()->getContents() : null;
+        $csv = Reader::createFromString($response)
+            ->setDelimiter(';')
+            ->setHeaderOffset(0);
+
+        $this->output = [
+            'status' => $status,
+            'data' => $csv->jsonSerialize(),
         ];
     }
 
