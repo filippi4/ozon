@@ -49,7 +49,8 @@ class Ozon extends OzonClient
     public function getCategoryTree(int $category_id = null, string $language = 'DEFAULT'): mixed
     {
         return (new OzonData($this->postResponse(
-            'v2/category/tree', array_merge(compact('language'), array_diff(compact('category_id'), ['']))
+            'v2/category/tree',
+            array_merge(compact('language'), array_diff(compact('category_id'), ['']))
         )))->data;
     }
 
@@ -81,7 +82,8 @@ class Ozon extends OzonClient
     public function getCategoryAttribute(array $category_id, string $attribute_type = 'ALL', string $language = 'DEFAULT'): mixed
     {
         return (new OzonData($this->postResponse(
-            'v3/category/attribute', compact('attribute_type', 'category_id', 'language')
+            'v3/category/attribute',
+            compact('attribute_type', 'category_id', 'language')
         )))->data;
     }
 
@@ -110,7 +112,8 @@ class Ozon extends OzonClient
     public function getCategoryAttributeValues(int $attribute_id, int $category_id, int $last_value_id = null, int $limit = 5000, string $language = 'DEFAULT'): mixed
     {
         return (new OzonData($this->postResponse(
-            'v2/category/attribute/values', array_diff(compact('attribute_id', 'category_id', 'language', 'last_value_id', 'limit'), [''])
+            'v2/category/attribute/values',
+            array_diff(compact('attribute_id', 'category_id', 'language', 'last_value_id', 'limit'), [''])
         )))->data;
     }
 
@@ -164,9 +167,10 @@ class Ozon extends OzonClient
      */
     public function getProductList(array $offer_id = null, array $product_id = null, string $visibility = 'ALL', string $last_id = null, int $limit = 1000): mixed
     {
-        $filter = compact(['offer_id', 'product_id' , 'visibility']);
+        $filter = compact(['offer_id', 'product_id', 'visibility']);
         return (new OzonData($this->postResponse(
-            'v2/product/list', array_merge(compact('filter', 'limit'), array_diff(compact('last_id'), ['']))
+            'v2/product/list',
+            array_merge(compact('filter', 'limit'), array_diff(compact('last_id'), ['']))
         )))->data;
     }
 
@@ -182,7 +186,8 @@ class Ozon extends OzonClient
     public function getProductInfo(string $offer_id = null, int $product_id = null, int $sku = null): mixed
     {
         return (new OzonData($this->postResponse(
-            'v2/product/info', array_diff(compact('offer_id', 'product_id', 'sku'), [''])
+            'v2/product/info',
+            array_diff(compact('offer_id', 'product_id', 'sku'), [''])
         )))->data;
     }
 
@@ -203,7 +208,8 @@ class Ozon extends OzonClient
     public function getProductInfoList(array $offer_id = null, array $product_id = null, array $sku = null): mixed
     {
         return (new OzonData($this->postResponse(
-            'v2/product/info/list', compact('offer_id', 'product_id', 'sku')
+            'v2/product/info/list',
+            compact('offer_id', 'product_id', 'sku')
         )))->data;
     }
 
@@ -218,7 +224,8 @@ class Ozon extends OzonClient
     public function getProductInfoDescription(string $offer_id = null, int $product_id = null): mixed
     {
         return (new OzonData($this->postResponse(
-            'v1/product/info/description', array_diff(compact('offer_id', 'product_id'), [''])
+            'v1/product/info/description',
+            array_diff(compact('offer_id', 'product_id'), [''])
         )))->data;
     }
 
@@ -233,7 +240,8 @@ class Ozon extends OzonClient
     public function getProductRatingBySku(array $skus): mixed
     {
         return (new OzonData($this->postResponse(
-            'v1/product/rating-by-sku', compact('skus')
+            'v1/product/rating-by-sku',
+            compact('skus')
         )))->data;
     }
 
@@ -293,18 +301,18 @@ class Ozon extends OzonClient
      * @return mixed
      */
     public function getProductsInfoAttributes(
-        array $offer_id = null, 
-        array $product_id = null, 
-        string $visibility = 'ALL', 
-        string $last_id = null, 
-        int $limit = 1000, 
-        string $sort_by = null, 
+        array $offer_id = null,
+        array $product_id = null,
+        string $visibility = 'ALL',
+        string $last_id = null,
+        int $limit = 1000,
+        string $sort_by = null,
         string $sort_dir = 'ASC'
-    ): mixed
-    {
+    ): mixed {
         $filter = compact(['offer_id', 'product_id', 'visibility']);
         return (new OzonData($this->postResponse(
-            'v3/products/info/attributes', array_merge(compact('filter', 'limit', 'sort_dir'), array_diff(compact('last_id', 'sort_by'), ['']))
+            'v3/products/info/attributes',
+            array_merge(compact('filter', 'limit', 'sort_dir'), array_diff(compact('last_id', 'sort_by'), ['']))
         )))->data;
     }
 
@@ -326,7 +334,8 @@ class Ozon extends OzonClient
     {
         $filter = compact('names', 'only_visible');
         return (new OzonData($this->postResponse(
-            'v1/products/geo-restrictions-catalog-by-filter', array_merge(compact('filter'), array_diff(compact('last_order_number', 'limit'), ['']))
+            'v1/products/geo-restrictions-catalog-by-filter',
+            array_merge(compact('filter'), array_diff(compact('last_order_number', 'limit'), ['']))
         )))->data;
     }
 
@@ -385,7 +394,8 @@ class Ozon extends OzonClient
     {
         $filter = compact('offer_id', 'product_id', 'visibility');
         return (new OzonData($this->postResponse(
-            'v3/product/info/stocks', array_merge(compact('filter', 'limit'), array_diff(compact('last_id'), ['']))
+            'v3/product/info/stocks',
+            array_merge(compact('filter', 'limit'), array_diff(compact('last_id'), ['']))
         )))->data;
     }
 
@@ -400,10 +410,11 @@ class Ozon extends OzonClient
     public function getProductInfoStocksByWarehouseFbs(array $fbs_sku): mixed
     {
         return (new OzonData($this->postResponse(
-            'v1/product/info/stocks-by-warehouse/fbs', compact('fbs_sku')
+            'v1/product/info/stocks-by-warehouse/fbs',
+            compact('fbs_sku')
         )))->data;
     }
-    
+
     /**
      * Получить информацию о цене товара
      * 
@@ -455,7 +466,8 @@ class Ozon extends OzonClient
     {
         $filter = compact('offer_id', 'product_id', 'visibility');
         return (new OzonData($this->postResponse(
-            'v4/product/info/prices', array_merge(compact('filter', 'limit'), array_diff(compact('last_id'), ['']))
+            'v4/product/info/prices',
+            array_merge(compact('filter', 'limit'), array_diff(compact('last_id'), ['']))
         )))->data;
     }
 
@@ -471,10 +483,11 @@ class Ozon extends OzonClient
     public function getProductInfoDiscounted(array $discounted_skus): mixed
     {
         return (new OzonData($this->postResponse(
-            'v1/product/info/discounted', compact('discounted_skus')
+            'v1/product/info/discounted',
+            compact('discounted_skus')
         )))->data;
     }
-    
+
     /**
      * Mетод для получения списка акций, в которых можно участвовать.
      * 
@@ -501,7 +514,8 @@ class Ozon extends OzonClient
     public function getActionsCandidates(float $action_id, float $offset = null, ?float $limit = 100): mixed
     {
         return (new OzonData($this->postResponse(
-            'v1/actions/candidates', array_diff(compact('action_id', 'offset', 'limit'), [''])
+            'v1/actions/candidates',
+            array_diff(compact('action_id', 'offset', 'limit'), [''])
         )))->data;
     }
 
@@ -519,7 +533,8 @@ class Ozon extends OzonClient
     public function getActionsProducts(float $action_id, float $offset = null, ?float $limit = 100): mixed
     {
         return (new OzonData($this->postResponse(
-            'v1/actions/products', array_diff(compact('action_id', 'offset', 'limit'), [''])
+            'v1/actions/products',
+            array_diff(compact('action_id', 'offset', 'limit'), [''])
         )))->data;
     }
 
@@ -550,7 +565,8 @@ class Ozon extends OzonClient
     public function getActionsHotSalesProducts(float $hotsale_id, float $offset = null, float $limit = 100): mixed
     {
         return (new OzonData($this->postResponse(
-            'v1/actions/hotsales/products', array_diff(compact('hotsale_id', 'offset', 'limit'), [''])
+            'v1/actions/hotsales/products',
+            array_diff(compact('hotsale_id', 'offset', 'limit'), [''])
         )))->data;
     }
 
@@ -588,7 +604,8 @@ class Ozon extends OzonClient
     public function getProductCertificationList(int $page = 1, int $page_size = 1000): mixed
     {
         return (new OzonData($this->postResponse(
-            'v1/product/certification/list', compact('page', 'page_size')
+            'v1/product/certification/list',
+            compact('page', 'page_size')
         )))->data;
     }
 
@@ -606,7 +623,8 @@ class Ozon extends OzonClient
     public function getBrandCompanyCartificationList(int $page = 1, int $page_size = 1000): mixed
     {
         return (new OzonData($this->postResponse(
-            'v1/brand/company-certification/list', compact('page', 'page_size')
+            'v1/brand/company-certification/list',
+            compact('page', 'page_size')
         )))->data;
     }
 
@@ -623,7 +641,7 @@ class Ozon extends OzonClient
             'v1/warehouse/list'
         )))->data;
     }
-    
+
 
     /**
      * Список методов доставки склада
@@ -645,7 +663,8 @@ class Ozon extends OzonClient
     {
         $filter = compact('warehouse_id', 'provider_id', 'status');
         return (new OzonData($this->postResponse(
-            'v1/delivery-method/list', array_merge(compact('filter', 'limit'), array_diff(compact('offset'), ['']))
+            'v1/delivery-method/list',
+            array_merge(compact('filter', 'limit'), array_diff(compact('offset'), ['']))
         )))->data;
     }
 
@@ -679,24 +698,24 @@ class Ozon extends OzonClient
      * @return mixed
      */
     public function getPostingFboList(
-        DateTime $since = null, 
-        DateTime $to = null, 
-        string $status = null, 
-        bool $translit = null, 
-        bool $analytics_data = null, 
-        bool $financial_data = null, 
-        string $dir = 'ASC', 
-        int $offset = null, 
+        DateTime $since = null,
+        DateTime $to = null,
+        string $status = null,
+        bool $translit = null,
+        bool $analytics_data = null,
+        bool $financial_data = null,
+        string $dir = 'ASC',
+        int $offset = null,
         int $limit = 1000
-    ): mixed
-    {
+    ): mixed {
         $since = $this->formatDate($since);
         $to = $this->formatDate($to);
 
         $filter = compact('since', 'status', 'to');
         $with = compact('analytics_data', 'financial_data');
         return (new OzonData($this->postResponse(
-            'v2/posting/fbo/list', array_merge(compact('filter', 'with', 'limit'), array_diff(compact('dir', 'offset', 'translit'), ['']))
+            'v2/posting/fbo/list',
+            array_merge(compact('filter', 'with', 'limit'), array_diff(compact('dir', 'offset', 'translit'), ['']))
         )))->data;
     }
 
@@ -716,7 +735,8 @@ class Ozon extends OzonClient
     {
         $with = compact('analytics_data', 'financial_data');
         return (new OzonData($this->postResponse(
-            'v2/posting/fbo/get', array_merge(compact('posting_number', 'with'), array_diff(compact('translit'), ['']))
+            'v2/posting/fbo/get',
+            array_merge(compact('posting_number', 'with'), array_diff(compact('translit'), ['']))
         )))->data;
     }
 
@@ -785,22 +805,21 @@ class Ozon extends OzonClient
      * @return mixed
      */
     public function getPostingFbsUnfulfilledList(
-        DateTime $cutoff_from = null, 
-        DateTime $cutoff_to = null, 
-        DateTime $delivering_date_from = null, 
-        DateTime $delivering_date_to = null, 
-        array $provider_id = null, 
-        string $status = null, 
-        array $warehouse_id = null, 
-        bool $analytics_data = null, 
-        bool $barcodes = null, 
-        bool $financial_data = null, 
-        bool $translit = null, 
-        string $dir = 'ASC', 
-        int $offset = null, 
+        DateTime $cutoff_from = null,
+        DateTime $cutoff_to = null,
+        DateTime $delivering_date_from = null,
+        DateTime $delivering_date_to = null,
+        array $provider_id = null,
+        string $status = null,
+        array $warehouse_id = null,
+        bool $analytics_data = null,
+        bool $barcodes = null,
+        bool $financial_data = null,
+        bool $translit = null,
+        string $dir = 'ASC',
+        int $offset = null,
         int $limit = 1000
-    ): mixed
-    {
+    ): mixed {
         $cutoff_from = $this->formatDate($cutoff_from);
         $cutoff_to = $this->formatDate($cutoff_to);
         $delivering_date_from = $this->formatDate($delivering_date_from);
@@ -809,10 +828,11 @@ class Ozon extends OzonClient
         $filter = compact('cutoff_from', 'cutoff_to', 'delivering_date_from', 'delivering_date_to', 'provider_id', 'status', 'warehouse_id');
         $with = compact('analytics_data', 'barcodes', 'financial_data', 'translit');
         return (new OzonData($this->postResponse(
-            'v3/posting/fbs/unfulfilled/list', array_merge(compact('filter', 'with', 'dir', 'limit'), array_diff(compact('offset'), ['']))
+            'v3/posting/fbs/unfulfilled/list',
+            array_merge(compact('filter', 'with', 'dir', 'limit'), array_diff(compact('offset'), ['']))
         )))->data;
     }
- 
+
     /**
      * Список отправлений (версия 3)
      * 
@@ -860,29 +880,29 @@ class Ozon extends OzonClient
      * @return mixed
      */
     public function getPostingFbsList(
-        DateTime $since, 
-        DateTime $to, 
-        string $status = null, 
-        array $delivery_method_id = null, 
-        int $order_id = null, 
-        array $provider_id = null, 
-        array $warehouse_id = null, 
-        bool $analytics_data = null, 
-        bool $barcodes = null, 
-        bool $financial_data = null, 
-        bool $translit = null, 
-        string $dir = 'ASC', 
-        int $offset = null, 
+        DateTime $since,
+        DateTime $to,
+        string $status = null,
+        array $delivery_method_id = null,
+        int $order_id = null,
+        array $provider_id = null,
+        array $warehouse_id = null,
+        bool $analytics_data = null,
+        bool $barcodes = null,
+        bool $financial_data = null,
+        bool $translit = null,
+        string $dir = 'ASC',
+        int $offset = null,
         int $limit = 1000
-    ): mixed
-    {
+    ): mixed {
         $since = $this->formatDate($since);
         $to = $this->formatDate($to);
 
         $filter = compact('since', 'to', 'status', 'delivery_method_id', 'order_id', 'provider_id', 'warehouse_id');
         $with = compact('analytics_data', 'barcodes', 'financial_data', 'translit');
         return (new OzonData($this->postResponse(
-            'v3/posting/fbs/list', array_merge(compact('filter', 'with', 'dir', 'limit'), array_diff(compact('offset'), ['']))
+            'v3/posting/fbs/list',
+            array_merge(compact('filter', 'with', 'dir', 'limit'), array_diff(compact('offset'), ['']))
         )))->data;
     }
 
@@ -901,18 +921,18 @@ class Ozon extends OzonClient
      * @return mixed
      */
     public function getPostingFbsGet(
-        string $posting_number, 
-        bool $analytics_data = null, 
-        bool $barcodes = null, 
-        bool $financial_data = null, 
+        string $posting_number,
+        bool $analytics_data = null,
+        bool $barcodes = null,
+        bool $financial_data = null,
         bool $product_exemplars = null,
-        bool $related_postings = null, 
+        bool $related_postings = null,
         bool $translit = null
-    ): mixed
-    {
+    ): mixed {
         $with = compact('analytics_data', 'barcodes', 'financial_data', 'product_exemplars', 'related_postings', 'translit');
         return (new OzonData($this->postResponse(
-            'v3/posting/fbs/get', compact('posting_number', 'with')
+            'v3/posting/fbs/get',
+            compact('posting_number', 'with')
         )))->data;
     }
 
@@ -925,7 +945,8 @@ class Ozon extends OzonClient
     public function getPostingFbsGetByBarcode(string $barcode): mixed
     {
         return (new OzonData($this->postResponse(
-            'v2/posting/fbs/get-by-barcode', compact('barcode')
+            'v2/posting/fbs/get-by-barcode',
+            compact('barcode')
         )))->data;
     }
 
@@ -940,7 +961,8 @@ class Ozon extends OzonClient
     public function getPostingFbsProductCountryList(string $name_search = null): mixed
     {
         return (new OzonData($this->postResponse(
-            'v2/posting/fbs/product/country/list', array_diff(compact('name_search'), [''])
+            'v2/posting/fbs/product/country/list',
+            array_diff(compact('name_search'), [''])
         )))->data;
     }
 
@@ -956,7 +978,8 @@ class Ozon extends OzonClient
     public function getPostingFbsRestrictions(string $posting_number): mixed
     {
         return (new OzonData($this->postResponse(
-            'v1/posting/fbs/restrictions', compact('posting_number')
+            'v1/posting/fbs/restrictions',
+            compact('posting_number')
         )))->data;
     }
 
@@ -985,7 +1008,8 @@ class Ozon extends OzonClient
     public function getPostingFbsCancelReason(array $related_posting_numbers): mixed
     {
         return (new OzonData($this->postResponse(
-            'v1/posting/fbs/cancel-reason', compact('related_posting_numbers')
+            'v1/posting/fbs/cancel-reason',
+            compact('related_posting_numbers')
         )))->data;
     }
 
@@ -1027,7 +1051,8 @@ class Ozon extends OzonClient
 
         $filter = compact('date_from', 'date_to', 'integration_type', 'status');
         return (new OzonData($this->postResponse(
-            'v2/posting/fbs/act/list', compact('filter', 'limit')
+            'v2/posting/fbs/act/list',
+            compact('filter', 'limit')
         )))->data;
     }
 
@@ -1051,7 +1076,8 @@ class Ozon extends OzonClient
     {
         $filter = compact('posting_number', 'status');
         return (new OzonData($this->postResponse(
-            'v3/returns/company/fbo', array_merge(compact('filter', 'limit'), array_diff(compact('last_id'), ['']))
+            'v3/returns/company/fbo',
+            array_merge(compact('filter', 'limit'), array_diff(compact('last_id'), ['']))
         )))->data;
     }
 
@@ -1076,7 +1102,8 @@ class Ozon extends OzonClient
     {
         $filter = compact('posting_number', 'status');
         return (new OzonData($this->postResponse(
-            'v2/returns/company/fbo', array_merge(compact('filter', 'limit'), array_diff(compact('offset'), ['']))
+            'v2/returns/company/fbo',
+            array_merge(compact('filter', 'limit'), array_diff(compact('offset'), ['']))
         )))->data;
     }
 
@@ -1114,19 +1141,18 @@ class Ozon extends OzonClient
      * @return mixed
      */
     public function getReturnsCompanyFbs(
-        DateTime $accepted_from_customer_moment_time_from = null, 
+        DateTime $accepted_from_customer_moment_time_from = null,
         DateTime $accepted_from_customer_moment_time_to = null,
-        DateTime $last_free_waiting_day_time_from = null, 
-        DateTime $last_free_waiting_day_time_to = null, 
-        int $order_id = null, 
-        array $posting_number = null, 
-        string $product_name = null, 
-        string $product_offer_id = null, 
-        string $status = null, 
-        int $offset = null, 
+        DateTime $last_free_waiting_day_time_from = null,
+        DateTime $last_free_waiting_day_time_to = null,
+        int $order_id = null,
+        array $posting_number = null,
+        string $product_name = null,
+        string $product_offer_id = null,
+        string $status = null,
+        int $offset = null,
         int $limit = 1000
-    ): mixed
-    {
+    ): mixed {
         $accepted_from_customer_moment_time_from = $this->formatDate($accepted_from_customer_moment_time_from);
         $accepted_from_customer_moment_time_to = $this->formatDate($accepted_from_customer_moment_time_to);
         $last_free_waiting_day_time_from = $this->formatDate($last_free_waiting_day_time_from);
@@ -1136,7 +1162,8 @@ class Ozon extends OzonClient
         $last_free_waiting_day = ['time_from' => $last_free_waiting_day_time_from, 'time_to' => $last_free_waiting_day_time_to];
         $filter = compact('accepted_from_customer_moment', 'last_free_waiting_day', 'order_id', 'posting_number', 'product_name', 'product_offer_id', 'status');
         return (new OzonData($this->postResponse(
-            'v2/returns/company/fbs', array_merge(compact('filter', 'limit'), array_diff(compact('offset'), ['']))
+            'v2/returns/company/fbs',
+            array_merge(compact('filter', 'limit'), array_diff(compact('offset'), ['']))
         )))->data;
     }
 
@@ -1170,18 +1197,18 @@ class Ozon extends OzonClient
      * @return mixed
      */
     public function getConditionalCancellationList(
-        array $cancellation_initiator = null, 
-        array $posting_number = null, 
-        array $state = null, 
-        bool $counters = null, 
-        int $offset = null, 
+        array $cancellation_initiator = null,
+        array $posting_number = null,
+        array $state = null,
+        bool $counters = null,
+        int $offset = null,
         int $limit = 1000
-    ): mixed
-    {
+    ): mixed {
         $filter = compact('cancellation_initiator', 'posting_number', 'state');
         $with = compact('counters');
         return (new OzonData($this->postResponse(
-            'v1/conditional-cancellation/list', array_merge(compact('filter', 'with', 'limit'), array_diff(compact('offset'), ['']))
+            'v1/conditional-cancellation/list',
+            array_merge(compact('filter', 'with', 'limit'), array_diff(compact('offset'), ['']))
         )))->data;
     }
 
@@ -1208,7 +1235,8 @@ class Ozon extends OzonClient
     {
         $filter = compact('chat_status', 'unread_only');
         return (new OzonData($this->postResponse(
-            'v2/chat/list', array_merge(compact('filter', 'limit'), array_diff(compact('offset'), ['']))
+            'v2/chat/list',
+            array_merge(compact('filter', 'limit'), array_diff(compact('offset'), ['']))
         )))->data;
     }
 
@@ -1234,7 +1262,8 @@ class Ozon extends OzonClient
     {
         $with = compact('irst_unead_message_id', 'unread_count');
         return (new OzonData($this->postResponse(
-            'v1/chat/list', array_merge(compact('chat_id_list', 'with', 'page_size'), array_diff(compact('page'), ['']))
+            'v1/chat/list',
+            array_merge(compact('chat_id_list', 'with', 'page_size'), array_diff(compact('page'), ['']))
         )))->data;
     }
 
@@ -1254,7 +1283,8 @@ class Ozon extends OzonClient
     public function getChatHistoryV2(string $chat_id, string $direction = 'Backward', int $from_message_id = null, int $limit = 50): mixed
     {
         return (new OzonData($this->postResponse(
-            'v2/chat/history', array_merge(compact('chat_id', 'direction', 'limit'), array_diff(compact('from_message_id'), ['']))
+            'v2/chat/history',
+            array_merge(compact('chat_id', 'direction', 'limit'), array_diff(compact('from_message_id'), ['']))
         )))->data;
     }
 
@@ -1273,7 +1303,8 @@ class Ozon extends OzonClient
     public function getChatHistory(string $chat_id, string $from_message_id = null, int $limit = 100): mixed
     {
         return (new OzonData($this->postResponse(
-            'v1/chat/history', array_merge(compact('chat_id', 'limit'), array_diff(compact('from_message_id'), ['']))
+            'v1/chat/history',
+            array_merge(compact('chat_id', 'limit'), array_diff(compact('from_message_id'), ['']))
         )))->data;
     }
 
@@ -1334,7 +1365,8 @@ class Ozon extends OzonClient
     public function getReportList(int $page = null, int $page_size = 100, string $report_type = 'ALL'): mixed
     {
         return (new OzonData($this->postResponse(
-            'v1/report/list', array_merge(compact('page_size', 'report_type'), array_diff(compact('page'), ['']))
+            'v1/report/list',
+            array_merge(compact('page_size', 'report_type'), array_diff(compact('page'), ['']))
         )))->data;
     }
 
@@ -1349,7 +1381,8 @@ class Ozon extends OzonClient
     public function getReportInfo(string $code): mixed
     {
         return (new OzonData($this->postResponse(
-            'v1/report/info', compact('code')
+            'v1/report/info',
+            compact('code')
         )))->data;
     }
 
@@ -1370,7 +1403,8 @@ class Ozon extends OzonClient
 
         $date = compact('from', 'to');
         return (new OzonData($this->postResponse(
-            'v1/finance/cash-flow-statement/list', compact('date', 'page', 'page_size')
+            'v1/finance/cash-flow-statement/list',
+            compact('date', 'page', 'page_size')
         )))->data;
     }
 
@@ -1397,7 +1431,8 @@ class Ozon extends OzonClient
     public function getReportDiscountedInfo(string $code): mixed
     {
         return (new OzonData($this->postResponse(
-            'v1/report/discounted/info', compact('code')
+            'v1/report/discounted/info',
+            compact('code')
         )))->data;
     }
 
@@ -1475,23 +1510,23 @@ class Ozon extends OzonClient
      * @return mixed
      */
     public function getAnalyticsData(
-        DateTime $date_from, 
-        DateTime $date_to, 
-        array $metrics, 
-        array $dimension, 
-        array $filters = null, 
-        array $sort = null, 
-        int $offset = null, 
+        DateTime $date_from,
+        DateTime $date_to,
+        array $metrics,
+        array $dimension,
+        array $filters = null,
+        array $sort = null,
+        int $offset = null,
         int $limit = 1000
-    ): mixed
-    {
+    ): mixed {
         $date_from = $this->formatDate($date_from, self::DT_FORMAT_DATE);
         $date_to = $this->formatDate($date_to, self::DT_FORMAT_DATE);
         $filters = $this->wrapToArrayIfNotNull($filters);
         $sort = $this->wrapToArrayIfNotNull($sort);
-        
+
         return (new OzonData($this->postResponse(
-            'v1/analytics/data', array_merge(compact('date_from', 'date_to', 'metrics', 'dimension', 'filters', 'sort', 'limit'), array_diff(compact('offset'), ['']))
+            'v1/analytics/data',
+            array_merge(compact('date_from', 'date_to', 'metrics', 'dimension', 'filters', 'sort', 'limit'), array_diff(compact('offset'), ['']))
         )))->data;
     }
 
@@ -1508,7 +1543,27 @@ class Ozon extends OzonClient
     public function getAnalyticsStockOnWarehouses(int $offset = null, int $limit = 100): mixed
     {
         return (new OzonData($this->postResponse(
-            'v1/analytics/stock_on_warehouses', array_merge(compact('limit'), array_diff(compact('offset'), ['']))
+            'v1/analytics/stock_on_warehouses',
+            array_merge(compact('limit'), array_diff(compact('offset'), ['']))
+        )))->data;
+    }
+
+    /**
+     * Отчёт по остаткам и товарам (версия 2)
+     * 
+     * Отчёт по остаткам и товарам в перемещении по складам Ozon.
+     * 
+     * @param int|null $offset <int64> Количество элементов, которое будет пропущено в ответе. 
+     * Например, если offset = 10, то ответ начнётся с 11-го найденного элемента.
+     * @param int $limit <int64> Количество ответов на странице. По умолчанию — 100.
+     * @param string $warehouse_type Фильтр по типу склада
+     * @return mixed
+     */
+    public function getAnalyticsStockOnWarehousesV2(int $offset = null, int $limit = 100, string $warehouse_type = 'ALL'): mixed
+    {
+        return (new OzonData($this->postResponse(
+            'v2/analytics/stock_on_warehouses',
+            array_merge(compact('limit', 'warehouse_type'), array_diff(compact('offset'), ['']))
         )))->data;
     }
 
@@ -1525,9 +1580,10 @@ class Ozon extends OzonClient
     public function getAnalyticsItemTurnover(DateTime $date_from): mixed
     {
         $date_from = $this->formatDate($date_from, self::DT_FORMAT_DATE);
-        
+
         return (new OzonData($this->postResponse(
-            'v1/analytics/item_turnover', compact('date_from')
+            'v1/analytics/item_turnover',
+            compact('date_from')
         )))->data;
     }
 
@@ -1545,7 +1601,8 @@ class Ozon extends OzonClient
         $date = $this->formatDate($date, self::DT_FORMAT_DATE_YM);
 
         return (new OzonData($this->postResponse(
-            'v1/finance/realization', compact('date')
+            'v1/finance/realization',
+            compact('date')
         )))->data;
     }
 
@@ -1601,21 +1658,21 @@ class Ozon extends OzonClient
      * @return mixed
      */
     public function getFinanceTransactionList(
-        DateTime $from, 
-        DateTime $to, 
-        array $operation_type = null, 
-        string $posting_number = null, 
+        DateTime $from,
+        DateTime $to,
+        array $operation_type = null,
+        string $posting_number = null,
         string $transaction_type = null,
-        int $page = 1, 
+        int $page = 1,
         int $page_size = 1000
-    ): mixed
-    {
+    ): mixed {
         $from = $this->formatDate($from);
         $to = $this->formatDate($to);
 
         $filter = array_merge(['date' => compact('from', 'to')], compact('operation_type', 'posting_number', 'transaction_type'));
         return (new OzonData($this->postResponse(
-            'v3/finance/transaction/list', compact('filter', 'page', 'page_size')
+            'v3/finance/transaction/list',
+            compact('filter', 'page', 'page_size')
         )))->data;
     }
 
@@ -1647,7 +1704,8 @@ class Ozon extends OzonClient
 
         $date = compact('from', 'to');
         return (new OzonData($this->postResponse(
-            'v3/finance/transaction/totals', array_merge(compact('date'), array_diff(compact('posting_number', 'transaction_type'), ['']))
+            'v3/finance/transaction/totals',
+            array_merge(compact('date'), array_diff(compact('posting_number', 'transaction_type'), ['']))
         )))->data;
     }
 
@@ -1671,7 +1729,8 @@ class Ozon extends OzonClient
     public function getAutoBookingsList(string $booking_id_gt_or_eq, string $per_page, DateTime $created_at_gt_or_eq = null, DateTime $created_at_lt_or_eq = null): mixed
     {
         return (new OzonData($this->postResponse(
-            'v1/auto/bookings/list', array_merge(compact('booking_id_gt_or_eq', 'per_page'), array_diff(compact('created_at_gt_or_eq', 'created_at_lt_or_eq'), ['']))
+            'v1/auto/bookings/list',
+            array_merge(compact('booking_id_gt_or_eq', 'per_page'), array_diff(compact('created_at_gt_or_eq', 'created_at_lt_or_eq'), ['']))
         )))->data;
     }
 
@@ -1685,7 +1744,8 @@ class Ozon extends OzonClient
     public function getAutoBookingsGet(int $booking_id): mixed
     {
         return (new OzonData($this->postResponse(
-            'v1/auto/bookings/get', compact('booking_id')
+            'v1/auto/bookings/get',
+            compact('booking_id')
         )))->data;
     }
 
@@ -1702,7 +1762,8 @@ class Ozon extends OzonClient
     public function getAutoCbosList(int $page = 1, int $per_page = 100): mixed
     {
         return (new OzonData($this->postResponse(
-            'v1/auto/cbos/list', compact('page', 'per_page')
+            'v1/auto/cbos/list',
+            compact('page', 'per_page')
         )))->data;
     }
 
@@ -1723,7 +1784,8 @@ class Ozon extends OzonClient
     public function getAutoModificationsList(int $modification_id_gt_or_eq = 1, int $per_page = 500): mixed
     {
         return (new OzonData($this->postResponse(
-            'v1/auto/modifications/list', compact('modification_id_gt_or_eq', 'per_page')
+            'v1/auto/modifications/list',
+            compact('modification_id_gt_or_eq', 'per_page')
         )))->data;
     }
 
@@ -1746,7 +1808,8 @@ class Ozon extends OzonClient
     {
         $filter = compact('offer_ids');
         return (new OzonData($this->postResponse(
-            'v1/auto/offers/list', array_merge(compact('filter', 'limit'), array_diff(compact('last_id'), ['']))
+            'v1/auto/offers/list',
+            array_merge(compact('filter', 'limit'), array_diff(compact('last_id'), ['']))
         )))->data;
     }
 
@@ -1792,7 +1855,8 @@ class Ozon extends OzonClient
         $date_to = $this->formatDate($date_to);
 
         return (new OzonData($this->postResponse(
-            'v1/rating/history', array_merge(compact('date_from', 'date_to', 'ratings'), array_diff(compact('with_premium_scores'), ['']))
+            'v1/rating/history',
+            array_merge(compact('date_from', 'date_to', 'ratings'), array_diff(compact('with_premium_scores'), ['']))
         )))->data;
     }
 }

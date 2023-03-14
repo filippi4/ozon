@@ -6,7 +6,7 @@ use DateTime;
 
 /**
  * Custom config
- * @method static \KFilippovk\Ozon\OzonClient config($keys)
+ * @method static Ozon \KFilippovk\Ozon\Ozon config($keys)
  * 
  * Атрибуты и характеристики Ozon
  * @method static mixed getCategoryTree(int $category_id = null, string $language = 'DEFAULT');
@@ -173,6 +173,7 @@ use DateTime;
  *     int $limit = 1000
  * );
  * @method static mixed getAnalyticsStockOnWarehouses(int $offset = null, int $limit = 100);
+ * @method static mixed getAnalyticsStockOnWarehousesV2(int $offset = null, int $limit = 100, string $warehouse_type = 'ALL');
  * @method static mixed getAnalyticsItemTurnover(DateTime $date_from);
 
  * Финансовые отчёты
