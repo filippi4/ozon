@@ -1,6 +1,6 @@
 <?php
 
-namespace KFilippovk\Ozon;
+namespace Filippi4\Ozon;
 
 use DateTime;
 

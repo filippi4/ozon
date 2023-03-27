@@ -1,7 +1,7 @@
 <?php
 
 
-namespace KFilippovk\Ozon;
+namespace Filippi4\Ozon;
 
 use League\Csv\Reader;
 use Psr\Http\Message\ResponseInterface;

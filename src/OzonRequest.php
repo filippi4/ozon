@@ -1,11 +1,11 @@
 <?php
 
 
-namespace KFilippovk\Ozon;
+namespace Filippi4\Ozon;
 
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
-use KFilippovk\Ozon\Exceptions\OzonHttpException;
+use Filippi4\Ozon\Exceptions\OzonHttpException;
 use Throwable;
 
 class OzonRequest
