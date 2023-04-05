@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static mixed getCampaign(array $campaign_ids, string $adv_object_type, string $state)
  * @method static mixed getCampaignObjects(int $campaign_id)
  * @method static mixed getStatisticsExpense(int $campaigns, Carbon $dateFrom, Carbon $dateTo)
+ * @method static mixed getVendorStatistics( Carbon $dateFrom, Carbon $dateTo,string $type )
  **/
 
 class OzonPerformance extends Facade

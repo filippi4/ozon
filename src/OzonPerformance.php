@@ -67,7 +67,7 @@ class OzonPerformance extends OzonPerformanceClient
         Carbon $dateTo = null
     ): mixed {
         $dateFrom = $this->formatDate($dateFrom, self::DT_FORMAT_DATE);
-        $dateTo = $this->formatDate($dateTo, self::DT_FORMAT_DATE);
+        $dateTo   = $this->formatDate($dateTo, self::DT_FORMAT_DATE);
 
         return (new OzonData($this->getResponse(
             'api/client/statistics/expense',
@@ -75,6 +75,19 @@ class OzonPerformance extends OzonPerformanceClient
                 array_diff(compact('campaigns', 'dateFrom', 'dateTo'), [''])
             ),
             false
+        )))->data;
+    }
+    public function getVendorStatistics(
+        Carbon $dateFrom = null,
+        Carbon $dateTo = null,
+        string $type
+    ): mixed {
+        $dateFrom = $this->formatDate($dateFrom, self::DT_FORMAT_DATE);
+        $dateTo   = $this->formatDate($dateTo, self::DT_FORMAT_DATE);
+
+        return (new OzonData($this->PostResponse(
+            'api/client/vendors/statistics',
+            compact('dateFrom', 'dateTo', 'type')
         )))->data;
     }
 }
