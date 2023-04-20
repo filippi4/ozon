@@ -25,14 +25,15 @@ class OzonPerformance extends OzonPerformanceClient
 
     /**
      * Список кампаний
-     * 
+     *
      * @return mixed
      */
     public function getCampaign(
-        array $campaign_ids = null,
+        array  $campaign_ids = null,
         string $adv_object_type = null,
         string $state = null
-    ): mixed {
+    ): mixed
+    {
         return (new OzonData($this->getResponse(
             'api/client/campaign',
             array_merge(
@@ -44,7 +45,7 @@ class OzonPerformance extends OzonPerformanceClient
 
     /**
      * Список рекламируемых объектов в кампании
-     * 
+     *
      * @param int $campaign_id Идентификатор кампании
      * @return mixed
      */
@@ -57,15 +58,16 @@ class OzonPerformance extends OzonPerformanceClient
 
     /**
      * Статистика по расходу кампаний
-     * 
+     *
      * @param int $campaign_id Идентификатор кампании
      * @return mixed
      */
     public function getStatisticsExpense(
-        int $campaigns = null,
+        int    $campaigns = null,
         Carbon $dateFrom = null,
         Carbon $dateTo = null
-    ): mixed {
+    ): mixed
+    {
         $dateFrom = $this->formatDate($dateFrom, self::DT_FORMAT_DATE);
         $dateTo = $this->formatDate($dateTo, self::DT_FORMAT_DATE);
 
@@ -76,5 +78,38 @@ class OzonPerformance extends OzonPerformanceClient
             ),
             false
         )))->data;
+    }
+
+    /**
+     * Дневная статистика по кампаниям
+     *
+     * @param array|null $campaignId Список идентификаторов кампаний
+     * @param Carbon|null $dateFrom Начальная дата периода отчёта
+     * @param Carbon|null $dateTo Конечная дата периода отчёта
+     * @return mixed
+     */
+    public function getStatisticsDaily(
+        array  $campaignId = null,
+        Carbon $dateFrom = null,
+        Carbon $dateTo = null,
+    ): mixed
+    {
+        $dateFrom = $this->formatDate($dateFrom, self::DT_FORMAT_DATE);
+        $dateTo = $this->formatDate($dateTo, self::DT_FORMAT_DATE);
+
+        $params = $this->getNotNullParams(compact('campaignId', 'dateFrom', 'dateTo'));
+
+        return (new OzonData($this->getResponse('api/client/statistics/daily', $params, false)))->data;
+    }
+
+    private function getNotNullParams(array $params): array
+    {
+        $notNullParams = [];
+        foreach ($params as $key => $value) {
+            if (!empty($value)) {
+                $notNullParams[$key] = $value;
+            }
+        }
+        return $notNullParams;
     }
 }

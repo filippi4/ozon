@@ -8,7 +8,7 @@ use Illuminate\Validation\ValidationException;
 class OzonPerformanceClient
 {
     private const CONNECT_TIMEOUT = 5;
-    private const TIMEOUT = 5;
+    private const TIMEOUT = 120;
 
     private const URL = 'https://performance.ozon.ru/';
 
@@ -56,16 +56,15 @@ class OzonPerformanceClient
     protected function getResponse(string $uri = null, array $params = [], $is_json = true): OzonResponse
     {
         $full_path = self::URL . $uri;
-        $options = self::DEFAULT_OPTIONS;
 
+        if (!empty($params)) {
+            $full_path .= '?' . $this->httpBuildQuery($params);
+        }
+
+        $options = self::DEFAULT_OPTIONS;
         $options['connect_timeout'] = self::CONNECT_TIMEOUT;
         $options['timeout'] = self::TIMEOUT;
-
         $options['headers']['Authorization'] = 'Bearer ' . Token::create($this->config);
-
-        if (count($params)) {
-            $full_path .= '?' . http_build_query($params);
-        }
 
         return OzonRequest::makeRequest($full_path, $options, 'get', $is_json);
     }
@@ -87,10 +86,26 @@ class OzonPerformanceClient
 
         $options['headers']['Authorization'] = 'Bearer ' . Token::create($this->config);
 
-        if (count($params)) {
+        if (!empty($params)) {
             $options['json'] = $params;
         }
 
         return OzonRequest::makeRequest($full_path, $options, 'post');
+    }
+
+    private function httpBuildQuery(array $params): string
+    {
+        $query = '';
+        foreach ($params as $key => $value) {
+            $value = is_array($value) ? $value : [$value];
+            if (is_array($value)) {
+                foreach ($value as $subValue) {
+                    $query .= $key . '=' . $subValue . '&';
+                }
+            } else {
+                $query .= $key . '=' . $value . '&';
+            }
+        }
+        return rtrim($query, '&');
     }
 }
