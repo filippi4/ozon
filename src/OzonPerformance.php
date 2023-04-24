@@ -3,12 +3,16 @@
 namespace Filippi4\Ozon;
 
 use Carbon\Carbon;
+use Illuminate\Validation\ValidationException;
 
 class OzonPerformance extends OzonPerformanceClient
 {
     private const DT_FORMAT_DATE_TIME_TZ = 'Y-m-d\TH:i:s.v\Z';
     private const DT_FORMAT_DATE = 'Y-m-d';
 
+    /**
+     * @throws ValidationException
+     */
     public function config(array $keys): OzonPerformance
     {
         $this->validateKeys($keys);
@@ -26,6 +30,9 @@ class OzonPerformance extends OzonPerformanceClient
     /**
      * Список кампаний
      *
+     * @param array|null $campaign_ids
+     * @param string|null $adv_object_type
+     * @param string|null $state
      * @return mixed
      */
     public function getCampaign(
@@ -34,13 +41,9 @@ class OzonPerformance extends OzonPerformanceClient
         string $state = null
     ): mixed
     {
-        return (new OzonData($this->getResponse(
-            'api/client/campaign',
-            array_merge(
-                compact('campaign_ids'),
-                array_diff(compact('adv_object_type', 'state'), [''])
-            )
-        )))->data;
+        $params = $this->getNotNullParams(compact('campaign_ids', 'adv_object_type', 'state'));
+
+        return (new OzonData($this->getResponse('api/client/campaign', $params)))->data;
     }
 
     /**
@@ -59,7 +62,9 @@ class OzonPerformance extends OzonPerformanceClient
     /**
      * Статистика по расходу кампаний
      *
-     * @param int $campaign_id Идентификатор кампании
+     * @param int|null $campaigns Идентификаторы кампаний
+     * @param Carbon|null $dateFrom
+     * @param Carbon|null $dateTo
      * @return mixed
      */
     public function getStatisticsExpense(
@@ -71,13 +76,9 @@ class OzonPerformance extends OzonPerformanceClient
         $dateFrom = $this->formatDate($dateFrom, self::DT_FORMAT_DATE);
         $dateTo = $this->formatDate($dateTo, self::DT_FORMAT_DATE);
 
-        return (new OzonData($this->getResponse(
-            'api/client/statistics/expense',
-            array_merge(
-                array_diff(compact('campaigns', 'dateFrom', 'dateTo'), [''])
-            ),
-            false
-        )))->data;
+        $params = $this->getNotNullParams(compact('campaigns', 'dateFrom', 'dateTo'));
+
+        return (new OzonData($this->getResponse('api/client/statistics/expense', $params, false)))->data;
     }
 
     /**

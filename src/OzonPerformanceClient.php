@@ -51,9 +51,10 @@ class OzonPerformanceClient
      *
      * @param string|null $uri
      * @param array $params
+     * @param bool $is_json
      * @return OzonResponse
      */
-    protected function getResponse(string $uri = null, array $params = [], $is_json = true): OzonResponse
+    protected function getResponse(string $uri = null, array $params = [], bool $is_json = true): OzonResponse
     {
         $full_path = self::URL . $uri;
 
