@@ -42,4 +42,9 @@ class Token
 
         return self::$token;
     }
+
+    static public function expire(): void
+    {
+        self::$token = null;
+    }
 }

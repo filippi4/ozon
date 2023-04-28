@@ -109,4 +109,9 @@ class OzonPerformanceClient
         }
         return rtrim($query, '&');
     }
+
+    public function forgetToken(): void
+    {
+        Token::expire();
+    }
 }
