@@ -118,6 +118,34 @@ class Ozon extends OzonClient
     }
 
     /**
+     * Создать или обновить товар
+     *
+     * @param array $items
+     * @return mixed
+     */
+    public function productImportV2(array $items): mixed
+    {
+        return (new OzonData($this->postResponse(
+            'v2/product/import',
+            compact('items')
+        )))->data;
+    }
+
+    /**
+     * Узнать статус добавления товара
+     *
+     * @param string $taskId
+     * @return mixed
+     */
+    public function productImportInfo(string $task_id): mixed
+    {
+        return (new OzonData($this->postResponse(
+            'v1/product/import/info',
+            compact('task_id')
+        )))->data;
+    }
+
+    /**
      * Список товаров
      * 
      * Mетод для получения списка товаров
