@@ -6,7 +6,7 @@ use DateTime;
 
 class Ozon extends OzonClient
 {
-    private const DT_FORMAT_DATE_TIME = 'Y-m-d\TH:i:s.v\Z';
+    private const DT_FORMAT_DATE_TIME = 'Y-m-d\TH:i:s.u\Z';
     private const DT_FORMAT_DATE = 'Y-m-d';
     private const DT_FORMAT_DATE_YM = 'Y-m';
 
