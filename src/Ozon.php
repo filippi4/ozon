@@ -51,7 +51,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v2/category/tree',
             array_merge(compact('language'), array_diff(compact('category_id'), ['']))
-        )))->data;
+        )
+        ))->data;
     }
 
     /** 
@@ -84,7 +85,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v3/category/attribute',
             compact('attribute_type', 'category_id', 'language')
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -114,7 +116,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v2/category/attribute/values',
             array_diff(compact('attribute_id', 'category_id', 'language', 'last_value_id', 'limit'), [''])
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -128,7 +131,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v2/product/import',
             compact('items')
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -142,7 +146,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/product/import/info',
             compact('task_id')
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -199,7 +204,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v2/product/list',
             array_merge(compact('filter', 'limit'), array_diff(compact('last_id'), ['']))
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -216,7 +222,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v2/product/info',
             array_diff(compact('offer_id', 'product_id', 'sku'), [''])
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -238,7 +245,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v2/product/info/list',
             compact('offer_id', 'product_id', 'sku')
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -254,7 +262,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/product/info/description',
             array_diff(compact('offer_id', 'product_id'), [''])
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -270,7 +279,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/product/rating-by-sku',
             compact('skus')
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -341,7 +351,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v3/products/info/attributes',
             array_merge(compact('filter', 'limit', 'sort_dir'), array_diff(compact('last_id', 'sort_by'), ['']))
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -364,7 +375,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/products/geo-restrictions-catalog-by-filter',
             array_merge(compact('filter'), array_diff(compact('last_order_number', 'limit'), ['']))
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -424,7 +436,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v3/product/info/stocks',
             array_merge(compact('filter', 'limit'), array_diff(compact('last_id'), ['']))
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -440,7 +453,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/product/info/stocks-by-warehouse/fbs',
             compact('fbs_sku')
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -496,7 +510,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v4/product/info/prices',
             array_merge(compact('filter', 'limit'), array_diff(compact('last_id'), ['']))
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -513,7 +528,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/product/info/discounted',
             compact('discounted_skus')
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -525,7 +541,8 @@ class Ozon extends OzonClient
     {
         return (new OzonData($this->getResponse(
             'v1/actions'
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -544,7 +561,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/actions/candidates',
             array_diff(compact('action_id', 'offset', 'limit'), [''])
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -563,7 +581,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/actions/products',
             array_diff(compact('action_id', 'offset', 'limit'), [''])
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -575,7 +594,8 @@ class Ozon extends OzonClient
     {
         return (new OzonData($this->postResponse(
             'v1/actions/hotsales/list'
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -595,7 +615,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/actions/hotsales/products',
             array_diff(compact('hotsale_id', 'offset', 'limit'), [''])
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -607,7 +628,8 @@ class Ozon extends OzonClient
     {
         return (new OzonData($this->getResponse(
             'v1/product/certificate/accordance-types'
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -619,7 +641,8 @@ class Ozon extends OzonClient
     {
         return (new OzonData($this->getResponse(
             'v1/product/certificate/types'
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -634,7 +657,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/product/certification/list',
             compact('page', 'page_size')
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -653,7 +677,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/brand/company-certification/list',
             compact('page', 'page_size')
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -667,7 +692,8 @@ class Ozon extends OzonClient
     {
         return (new OzonData($this->postResponse(
             'v1/warehouse/list'
-        )))->data;
+        )
+        ))->data;
     }
 
 
@@ -693,7 +719,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/delivery-method/list',
             array_merge(compact('filter', 'limit'), array_diff(compact('offset'), ['']))
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -744,7 +771,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v2/posting/fbo/list',
             array_merge(compact('filter', 'with', 'limit'), array_diff(compact('dir', 'offset', 'translit'), ['']))
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -765,7 +793,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v2/posting/fbo/get',
             array_merge(compact('posting_number', 'with'), array_diff(compact('translit'), ['']))
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -858,7 +887,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v3/posting/fbs/unfulfilled/list',
             array_merge(compact('filter', 'with', 'dir', 'limit'), array_diff(compact('offset'), ['']))
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -931,7 +961,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v3/posting/fbs/list',
             array_merge(compact('filter', 'with', 'dir', 'limit'), array_diff(compact('offset'), ['']))
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -961,7 +992,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v3/posting/fbs/get',
             compact('posting_number', 'with')
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -975,7 +1007,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v2/posting/fbs/get-by-barcode',
             compact('barcode')
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -991,7 +1024,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v2/posting/fbs/product/country/list',
             array_diff(compact('name_search'), [''])
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1008,7 +1042,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/posting/fbs/restrictions',
             compact('posting_number')
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1022,7 +1057,8 @@ class Ozon extends OzonClient
     {
         return (new OzonData($this->postResponse(
             'v2/posting/fbs/cancel-reason/list'
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1038,7 +1074,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/posting/fbs/cancel-reason',
             compact('related_posting_numbers')
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1081,7 +1118,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v2/posting/fbs/act/list',
             compact('filter', 'limit')
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1106,7 +1144,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v3/returns/company/fbo',
             array_merge(compact('filter', 'limit'), array_diff(compact('last_id'), ['']))
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1132,7 +1171,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v2/returns/company/fbo',
             array_merge(compact('filter', 'limit'), array_diff(compact('offset'), ['']))
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1192,7 +1232,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v2/returns/company/fbs',
             array_merge(compact('filter', 'limit'), array_diff(compact('offset'), ['']))
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1237,7 +1278,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/conditional-cancellation/list',
             array_merge(compact('filter', 'with', 'limit'), array_diff(compact('offset'), ['']))
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1265,7 +1307,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v2/chat/list',
             array_merge(compact('filter', 'limit'), array_diff(compact('offset'), ['']))
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1292,7 +1335,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/chat/list',
             array_merge(compact('chat_id_list', 'with', 'page_size'), array_diff(compact('page'), ['']))
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1313,7 +1357,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v2/chat/history',
             array_merge(compact('chat_id', 'direction', 'limit'), array_diff(compact('from_message_id'), ['']))
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1333,7 +1378,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/chat/history',
             array_merge(compact('chat_id', 'limit'), array_diff(compact('from_message_id'), ['']))
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1349,7 +1395,8 @@ class Ozon extends OzonClient
     {
         return (new OzonData($this->getResponse(
             'v1/supplier/orders/' . $orderId . '/waybill_acceptance_results',
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1365,7 +1412,8 @@ class Ozon extends OzonClient
     {
         return (new OzonData($this->getResponse(
             'v1/supplier/waybill_acceptance_results/' . $waybillId,
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1395,7 +1443,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/report/list',
             array_merge(compact('page_size', 'report_type'), array_diff(compact('page'), ['']))
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1411,7 +1460,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/report/info',
             compact('code')
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1433,7 +1483,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/finance/cash-flow-statement/list',
             compact('date', 'page', 'page_size')
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1445,7 +1496,8 @@ class Ozon extends OzonClient
     {
         return (new OzonData($this->postResponse(
             'v1/report/discounted/list'
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1461,7 +1513,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/report/discounted/info',
             compact('code')
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1555,7 +1608,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/analytics/data',
             array_merge(compact('date_from', 'date_to', 'metrics', 'dimension', 'filters', 'sort', 'limit'), array_diff(compact('offset'), ['']))
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1573,7 +1627,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/analytics/stock_on_warehouses',
             array_merge(compact('limit'), array_diff(compact('offset'), ['']))
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1592,7 +1647,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v2/analytics/stock_on_warehouses',
             array_merge(compact('limit', 'warehouse_type'), array_diff(compact('offset'), ['']))
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1612,7 +1668,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/analytics/item_turnover',
             compact('date_from')
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1631,7 +1688,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/finance/realization',
             compact('date')
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1701,7 +1759,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v3/finance/transaction/list',
             compact('filter', 'page', 'page_size')
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1734,7 +1793,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v3/finance/transaction/totals',
             array_merge(compact('date'), array_diff(compact('posting_number', 'transaction_type'), ['']))
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1759,7 +1819,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/auto/bookings/list',
             array_merge(compact('booking_id_gt_or_eq', 'per_page'), array_diff(compact('created_at_gt_or_eq', 'created_at_lt_or_eq'), ['']))
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1774,7 +1835,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/auto/bookings/get',
             compact('booking_id')
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1792,7 +1854,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/auto/cbos/list',
             compact('page', 'per_page')
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1814,7 +1877,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/auto/modifications/list',
             compact('modification_id_gt_or_eq', 'per_page')
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1838,7 +1902,8 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/auto/offers/list',
             array_merge(compact('filter', 'limit'), array_diff(compact('last_id'), ['']))
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1850,7 +1915,8 @@ class Ozon extends OzonClient
     {
         return (new OzonData($this->postResponse(
             'v1/rating/summary'
-        )))->data;
+        )
+        ))->data;
     }
 
     /**
@@ -1885,6 +1951,25 @@ class Ozon extends OzonClient
         return (new OzonData($this->postResponse(
             'v1/rating/history',
             array_merge(compact('date_from', 'date_to', 'ratings'), array_diff(compact('with_premium_scores'), ['']))
-        )))->data;
+        )
+        ))->data;
+    }
+
+    /**
+     * Получить информацию о текущих рейтингах продавца
+     *
+     * @return mixed
+     * @param string $date
+     */
+    public function getRealization(string $date): mixed
+    {
+        return (
+            new OzonData(
+                $this->postResponse(
+                    'v1/finance/realization',
+                    compact('date')
+                )
+            )
+        )->data;
     }
 }
