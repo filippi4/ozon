@@ -84,13 +84,13 @@ class OzonPerformance extends OzonPerformanceClient
     /**
      * Дневная статистика по кампаниям
      *
-     * @param array|null $campaignId Список идентификаторов кампаний
+     * @param array|null $campaignIds Список идентификаторов кампаний
      * @param Carbon|null $dateFrom Начальная дата периода отчёта
      * @param Carbon|null $dateTo Конечная дата периода отчёта
      * @return mixed
      */
     public function getStatisticsDaily(
-        array  $campaignId = null,
+        array  $campaignIds = null,
         Carbon $dateFrom = null,
         Carbon $dateTo = null,
     ): mixed
@@ -98,7 +98,7 @@ class OzonPerformance extends OzonPerformanceClient
         $dateFrom = $this->formatDate($dateFrom, self::DT_FORMAT_DATE);
         $dateTo = $this->formatDate($dateTo, self::DT_FORMAT_DATE);
 
-        $params = $this->getNotNullParams(compact('campaignId', 'dateFrom', 'dateTo'));
+        $params = $this->getNotNullParams(compact('campaignIds', 'dateFrom', 'dateTo'));
 
         return (new OzonData($this->getResponse('api/client/statistics/daily', $params, false)))->data;
     }
