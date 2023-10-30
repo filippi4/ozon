@@ -94,6 +94,53 @@ class OzonPerformanceClient
         return OzonRequest::makeRequest($full_path, $options, 'post');
     }
 
+    /**
+     * Get file
+     *
+     * @param string|null $uri
+     * @param int $quantityOfCampaigns
+     * @param array $params
+     * @return mixed
+     */
+    protected function getFile(string $uri = null, int $quantityOfCampaigns, array $params = []): mixed
+    {
+        $full_path = self::URL . $uri;
+
+        $ch = curl_init($full_path);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Authorization: Bearer ' . Token::create($this->config), "Content-Type: text/csv"]);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+
+        if ($quantityOfCampaigns > 1) {
+            $zip = new \ZipArchive;
+            file_put_contents(base_path() . '/file.zip', curl_exec($ch));
+            curl_close($ch);
+            $res = $zip->open(base_path() . '/file.zip');
+            $fileNames = [];
+
+            if ($res === TRUE) {
+                for ($i = 0; $i < $zip->numFiles; $i++) {
+                    $fileNames[] = $zip->getNameIndex($i);
+                }
+                $zip->extractTo(base_path() . '/');
+                $zip->close();
+                try {
+                    unlink(base_path() . '/file.zip');
+                } catch (\Throwable $e) {
+                    dump($e->getMessage());
+                }
+            }
+        } else {
+            file_put_contents(base_path() . '/file.csv', curl_exec($ch));
+            preg_match("/\d+/", file_get_contents(base_path() . '/file.csv'), $matches);
+            rename(base_path() . '/file.csv', base_path() . '/' . $matches[0] . '.csv');
+            $fileNames = [$matches[0] . '.csv'];
+            curl_close($ch);
+        }
+        return $fileNames;
+    }
+
     private function httpBuildQuery(array $params): string
     {
         $query = '';
