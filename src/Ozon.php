@@ -1972,4 +1972,22 @@ class Ozon extends OzonClient
             )
         )->data;
     }
+
+    /**
+     * Получить связанные sku
+     *
+     * @return mixed
+     * @param array $sku
+     */
+    public function getSkuList(array $sku): mixed
+    {
+        return (
+            new OzonData(
+                $this->postResponse(
+                    'v1/product/related-sku/get',
+                    compact('sku')
+                )
+            )
+        )->data;
+    }
 }
