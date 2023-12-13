@@ -134,8 +134,13 @@ class OzonPerformanceClient
         } else {
             file_put_contents(base_path() . '/file.csv', curl_exec($ch));
             preg_match("/\d+/", file_get_contents(base_path() . '/file.csv'), $matches);
-            rename(base_path() . '/file.csv', base_path() . '/' . $matches[0] . '.csv');
-            $fileNames = [$matches[0] . '.csv'];
+            if (empty($matches)) {
+                unlink(base_path() . '/file.csv');
+                $fileNames = [];
+            } else {
+                rename(base_path() . '/file.csv', base_path() . '/' . $matches[0] . '.csv');
+                $fileNames = [$matches[0] . '.csv'];
+            }
             curl_close($ch);
         }
         return $fileNames;
