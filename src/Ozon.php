@@ -1224,6 +1224,36 @@ class Ozon extends OzonClient
         )->data;
     }
 
+
+    /**
+     * Получить информацию о возвратах FBS (версия 3)
+     * 
+     * Метод для получения информации о возвращённых товарах, которые продаются со склада Ozon.
+     * 
+     * filter object (v3ReturnsCompanyFilterFbo) Фильтр.
+     *      @param string|null $posting_number Номер отправления.
+     *      @param array|null $status Array of strings 
+     *      Enums: "Created", "ReturnedToOzon", "Cancelled", "CancelledWithCompensation", "Deleted", "TechnicalReturn", "RemovedFromRms"
+     * @param int|null $last_id <int64> Идентификатор последнего значения на странице. 
+     * Оставьте это поле пустым при выполнении первого запроса.
+     * Чтобы получить следующие значения, укажите last_id из ответа предыдущего запроса.
+     * @param int $limit <int64> Количество значений в ответе.
+     *
+     * @return mixed
+     */
+    public function getReturnsCompanyFbsV3(string $posting_number = null, array $status = null, int $last_id = null, int $limit = 1000): mixed
+    {
+        $filter = compact('posting_number', 'status');
+        return (
+            new OzonData(
+                $this->postResponse(
+                    'v3/returns/company/fbs',
+                    array_merge(compact('filter', 'limit'), array_diff(compact('last_id'), ['']))
+                )
+            )
+        )->data;
+    }
+
     /**
      * Получить информацию о возвратах FBO
      * 
