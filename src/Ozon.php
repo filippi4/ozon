@@ -2063,6 +2063,25 @@ class Ozon extends OzonClient
     }
 
     /**
+     * Получить список товаров
+     *
+     * @param int|null $last_id  
+     * @param int $limit 
+     * @return mixed
+     */
+    public function getProducts(array $offer_ids = null, int $last_id = null, int $limit = 1000): mixed
+    {
+        $filter = compact('offer_ids');
+        return (
+            new OzonData(
+                $this->postResponse(
+                    'v2/product/list',
+                    array_merge(compact('filter', 'limit'), array_diff(compact('last_id'), ['']))
+                )
+            )
+        )->data;
+    }
+    /**
      * Получить список предложений
      * 
      * Метод для получения списка предложений о продаже автомобилей.
