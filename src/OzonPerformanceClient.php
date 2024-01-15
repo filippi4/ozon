@@ -4,6 +4,8 @@ namespace Filippi4\Ozon;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Http;
+use Exception;
 
 class OzonPerformanceClient
 {
@@ -165,5 +167,29 @@ class OzonPerformanceClient
     public function forgetToken(): void
     {
         Token::expire();
+    }
+
+    /**
+     * Create POST request to bank API
+     *
+     * @param string|null $uri
+     * @param array $params
+     * @return mixed
+     */
+    protected function postResponseWithJson(string $uri = null, array $params = []): mixed
+    {
+        $full_path = self::URL . $uri;
+
+        $response = Http::timeout(60)->withHeaders([
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
+            'Authorization' => 'Bearer ' . Token::create($this->config)
+        ])->withBody(json_encode($params, JSON_UNESCAPED_UNICODE))->post($full_path);
+
+
+        if ($response->status() > 399) {
+            throw new Exception('Response status: ' . $response->status() . ' | Message: ' . json_encode($response->json(), JSON_UNESCAPED_UNICODE) . $response->body());
+        }
+        return $response->json();
     }
 }

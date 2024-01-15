@@ -46,6 +46,23 @@ class OzonPerformance extends OzonPerformanceClient
     }
 
     /**
+     * Список товаров в кампании
+     *
+     * @param  int $campaignId
+     * @param  int $page
+     * @param  int $pageSize
+     * @return mixed
+     */
+    public function getSearchPromoProducts(
+        int $campaignId,
+        int $page = 0,
+        int $pageSize = 1000
+    ): mixed {
+        $params = compact('page', 'pageSize');
+        return $this->postResponseWithJson('api/client/campaign/' . $campaignId . '/search_promo/products', $params);
+    }
+
+    /**
      * Список рекламируемых объектов в кампании
      *
      * @param int $campaign_id Идентификатор кампании
