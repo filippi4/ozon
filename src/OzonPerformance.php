@@ -68,6 +68,22 @@ class OzonPerformance extends OzonPerformanceClient
      * @param int $campaign_id Идентификатор кампании
      * @return mixed
      */
+
+    /**
+     * Список товаров в кампании
+     *
+     * @param  string $from
+     * @param  string $to
+     * @return mixed
+     */
+    public function getSearchPromoProductsReports(
+        string $from,
+        string $to
+    ): mixed {
+        $params = compact('from', 'to');
+        return $this->postResponseWithJson('/api/client/statistic/products/generate/json', $params);
+    }
+
     public function getCampaignObjects(int $campaign_id): mixed
     {
         return (
@@ -169,7 +185,18 @@ class OzonPerformance extends OzonPerformanceClient
     ): mixed {
         return $this->getFile($url, $quantityOfCampaigns);
     }
-
+    /**
+     * Статус отчета
+     *
+     * @param string $url
+     * @param int $quantityOfCampaigns
+     * @return mixed
+     */
+    public function getJsonReport(
+        string $url
+    ): mixed {
+        return (new OzonData($this->getResponse($url)))->data;
+    }
     private function getNotNullParams(array $params): array
     {
         $notNullParams = [];
