@@ -2200,4 +2200,44 @@ class Ozon extends OzonClient
             )
         )->data;
     }
+
+    /**
+     * Получить связанные sku
+     *
+     * @return mixed
+     * @param int $page
+     * @param int $page_size
+     */
+    public function getSupplyOrdersList(int $page, int $page_size): mixed
+    {
+        return (
+            new OzonData(
+                $this->postResponse(
+                    'v1/supply-order/list',
+                    compact('page', 'page_size')
+                )
+            )
+        )->data;
+    }
+
+
+    /**
+     * Получить связанные sku
+     *
+     * @return mixed
+     * @param int $page
+     * @param int $page_size
+     * @param int $supply_order_id
+     */
+    public function getSupplyOrdersItems(int $page, int $page_size, int $supply_order_id): mixed
+    {
+        return (
+            new OzonData(
+                $this->postResponse(
+                    'v1/supply-order/items',
+                    compact('page', 'page_size', 'supply_order_id')
+                )
+            )
+        )->data;
+    }
 }

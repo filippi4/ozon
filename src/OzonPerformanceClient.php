@@ -20,7 +20,8 @@ class OzonPerformanceClient
     ];
 
     private const DEFAULT_OPTIONS = [
-        'headers' => self::DEFAULT_HEADER
+        'headers' => self::DEFAULT_HEADER,
+        'proxy' => 'http://185.80.91.45:4080'
     ];
 
     protected ?array $config;
