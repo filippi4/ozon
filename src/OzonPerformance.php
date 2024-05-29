@@ -63,6 +63,20 @@ class OzonPerformance extends OzonPerformanceClient
     }
 
     /**
+     * Статистика по товарной кампании
+     *
+     * @param  string $dateFrom
+     * @param  string $dateTo
+     * @return mixed
+     */
+    public function getProductCampaignStatistics(
+        string $dateFrom,
+        string $dateTo
+    ): mixed {
+        $params = compact('dateFrom', 'dateTo');
+        return (new OzonData($this->getResponse('/api/client/statistics/campaign/product/json', $params)))->data;
+    }
+    /**
      * Список рекламируемых объектов в кампании
      *
      * @param int $campaign_id Идентификатор кампании
