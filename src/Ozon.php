@@ -51,7 +51,7 @@ class Ozon extends OzonClient
         return (
             new OzonData(
                 $this->postResponse(
-                    'v2/category/tree',
+                    'v1/description-category/tree',
                     array_merge(compact('language'), array_diff(compact('category_id'), ['']))
                 )
             )
