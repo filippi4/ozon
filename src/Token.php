@@ -30,7 +30,6 @@ class Token
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
             ],
-            'proxy' => 'http://185.80.91.45:4080'
         ];
 
         $params['grant_type'] = 'client_credentials';
