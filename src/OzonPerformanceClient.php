@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Http;
 use Exception;
+use Illuminate\Support\Str;
 
 class OzonPerformanceClient
 {
@@ -114,37 +115,37 @@ class OzonPerformanceClient
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_HEADER, 0);
 
+        $fileNames = [];
         if ($quantityOfCampaigns > 1) {
             $zip = new \ZipArchive;
-            file_put_contents(base_path() . '/file.zip', curl_exec($ch));
+            $fileName = Str::random(10) . '_file.zip';
+            file_put_contents(storage_path() . '/' . $fileName, curl_exec($ch));
             curl_close($ch);
-            $res = $zip->open(base_path() . '/file.zip');
-            $fileNames = [];
+            $res = $zip->open(storage_path() . '/' . $fileName);
 
             if ($res === TRUE) {
                 for ($i = 0; $i < $zip->numFiles; $i++) {
                     $fileNames[] = $zip->getNameIndex($i);
                 }
-                $zip->extractTo(base_path() . '/');
+                $zip->extractTo(storage_path() . '/');
                 $zip->close();
                 try {
-                    unlink(base_path() . '/file.zip');
+                    unlink(storage_path() . '/' . $fileName);
                 } catch (\Throwable $e) {
                     dump($e->getMessage());
                 }
             }
         } else {
-            file_put_contents(base_path() . '/file.csv', curl_exec($ch));
-            preg_match("/\d+/", file_get_contents(base_path() . '/file.csv'), $matches);
-            if (empty($matches)) {
-                unlink(base_path() . '/file.csv');
-                $fileNames = [];
-            } else {
-                rename(base_path() . '/file.csv', base_path() . '/' . $matches[0] . '.csv');
-                $fileNames = [$matches[0] . '.csv'];
+            $contents = curl_exec($ch);
+            preg_match("/\d+/", $contents, $matches);
+            if (!empty($matches)) {
+                $fileName = Str::random(10) . '_' . $matches[0] . '.csv';
+                file_put_contents(storage_path() . '/' . $fileName, $contents);
+                $fileNames = [$fileName];
             }
             curl_close($ch);
         }
+
         return $fileNames;
     }
 
