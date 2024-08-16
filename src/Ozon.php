@@ -1857,6 +1857,24 @@ class Ozon extends OzonClient
     }
 
     /**
+     * Получить финансовый отчет
+     *
+     * @return mixed
+     * @param integer $year
+     * @param integer $month
+     */
+    public function getRealizationV2($year, $month): mixed
+    {
+        return (
+            new OzonData(
+                $this->postResponse(
+                    'v2/finance/realization',
+                    compact('year', 'month')
+                )
+            )
+        )->data;
+    }
+    /**
      * Список транзакций (версия 3)
      * 
      * Возвращает подробную информацию по всем начислениям. 
