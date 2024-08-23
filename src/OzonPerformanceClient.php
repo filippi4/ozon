@@ -167,7 +167,7 @@ class OzonPerformanceClient
 
     public function forgetToken(): void
     {
-        Token::expire();
+        Token::expire($this->config);
     }
 
     /**
