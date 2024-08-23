@@ -4,24 +4,39 @@ namespace Filippi4\Ozon;
 
 class Token
 {
-    private static ?string $token = null;
-    private static ?float $createTime = null;
-    private static ?int $expiresIn = null;
+    /**
+     * @var array<string, string>
+     */
+    private static array $token = [];
 
-    private static function needCreateOrUpdate(): bool
+    /**
+     * @var array<float, float>
+     */
+    private static array $createTime = [];
+
+    /**
+     * @var array<int, int>
+     */
+    private static array $expiresIn = [];
+
+    private static function needCreateOrUpdate(string $key): bool
     {
-        return (self::$token === null || self::isExpired());
+        return empty(self::$token[$key]) || self::isExpired($key);
     }
 
-    private static function isExpired(): bool
+    private static function isExpired(string $key): bool
     {
-        return ((microtime(true) - self::$createTime) > self::$expiresIn);
+        if (empty(self::$createTime[$key]) || empty(self::$expiresIn[$key])) {
+            return true;
+        }
+        return ((microtime(true) - self::$createTime[$key]) > self::$expiresIn[$key]);
     }
 
     public static function create(array $params): string
     {
-        if (!self::needCreateOrUpdate()) {
-            return self::$token;
+        $key = json_encode($params);
+        if (!self::needCreateOrUpdate($key)) {
+            return self::$token[$key];
         }
 
         $full_path = 'https://performance.ozon.ru/api/client/token';
@@ -35,16 +50,20 @@ class Token
         $params['grant_type'] = 'client_credentials';
         $options['json'] = $params;
 
-        self::$createTime = microtime(true);
+        self::$createTime[$key] = microtime(true);
         $responseData = (new OzonData(OzonRequest::makeRequest($full_path, $options, 'post')))->data;
-        self::$expiresIn = $responseData->expires_in;
-        self::$token = $responseData->access_token;
+        self::$expiresIn[$key] = $responseData->expires_in;
+        self::$token[$key] = $responseData->access_token;
 
-        return self::$token;
+        return self::$token[$key];
     }
 
-    static public function expire(): void
+    static public function expire(?array $params = null): void
     {
-        self::$token = null;
+        if ($params === null) {
+            self::$token = [];
+        } else {
+            unset(self::$token[json_encode($params)]);
+        }
     }
 }
