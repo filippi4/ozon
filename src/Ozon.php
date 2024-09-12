@@ -2216,7 +2216,7 @@ class Ozon extends OzonClient
                 )
             )
         )->data;
-    }
+
     }
 
     /**
