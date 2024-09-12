@@ -232,6 +232,22 @@ class Ozon extends OzonClient
         )->data;
     }
 
+    /*
+     * @param array $discounted_skus
+     * @return mixed
+     */
+    public function getDiscountedSkus(array $discounted_skus): mixed
+    {
+        return (
+            new OzonData(
+                $this->postResponse(
+                    'v1/product/info/discounted',
+                    compact('discounted_skus')
+                )
+            )
+        )->data;
+    }
+
     /**
      * Получить описание товара
      * 
@@ -2187,18 +2203,20 @@ class Ozon extends OzonClient
      * Получить информацию о текущих рейтингах продавца
      *
      * @return mixed
-     * @param string $date
+     * @param int $month
+     * @param int $year
      */
-    public function getRealization(string $date): mixed
+    public function getRealization($month, $year): mixed
     {
         return (
             new OzonData(
                 $this->postResponse(
-                    'v1/finance/realization',
-                    compact('date')
+                    'v2/finance/realization',
+                    compact('month', 'year')
                 )
             )
         )->data;
+    }
     }
 
     /**
