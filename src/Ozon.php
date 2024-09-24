@@ -2238,19 +2238,21 @@ class Ozon extends OzonClient
     }
 
     /**
-     * Получить связанные sku
+     * Получить список заявок на поставку
      *
+     * @param int $from_supply_order_id
+     * @param int $limit
+     * @param object|null $filter
      * @return mixed
-     * @param int $page
-     * @param int $page_size
      */
-    public function getSupplyOrdersList(int $page, int $page_size): mixed
+    public function getSupplyOrdersList(int $from_supply_order_id, int $limit, object $filter = null): mixed
     {
+        $paging = compact('from_supply_order_id', 'limit');
         return (
             new OzonData(
                 $this->postResponse(
-                    'v1/supply-order/list',
-                    compact('page', 'page_size')
+                    'v2/supply-order/list',
+                    compact('paging', 'filter')
                 )
             )
         )->data;
@@ -2272,6 +2274,24 @@ class Ozon extends OzonClient
                 $this->postResponse(
                     'v1/supply-order/items',
                     compact('page', 'page_size', 'supply_order_id')
+                )
+            )
+        )->data;
+    }
+
+    /**
+     * Получить информацию о заявках на поставку
+     *
+     * @return mixed
+     * @param array $order_ids
+     */
+    public function getSupplyOrders(array $order_ids): mixed
+    {
+        return (
+            new OzonData(
+                $this->postResponse(
+                    'v2/supply-order/get',
+                    compact('order_ids')
                 )
             )
         )->data;
