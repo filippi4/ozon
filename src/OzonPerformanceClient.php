@@ -148,6 +148,31 @@ class OzonPerformanceClient
         return $fileNames;
     }
 
+    /**
+     * Get json
+     *
+     * @param string|null $uri
+     * @return mixed
+     */
+    public function getJson(string $uri = null): mixed
+    {
+        $full_path = self::URL . $uri;
+
+        $ch = curl_init($full_path);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Authorization: Bearer ' . Token::create($this->config), "Content-Type: application/json"]);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+
+        $result = curl_exec($ch);
+        if (curl_errno($ch)) {
+            dump('Error:' . curl_error($ch));
+        }
+        curl_close($ch);
+
+        return json_decode($result, true);
+    }
+
     private function httpBuildQuery(array $params): string
     {
         $query = '';
