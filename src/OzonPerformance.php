@@ -189,6 +189,28 @@ class OzonPerformance extends OzonPerformanceClient
     }
 
     /**
+     * Cтатистика по кампаниям в формате json
+     *
+     * @param array|null $campaigns Список идентификаторов кампаний
+     * @param Carbon|null $dateFrom Начальная дата периода отчёта
+     * @param Carbon|null $dateTo Конечная дата периода отчёта
+     * @return mixed
+     */
+    public function getStatisticsJson(
+        array $campaigns = null,
+        Carbon $dateFrom = null,
+        Carbon $dateTo = null,
+        string $groupBy = "NO_GROUP_BY"
+    ): mixed {
+        $dateFrom = $this->formatDate($dateFrom, self::DT_FORMAT_DATE);
+        $dateTo = $this->formatDate($dateTo, self::DT_FORMAT_DATE);
+
+        $params = $this->getNotNullParams(compact('campaigns', 'dateFrom', 'dateTo', 'groupBy'));
+
+        return (new OzonData($this->postResponse('api/client/statistics/json', $params, false)))->data;
+    }
+
+    /**
      * Статус отчета
      *
      * @param string $report
