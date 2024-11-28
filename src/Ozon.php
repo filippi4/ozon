@@ -2296,4 +2296,25 @@ class Ozon extends OzonClient
             )
         )->data;
     }
+
+    /**
+     * Получить информацию о заявках на поставку
+     *
+     * @return mixed
+     * @param array $order_ids
+     * @param int $limit
+     * @param string $last_id
+     */
+    public function getSupplyOrdersBundle(array $bundle_ids, int $limit, string $last_id): mixed
+    {
+
+        return (
+            new OzonData(
+                $this->postResponse(
+                    'v1/supply-order/bundle',
+                    compact('bundle_ids', 'limit', 'last_id')
+                )
+            )
+        )->data;
+    }
 }
