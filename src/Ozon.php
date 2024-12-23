@@ -1213,6 +1213,27 @@ class Ozon extends OzonClient
     }
 
     /**
+     * Получить информацию о возвратах FB
+     * @param string|null $posting_number Номер отправления.
+     * @param array|null $status Array of strings
+     * @param int|null $last_id <int64> Идентификатор последнего значения на странице.
+     * @param int $limit <int64> Количество значений в ответе.
+     * @return mixed
+     */
+    public function getReturnsList(string $posting_number = null, array $status = null, int $last_id = null, int $limit = 1000): mixed
+    {
+        $filter = compact('posting_number', 'status');
+        return (
+            new OzonData(
+                $this->postResponse(
+                    'v1/returns/list',
+                    array_merge(compact('filter', 'limit'), array_diff(compact('last_id'), ['']))
+                )
+            )
+        )->data;
+    }
+
+    /**
      * Получить информацию о возвратах FBO (версия 3)
      * 
      * Метод для получения информации о возвращённых товарах, которые продаются со склада Ozon.
