@@ -178,7 +178,7 @@ class Ozon extends OzonClient
         return (
             new OzonData(
                 $this->postResponse(
-                    'v2/product/info/list',
+                    'v3/product/info/list',
                     array_merge(compact('sku'))
                 )
             )
@@ -225,7 +225,7 @@ class Ozon extends OzonClient
         return (
             new OzonData(
                 $this->postResponse(
-                    'v2/product/info/list',
+                    'v3/product/info/list',
                     compact('offer_id', 'product_id', 'sku')
                 )
             )
@@ -356,7 +356,7 @@ class Ozon extends OzonClient
         return (
             new OzonData(
                 $this->postResponse(
-                    'v3/products/info/attributes',
+                    'v4/products/info/attributes',
                     array_merge(compact('filter', 'limit', 'sort_dir'), array_diff(compact('last_id', 'sort_by'), ['']))
                 )
             )
@@ -447,7 +447,7 @@ class Ozon extends OzonClient
         return (
             new OzonData(
                 $this->postResponse(
-                    'v3/product/info/stocks',
+                    'v4/product/info/stocks',
                     array_merge(compact('filter', 'limit'), array_diff(compact('last_id'), ['']))
                 )
             )
@@ -458,7 +458,7 @@ class Ozon extends OzonClient
      * Информация об остатках на складах продавца (FBS и rFBS)
      *
      * @param array $sku Array of strings <int64> SKU товара, который продаётся со склада продавца (схемы FBS и rFBS).
-     * Получите sku в ответе методов /v2/product/info и /v2/product/info/list.
+     * Получите sku в ответе методов /v2/product/info и /v3/product/info/list.
      * Максимальное количестов SKU в одном запросе — 500.
      * @return mixed
      */
@@ -528,7 +528,7 @@ class Ozon extends OzonClient
         return (
             new OzonData(
                 $this->postResponse(
-                    'v4/product/info/prices',
+                    'v5/product/info/prices',
                     array_merge(compact('filter', 'limit'), array_diff(compact('last_id'), ['']))
                 )
             )
@@ -2131,7 +2131,7 @@ class Ozon extends OzonClient
         return (
             new OzonData(
                 $this->postResponse(
-                    'v2/product/list',
+                    'v3/product/list',
                     array_merge(compact('filter', 'limit'), array_diff(compact('last_id'), ['']))
                 )
             )
