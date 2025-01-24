@@ -441,14 +441,14 @@ class Ozon extends OzonClient
      * @param int $limit <int64> Количество значений на странице. Минимум — 1, максимум — 1000.
      * @return mixed
      */
-    public function getProductInfoStocks(array $offer_id = null, array $product_id = null, string $visibility = 'ALL', string $last_id = null, int $limit = 1000): mixed
+    public function getProductInfoStocks(array $offer_id = null, array $product_id = null, string $visibility = 'ALL', string $cursor = null, int $limit = 1000): mixed
     {
         $filter = compact('offer_id', 'product_id', 'visibility');
         return (
             new OzonData(
                 $this->postResponse(
                     'v4/product/info/stocks',
-                    array_merge(compact('filter', 'limit'), array_diff(compact('last_id'), ['']))
+                    array_merge(compact('filter', 'limit'), array_diff(compact('cursor'), ['']))
                 )
             )
         )->data;
@@ -522,14 +522,14 @@ class Ozon extends OzonClient
      * @param int $limit <int64> Количество значений на странице. Минимум — 1, максимум — 1000.
      * @return mixed
      */
-    public function getProductInfoPrices(array $offer_id = null, array $product_id = null, string $visibility = 'ALL', string $last_id = null, int $limit = 1000): mixed
+    public function getProductInfoPrices(array $offer_id = null, array $product_id = null, string $visibility = 'ALL', string $cursor = null, int $limit = 1000): mixed
     {
         $filter = compact('offer_id', 'product_id', 'visibility');
         return (
             new OzonData(
                 $this->postResponse(
                     'v5/product/info/prices',
-                    array_merge(compact('filter', 'limit'), array_diff(compact('last_id'), ['']))
+                    array_merge(compact('filter', 'limit'), array_diff(compact('cursor'), ['']))
                 )
             )
         )->data;
