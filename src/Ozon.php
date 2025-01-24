@@ -356,7 +356,7 @@ class Ozon extends OzonClient
         return (
             new OzonData(
                 $this->postResponse(
-                    'v4/products/info/attributes',
+                    'v4/product/info/attributes',
                     array_merge(compact('filter', 'limit', 'sort_dir'), array_diff(compact('last_id', 'sort_by'), ['']))
                 )
             )
