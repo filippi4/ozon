@@ -39,7 +39,7 @@ class Token extends OzonPerformanceClient
             return self::$token[$key];
         }
 
-        $full_path = self::URL . 'client/token';
+        $full_path = self::URL . 'api/client/token';
         $options = [
             'headers' => [
                 'Accept' => 'application/json',

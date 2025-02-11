@@ -13,7 +13,7 @@ class OzonPerformanceClient
     private const CONNECT_TIMEOUT = 5;
     private const TIMEOUT = 120;
 
-    private const URL = 'https://api-performance.ozon.ru/';
+    protected const URL = 'https://api-performance.ozon.ru/';
 
     private const DEFAULT_HEADER = [
         'Accept' => 'application/json',
