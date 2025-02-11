@@ -2,7 +2,7 @@
 
 namespace Filippi4\Ozon;
 
-class Token
+class Token extends OzonPerformanceClient
 {
     /**
      * @var array<string, string>
@@ -39,7 +39,7 @@ class Token
             return self::$token[$key];
         }
 
-        $full_path = 'https://performance.ozon.ru/api/client/token';
+        $full_path = self::URL . 'client/token';
         $options = [
             'headers' => [
                 'Accept' => 'application/json',
