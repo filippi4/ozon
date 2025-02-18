@@ -1911,6 +1911,27 @@ class Ozon extends OzonClient
             )
         )->data;
     }
+
+    /**
+     * Отчёт о взаимном расчете
+     *
+     * @param DateTime $date Отчётный период в формате YYYY-MM.
+     * @return mixed
+     */
+    public function getSettlementReports(DateTime $date): mixed
+    {
+        $date = $this->formatDate($date, self::DT_FORMAT_DATE_YM);
+
+        return (
+            new OzonData(
+                $this->postResponse(
+                    'v1/finance/mutual-settlement',
+                    compact('date')
+                )
+            )
+        )->data;
+    }
+
     /**
      * Список транзакций (версия 3)
      * 
