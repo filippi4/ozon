@@ -3,6 +3,7 @@
 namespace Filippi4\Ozon;
 
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Validation\ValidationException;
 
 class OzonPerformance extends OzonPerformanceClient
@@ -247,6 +248,30 @@ class OzonPerformance extends OzonPerformanceClient
         string $url
     ): mixed {
         return (new OzonData($this->getResponse($url)))->data;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function getPromoOrders(Carbon $From, Carbon $To): array
+    {
+        $from = $this->formatDate($From, self::DT_FORMAT_DATE_TIME_TZ);
+        $to = $this->formatDate($To, self::DT_FORMAT_DATE_TIME_TZ);
+
+        $params = $this->getNotNullParams(compact('from', 'to'));
+        return $this->postResponseWithJson('/api/client/statistics/orders/generate/json', $params);
+    }
+
+    public function getPromoOrdersReport(string $url, string $UUID){
+        $params = $this->getNotNullParams(compact('UUID'));
+
+        return (new OzonData($this->getResponse('/api/client/statistics/report', $params)))->data;
+    }
+
+    public function getStatisticsReportStatus(string $UUID)
+    {
+        $full_url = "/api/client/statistics/{$UUID}";
+        return $this->getJson($full_url);
     }
     private function getNotNullParams(array $params): array
     {
