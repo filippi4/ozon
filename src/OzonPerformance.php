@@ -268,11 +268,7 @@ class OzonPerformance extends OzonPerformanceClient
         return (new OzonData($this->getResponse('/api/client/statistics/report', $params)))->data;
     }
 
-    public function getStatisticsReportStatus(string $UUID)
-    {
-        $full_url = "/api/client/statistics/{$UUID}";
-        return $this->getJson($full_url);
-    }
+
     private function getNotNullParams(array $params): array
     {
         $notNullParams = [];
