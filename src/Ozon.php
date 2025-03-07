@@ -2359,4 +2359,23 @@ class Ozon extends OzonClient
             )
         )->data;
     }
+
+    /**
+     * Получить кластеры
+     *
+     * @return mixed
+     * @param string $cluster_type
+     */
+    public function getClusters(string $cluster_type): mixed
+    {
+
+        return (
+            new OzonData(
+                $this->postResponse(
+                    'v1/cluster/list',
+                    compact('cluster_type')
+                )
+            )
+        )->data;
+    }
 }
