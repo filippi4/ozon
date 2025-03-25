@@ -2378,4 +2378,28 @@ class Ozon extends OzonClient
             )
         )->data;
     }
+
+
+    /**
+     * Получить отзывы
+     *
+     * @return mixed
+     * @param int $limit
+     * @param string $last_id
+     * @param string $status
+     * @param string $sort_dir
+
+     */
+    public function getFeedbacks(int $limit, string $last_id = '', string $status = 'ALL', string $sort_dir = 'DESC'): mixed
+    {
+
+        return (
+            new OzonData(
+                $this->postResponse(
+                    'v1/review/list',
+                    compact('limit', 'last_id', 'status', 'sort_dir')
+                )
+            )
+        )->data;
+    }
 }
