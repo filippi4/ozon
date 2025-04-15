@@ -606,13 +606,13 @@ class Ozon extends OzonClient
      * @param float|null limit <double> Количество ответов на странице. По умолчанию — 100.
      * @return mixed
      */
-    public function getActionsProducts(float $action_id, float $offset = null, ?float $limit = 100): mixed
+    public function getActionsProducts(float $action_id, string $last_id = "", ?float $limit = 100): mixed
     {
         return (
             new OzonData(
                 $this->postResponse(
                     'v1/actions/products',
-                    array_diff(compact('action_id', 'offset', 'limit'), [''])
+                    array_diff(compact('action_id', 'last_id', 'limit'), [''])
                 )
             )
         )->data;
