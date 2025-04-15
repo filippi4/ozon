@@ -20,12 +20,12 @@ use DateTime;
  * @method static mixed getProductInfoDescription(string $offer_id = null, int $product_id = null);
  * @method static mixed getProductRatingBySku(array $skus));
  * @method static mixed getProductsInfoAttributes(
- *     array $offer_id = null, 
- *     array $product_id = null, 
- *     string $visibility = 'ALL', 
- *     string $last_id = null, 
- *     int $limit = 1000, 
- *     string $sort_by = null, 
+ *     array $offer_id = null,
+ *     array $product_id = null,
+ *     string $visibility = 'ALL',
+ *     string $last_id = null,
+ *     int $limit = 1000,
+ *     string $sort_by = null,
  *     string $sort_dir = 'ASC'
  * );
  * @method static mixed getProductsGeoRestrictionsCatalogByFilter(array $names = null, bool $only_visible = true, int $last_order_number = null, int $limit = null));
@@ -39,7 +39,7 @@ use DateTime;
  * Акции
  * @method static mixed getActions());
  * @method static mixed getActionsCandidates(float $action_id, float $offset = null, ?float $limit = 100));
- * @method static mixed getActionsProducts(float $action_id, float $offset = null, ?float $limit = 100));
+ * @method static mixed getActionsProducts(float $action_id, string $last_id = "", ?float $limit = 100));
  * @method static mixed getActionsHotSalesList());
  * @method static mixed getActionsHotSalesProducts(float $hotsale_id, float $offset = null, float $limit = 100));
 
@@ -56,58 +56,58 @@ use DateTime;
 
  * Схема FBO
  * @method static mixed getPostingFboList(
- *     DateTime $since = null, 
- *     DateTime $to = null, 
- *     string $status = null, 
- *     bool $translit = null, 
- *     bool $analytics_data = null, 
- *     bool $financial_data = null, 
- *     string $dir = 'ASC', 
- *     int $offset = null, 
+ *     DateTime $since = null,
+ *     DateTime $to = null,
+ *     string $status = null,
+ *     bool $translit = null,
+ *     bool $analytics_data = null,
+ *     bool $financial_data = null,
+ *     string $dir = 'ASC',
+ *     int $offset = null,
  *     int $limit = 1000
  * ));
  * @method static mixed getPostingFboGet(string $posting_number, bool $translit = null, bool $analytics_data = null, bool $financial_data = null));
 
  * Схемы FBS и rFBS
  * @method static mixed getPostingFbsUnfulfilledList(
- *     DateTime $cutoff_from = null, 
- *     DateTime $cutoff_to = null, 
- *     DateTime $delivering_date_from = null, 
- *     DateTime $delivering_date_to = null, 
- *     array $provider_id = null, 
- *     string $status = null, 
- *     array $warehouse_id = null, 
- *     bool $analytics_data = null, 
- *     bool $barcodes = null, 
- *     bool $financial_data = null, 
- *     bool $translit = null, 
- *     string $dir = 'ASC', 
- *     int $offset = null, 
+ *     DateTime $cutoff_from = null,
+ *     DateTime $cutoff_to = null,
+ *     DateTime $delivering_date_from = null,
+ *     DateTime $delivering_date_to = null,
+ *     array $provider_id = null,
+ *     string $status = null,
+ *     array $warehouse_id = null,
+ *     bool $analytics_data = null,
+ *     bool $barcodes = null,
+ *     bool $financial_data = null,
+ *     bool $translit = null,
+ *     string $dir = 'ASC',
+ *     int $offset = null,
  *     int $limit = 1000
  * );
  * @method static mixed getPostingFbsList(
- *     DateTime $since, 
- *     DateTime $to, 
- *     string $status = null, 
- *     array $delivery_method_id = null, 
- *     int $order_id = null, 
- *     array $provider_id = null, 
- *     array $warehouse_id = null, 
- *     bool $analytics_data = null, 
- *     bool $barcodes = null, 
- *     bool $financial_data = null, 
- *     bool $translit = null, 
- *     string $dir = 'ASC', 
- *     int $offset = null, 
+ *     DateTime $since,
+ *     DateTime $to,
+ *     string $status = null,
+ *     array $delivery_method_id = null,
+ *     int $order_id = null,
+ *     array $provider_id = null,
+ *     array $warehouse_id = null,
+ *     bool $analytics_data = null,
+ *     bool $barcodes = null,
+ *     bool $financial_data = null,
+ *     bool $translit = null,
+ *     string $dir = 'ASC',
+ *     int $offset = null,
  *     int $limit = 1000
  * );
  * @method static mixed getPostingFbsGet(
- *     string $posting_number, 
- *     bool $analytics_data = null, 
- *     bool $barcodes = null, 
- *     bool $financial_data = null, 
+ *     string $posting_number,
+ *     bool $analytics_data = null,
+ *     bool $barcodes = null,
+ *     bool $financial_data = null,
  *     bool $product_exemplars = null,
- *     bool $related_postings = null, 
+ *     bool $related_postings = null,
  *     bool $translit = null
  * );
  * @method static mixed getPostingFbsGetByBarcode(string $barcode);
@@ -121,26 +121,26 @@ use DateTime;
  * @method static mixed getReturnsCompanyFboV3(string $posting_number = null, array $status = null, int $last_id = null, int $limit = 1000);
  * @method static mixed getReturnsCompanyFbo(string $posting_number = null, array $status = null, int $offset = null, int $limit = 1000);
  * @method static mixed getReturnsCompanyFbs(
- *     DateTime $accepted_from_customer_moment_time_from = null, 
+ *     DateTime $accepted_from_customer_moment_time_from = null,
  *     DateTime $accepted_from_customer_moment_time_to = null,
- *     DateTime $last_free_waiting_day_time_from = null, 
- *     DateTime $last_free_waiting_day_time_to = null, 
- *     int $order_id = null, 
- *     array $posting_number = null, 
- *     string $product_name = null, 
- *     string $product_offer_id = null, 
- *     string $status = null, 
- *     int $offset = null, 
+ *     DateTime $last_free_waiting_day_time_from = null,
+ *     DateTime $last_free_waiting_day_time_to = null,
+ *     int $order_id = null,
+ *     array $posting_number = null,
+ *     string $product_name = null,
+ *     string $product_offer_id = null,
+ *     string $status = null,
+ *     int $offset = null,
  *     int $limit = 1000
  * );
 
  * Отмены заказов
  * @method static mixed getConditionalCancellationList(
- *     array $cancellation_initiator = null, 
- *     array $posting_number = null, 
- *     array $state = null, 
- *     bool $counters = null, 
- *     int $offset = null, 
+ *     array $cancellation_initiator = null,
+ *     array $posting_number = null,
+ *     array $state = null,
+ *     bool $counters = null,
+ *     int $offset = null,
  *     int $limit = 1000
  * );
 
@@ -163,13 +163,13 @@ use DateTime;
 
  * Аналитические отчеты
  * @method static mixed getAnalyticsData(
- *     DateTime $date_from, 
- *     DateTime $date_to, 
- *     array $metrics, 
- *     array $dimension, 
- *     array $filters = null, 
- *     array $sort = null, 
- *     int $offset = null, 
+ *     DateTime $date_from,
+ *     DateTime $date_to,
+ *     array $metrics,
+ *     array $dimension,
+ *     array $filters = null,
+ *     array $sort = null,
+ *     int $offset = null,
  *     int $limit = 1000
  * );
  * @method static mixed getAnalyticsStockOnWarehouses(int $offset = null, int $limit = 100);
@@ -178,12 +178,12 @@ use DateTime;
 
  * Финансовые отчёты
  * @method static mixed getFinanceRealization(DateTime $date);
- * @method static mixed getFinanceTransactionList(DateTime $from = null, 
- *     DateTime $to, 
- *     array $operation_type = null, 
- *     string $posting_number = null, 
+ * @method static mixed getFinanceTransactionList(DateTime $from = null,
+ *     DateTime $to,
+ *     array $operation_type = null,
+ *     string $posting_number = null,
  *     string $transaction_type = null,
- *     int $page = 1, 
+ *     int $page = 1,
  *     int $page_size = 1000
  * );
  * @method static mixed getFinanceTransactionTotals(DateTime $from = null, DateTime $to, string $posting_number = null, string $transaction_type = null);
