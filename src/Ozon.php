@@ -1,5 +1,4 @@
 <?php
-
 namespace Filippi4\Ozon;
 
 use DateTime;
@@ -7,8 +6,8 @@ use DateTime;
 class Ozon extends OzonClient
 {
     private const DT_FORMAT_DATE_TIME = 'Y-m-d\TH:i:s.u\Z';
-    private const DT_FORMAT_DATE = 'Y-m-d';
-    private const DT_FORMAT_DATE_YM = 'Y-m';
+    private const DT_FORMAT_DATE      = 'Y-m-d';
+    private const DT_FORMAT_DATE_YM   = 'Y-m';
 
     public function config(array $keys): Ozon
     {
@@ -32,17 +31,17 @@ class Ozon extends OzonClient
     /**
      * Дерево категории товаров
 
-     * Возвращает категории для товаров в виде дерева. Создание товаров доступно 
-     * только в категориях последнего уровня, сравните именно эти категории с 
+     * Возвращает категории для товаров в виде дерева. Создание товаров доступно
+     * только в категориях последнего уровня, сравните именно эти категории с
      * категориями своей площадки. Категории не создаются по запросу пользователя.
-     * 
+     *
      * @param int|null $category_id <int64> Идентификатор категории.
      * @param string $language (Language) Язык в ответе:
      *  - EN — английский,
      *  - RU — русский,
      *  - TR — турецкий.
      * По умолчанию используется русский язык.
-     * Default: "DEFAULT" 
+     * Default: "DEFAULT"
      * Enum: "DEFAULT" "RU" "EN" "TR"
      * @return mixed
      */
@@ -58,15 +57,15 @@ class Ozon extends OzonClient
         )->data;
     }
 
-    /** 
+    /**
      * Список характеристик категории
-     * 
+     *
      * Получение характеристик для указанной категории товаров.
      * Передавайте не более 20 идентификаторов категорий в списке category_id.
-     * Узнать, есть ли у атрибута вложенный справочник, можно по параметру dictionary_id. 
-     * Если значение 0 — справочника нет. Если значение другое, то справочники есть. 
+     * Узнать, есть ли у атрибута вложенный справочник, можно по параметру dictionary_id.
+     * Если значение 0 — справочника нет. Если значение другое, то справочники есть.
      * Их нужно запрашивать методом /v2/category/attribute/values.
-     * 
+     *
      * @param string $attribute_type (CategoryAttributesRequestAttributeType) Фильтр по характеристикам:
      *  - ALL — все характеристики,
      *  - REQUIRED — обязательные,
@@ -97,14 +96,14 @@ class Ozon extends OzonClient
 
     /**
      * Справочник значений характеристики
-     * 
-     * Узнать, есть ли у атрибута вложенный справочник, можно через метод /v3/category/attribute. 
+     *
+     * Узнать, есть ли у атрибута вложенный справочник, можно через метод /v3/category/attribute.
      * Если справочники есть, их нужно запрашивать этим методом.
-     * 
+     *
      * @param int $attribute_id <int64> Идентификатор характеристики.
      * @param int $category_id <int64> Идентификатор категории.
-     * @param int|null $last_value_id <int64> Идентификатор справочника, 
-     * с которого нужно начать ответ. Если last_value_id — 10, 
+     * @param int|null $last_value_id <int64> Идентификатор справочника,
+     * с которого нужно начать ответ. Если last_value_id — 10,
      * то в ответе будут справочники, начиная с одиннадцатого.
      * @param int $limit <int64> Количество значений в ответе:
      *  - максимум — 5000,
@@ -187,7 +186,7 @@ class Ozon extends OzonClient
 
     /**
      * Информация о товарах
-     * 
+     *
      * Обязательно должен быть передан один из параметров: offer_id, product_id, sku.
      * @param string|null $offer_id Идентификатор товара в системе продавца — артикул.
      * @param int|null $product_id <int64> Идентификатор товара.
@@ -208,13 +207,13 @@ class Ozon extends OzonClient
 
     /**
      * Получить список товаров по идентификаторам
-     * 
+     *
      * Метод для получения массива товаров по их идентификаторам.
      * В теле запроса должен быть массив однотипных идентификаторов, в ответе будет массив items.
      * Для каждого товара внутри массива items поля совпадают с полями из метода /v2/product/info.
-     * 
+     *
      * Обязательно должен быть передан один из параметров: offer_id, product_id, sku.
-     * @param array|null $offer_id Array of strings Идентификатор товара в системе продавца — артикул. 
+     * @param array|null $offer_id Array of strings Идентификатор товара в системе продавца — артикул.
      * Максимальное количество товаров — 1000.
      * @param array|null $product_id Array of integers <int64> Идентификатор товара.
      * @param array|null $sku Array of integers <int64> Идентификатор товара в системе Ozon — SKU.
@@ -250,7 +249,7 @@ class Ozon extends OzonClient
 
     /**
      * Получить описание товара
-     * 
+     *
      * Обязательно должен быть передан один из параметров: offer_id, product_id.
      * @param string|null $offer_id Идентификатор товара в системе продавца — артикул.
      * @param int|null $product_id <int64> Идентификатор товара.
@@ -270,9 +269,9 @@ class Ozon extends OzonClient
 
     /**
      * Получить контент-рейтинг товаров по SKU
-     * 
+     *
      * Метод для получения контент-рейтинга товаров, а также рекомендаций по его увеличению.
-     * 
+     *
      * @param array $skus Array of strings <int64> Список SKU товаров, для которых нужно вернуть контент-рейтинг.
      * @return mixed
      */
@@ -290,14 +289,14 @@ class Ozon extends OzonClient
 
     /**
      * Получить описание характеристик товара
-     * 
-     * Возвращает описание характеристик товара по его идентификатору. 
+     *
+     * Возвращает описание характеристик товара по его идентификатору.
      * Товар можно искать по offer_id или product_id.
-     * 
+     *
      * filter object (productv3Filter) Фильтр по товарам.
-     *      @param array|null $offer_id Array of strings Фильтр по параметру offer_id. 
+     *      @param array|null $offer_id Array of strings Фильтр по параметру offer_id.
      *      Можно передавать список значений.
-     *      @param array|null $product_id Array of strings <int64> Фильтр по параметру product_id. 
+     *      @param array|null $product_id Array of strings <int64> Фильтр по параметру product_id.
      *      Можно передавать список значений.
      *      @param string $visibility (productv2GetProductListRequestFilterFilterVisibility)
      *      Фильтр по видимости товара:
@@ -328,11 +327,11 @@ class Ozon extends OzonClient
      *       - IMAGE_ABSENT — товары без изображений.
      *       - MODERATION_BLOCK — товары, для которых заблокирована модерация.
      *      Default: "ALL"
-     *      Enum: "ALL" "VISIBLE" "INVISIBLE" "EMPTY_STOCK" "NOT_MODERATED" "MODERATED" "DISABLED" "STATE_FAILED" 
-     *      "READY_TO_SUPPLY" "VALIDATION_STATE_PENDING" "VALIDATION_STATE_FAIL" "VALIDATION_STATE_SUCCESS" "TO_SUPPLY" 
-     *      "IN_SALE" "REMOVED_FROM_SALE" "BANNED" "OVERPRICED" "CRITICALLY_OVERPRICED" "EMPTY_BARCODE" "BARCODE_EXISTS" 
+     *      Enum: "ALL" "VISIBLE" "INVISIBLE" "EMPTY_STOCK" "NOT_MODERATED" "MODERATED" "DISABLED" "STATE_FAILED"
+     *      "READY_TO_SUPPLY" "VALIDATION_STATE_PENDING" "VALIDATION_STATE_FAIL" "VALIDATION_STATE_SUCCESS" "TO_SUPPLY"
+     *      "IN_SALE" "REMOVED_FROM_SALE" "BANNED" "OVERPRICED" "CRITICALLY_OVERPRICED" "EMPTY_BARCODE" "BARCODE_EXISTS"
      *      "QUARANTINE" "ARCHIVED" "OVERPRICED_WITH_STOCK" "PARTIAL_APPROVED" "IMAGE_ABSENT" "MODERATION_BLOCK"
-     * @param string|null $last_id Идентификатор последнего значения на странице. 
+     * @param string|null $last_id Идентификатор последнего значения на странице.
      * Оставьте это поле пустым при выполнении первого запроса.
      * Чтобы получить следующие значения, укажите last_id из ответа предыдущего запроса.
      * @param int $limit <int64> Количество значений на странице. Минимум — 1, максимум — 1000.
@@ -365,14 +364,14 @@ class Ozon extends OzonClient
 
     /**
      * Получить список геоограничений для услуг
-     * 
-     * filter object (v2GetGeoRestrictionsByFilterRequestFilter) Фильтр. 
+     *
+     * filter object (v2GetGeoRestrictionsByFilterRequestFilter) Фильтр.
      * Чтобы посмотреть все геоограничения, оставьте names пустым, а в only_visible передайте true.
      *      @param array|null $names Array of strings Список с названиями городов.
-     *      @param bool $only_visible Видимость значения. 
+     *      @param bool $only_visible Видимость значения.
      *      Рекомендуем всегда передавать true в этом параметре.
      * @param int|null $last_order_number <int64> Порядок геоограничения, с которого выводим данные в ответе.
-     * Если указать 23, то на выходе у первого элемента списка restrictions будет order_number = 24. 
+     * Если указать 23, то на выходе у первого элемента списка restrictions будет order_number = 24.
      * Если вы хотите получить все геоограничения, укажите 0 в этом параметре.
      * @param int|null $limit <int64> Количество результатов в ответе.
      * @return mixed
@@ -392,15 +391,15 @@ class Ozon extends OzonClient
 
     /**
      * Информация о количестве товаров
-     * 
+     *
      * Возвращает информацию о ĸоличестве товаров на сĸладах:
      *  - сĸольĸо единиц есть в наличии,
      *  - сĸольĸо зарезервировано поĸупателями.
-     * 
+     *
      * filter object (productv3Filter) Фильтр по товарам.
-     *      @param array|null $offer_id Array of strings Фильтр по параметру offer_id. 
+     *      @param array|null $offer_id Array of strings Фильтр по параметру offer_id.
      *      Можно передавать список значений.
-     *      @param array|null $product_id Array of strings <int64> Фильтр по параметру product_id. 
+     *      @param array|null $product_id Array of strings <int64> Фильтр по параметру product_id.
      *      Можно передавать список значений.
      *      @param string $visibility (productv2GetProductListRequestFilterFilterVisibility)
      *      Фильтр по видимости товара:
@@ -431,11 +430,11 @@ class Ozon extends OzonClient
      *       - IMAGE_ABSENT — товары без изображений.
      *       - MODERATION_BLOCK — товары, для которых заблокирована модерация.
      *      Default: "ALL"
-     *      Enum: "ALL" "VISIBLE" "INVISIBLE" "EMPTY_STOCK" "NOT_MODERATED" "MODERATED" "DISABLED" "STATE_FAILED" 
-     *      "READY_TO_SUPPLY" "VALIDATION_STATE_PENDING" "VALIDATION_STATE_FAIL" "VALIDATION_STATE_SUCCESS" "TO_SUPPLY" 
-     *      "IN_SALE" "REMOVED_FROM_SALE" "BANNED" "OVERPRICED" "CRITICALLY_OVERPRICED" "EMPTY_BARCODE" "BARCODE_EXISTS" 
+     *      Enum: "ALL" "VISIBLE" "INVISIBLE" "EMPTY_STOCK" "NOT_MODERATED" "MODERATED" "DISABLED" "STATE_FAILED"
+     *      "READY_TO_SUPPLY" "VALIDATION_STATE_PENDING" "VALIDATION_STATE_FAIL" "VALIDATION_STATE_SUCCESS" "TO_SUPPLY"
+     *      "IN_SALE" "REMOVED_FROM_SALE" "BANNED" "OVERPRICED" "CRITICALLY_OVERPRICED" "EMPTY_BARCODE" "BARCODE_EXISTS"
      *      "QUARANTINE" "ARCHIVED" "OVERPRICED_WITH_STOCK" "PARTIAL_APPROVED" "IMAGE_ABSENT" "MODERATION_BLOCK"
-     * @param string|null $last_id Идентификатор последнего значения на странице. 
+     * @param string|null $last_id Идентификатор последнего значения на странице.
      * Оставьте это поле пустым при выполнении первого запроса.
      * Чтобы получить следующие значения, укажите last_id из ответа предыдущего запроса.
      * @param int $limit <int64> Количество значений на странице. Минимум — 1, максимум — 1000.
@@ -474,14 +473,13 @@ class Ozon extends OzonClient
         )->data;
     }
 
-
     /**
      * Получить информацию о цене товара
-     * 
+     *
      * filter object (productv3Filter) Фильтр по товарам.
-     *      @param array|null $offer_id Array of strings Фильтр по параметру offer_id. 
+     *      @param array|null $offer_id Array of strings Фильтр по параметру offer_id.
      *      Можно передавать список значений.
-     *      @param array|null $product_id Array of strings <int64> Фильтр по параметру product_id. 
+     *      @param array|null $product_id Array of strings <int64> Фильтр по параметру product_id.
      *      Можно передавать список значений.
      *      @param string $visibility (productv2GetProductListRequestFilterFilterVisibility)
      *      Фильтр по видимости товара:
@@ -512,11 +510,11 @@ class Ozon extends OzonClient
      *       - IMAGE_ABSENT — товары без изображений.
      *       - MODERATION_BLOCK — товары, для которых заблокирована модерация.
      *      Default: "ALL"
-     *      Enum: "ALL" "VISIBLE" "INVISIBLE" "EMPTY_STOCK" "NOT_MODERATED" "MODERATED" "DISABLED" "STATE_FAILED" 
-     *      "READY_TO_SUPPLY" "VALIDATION_STATE_PENDING" "VALIDATION_STATE_FAIL" "VALIDATION_STATE_SUCCESS" "TO_SUPPLY" 
-     *      "IN_SALE" "REMOVED_FROM_SALE" "BANNED" "OVERPRICED" "CRITICALLY_OVERPRICED" "EMPTY_BARCODE" "BARCODE_EXISTS" 
+     *      Enum: "ALL" "VISIBLE" "INVISIBLE" "EMPTY_STOCK" "NOT_MODERATED" "MODERATED" "DISABLED" "STATE_FAILED"
+     *      "READY_TO_SUPPLY" "VALIDATION_STATE_PENDING" "VALIDATION_STATE_FAIL" "VALIDATION_STATE_SUCCESS" "TO_SUPPLY"
+     *      "IN_SALE" "REMOVED_FROM_SALE" "BANNED" "OVERPRICED" "CRITICALLY_OVERPRICED" "EMPTY_BARCODE" "BARCODE_EXISTS"
      *      "QUARANTINE" "ARCHIVED" "OVERPRICED_WITH_STOCK" "PARTIAL_APPROVED" "IMAGE_ABSENT" "MODERATION_BLOCK"
-     * @param string|null $last_id Идентификатор последнего значения на странице. 
+     * @param string|null $last_id Идентификатор последнего значения на странице.
      * Оставьте это поле пустым при выполнении первого запроса.
      * Чтобы получить следующие значения, укажите last_id из ответа предыдущего запроса.
      * @param int $limit <int64> Количество значений на странице. Минимум — 1, максимум — 1000.
@@ -537,10 +535,10 @@ class Ozon extends OzonClient
 
     /**
      * Узнать информацию об уценке и основном товаре по SKU уценённого товара
-     * 
-     * Метод для получения информации о состоянии и дефектах уценённого товара по его SKU. 
+     *
+     * Метод для получения информации о состоянии и дефектах уценённого товара по его SKU.
      * Также метод возвращает SKU основного товара.
-     * 
+     *
      * @param array $discounted_skus Array of strings <int64> Список SKU уценённых товаров.
      * @return mixed
      */
@@ -558,7 +556,7 @@ class Ozon extends OzonClient
 
     /**
      * Mетод для получения списка акций, в которых можно участвовать.
-     * 
+     *
      * @return mixed
      */
     public function getActions(): mixed
@@ -574,11 +572,11 @@ class Ozon extends OzonClient
 
     /**
      * Список доступных для акции товаров
-     * 
+     *
      * Метод для получения списка товаров, которые могут участвовать в акции, по её идентификатору.
-     * 
+     *
      * @param float action_id <double> Идентификатор акции.
-     * @param float|null offset <double> Количество элементов, которое будет пропущено в ответе. 
+     * @param float|null offset <double> Количество элементов, которое будет пропущено в ответе.
      * Например, если offset=10, ответ начнётся с 11-го найденного элемента.
      * @param float|null limit <double> Количество ответов на странице. По умолчанию — 100.
      * @return mixed
@@ -597,11 +595,11 @@ class Ozon extends OzonClient
 
     /**
      * Список участвующих в акции товаров
-     * 
+     *
      * Метод для получения списка товаров, участвующих в акции, по её идентификатору.
-     * 
+     *
      * @param float action_id <double> Идентификатор акции.
-     * @param float|null offset <double> Количество элементов, которое будет пропущено в ответе. 
+     * @param float|null offset <double> Количество элементов, которое будет пропущено в ответе.
      * Например, если offset=10, ответ начнётся с 11-го найденного элемента.
      * @param float|null limit <double> Количество ответов на странице. По умолчанию — 100.
      * @return mixed
@@ -620,7 +618,7 @@ class Ozon extends OzonClient
 
     /**
      * Список доступных акций Hot Sale
-     * 
+     *
      * @return mixed
      */
     public function getActionsHotSalesList(): mixed
@@ -636,12 +634,12 @@ class Ozon extends OzonClient
 
     /**
      * Список товаров, которые участвуют в акции Hot Sale
-     * 
-     * Метод для получения списка товаров, которые могут участвовать 
+     *
+     * Метод для получения списка товаров, которые могут участвовать
      * или уже участвуют в акции Hot Sale.
-     * 
+     *
      * @param float hotsale_id <double> Идентификатор акции Hot Sale.
-     * @param float|null offset <double> Количество элементов, которое будет пропущено в ответе. 
+     * @param float|null offset <double> Количество элементов, которое будет пропущено в ответе.
      * Например, если offset = 10, то ответ начнётся с 11-го найденного элемента.
      * @param float limit <double> Количество элементов в ответе. По умолчанию — 100.
      * @return mixed
@@ -660,7 +658,7 @@ class Ozon extends OzonClient
 
     /**
      * Cправочник типов соответствия требованиям
-     * 
+     *
      * @return mixed
      */
     public function getProductCertificateAccordanceTypes(): mixed
@@ -676,7 +674,7 @@ class Ozon extends OzonClient
 
     /**
      * Справочник типов документов
-     * 
+     *
      * @return mixed
      */
     public function getProductCertificateTypes(): mixed
@@ -692,7 +690,7 @@ class Ozon extends OzonClient
 
     /**
      * Список сертифицируемых категорий
-     * 
+     *
      * @param int $page <int32> Номер страницы, возвращаемой в запросе.
      * @param int $page_size <int32> Количество элементов на странице.
      * @return mixed
@@ -711,11 +709,11 @@ class Ozon extends OzonClient
 
     /**
      * Список сертифицируемых брендов
-     * 
-     * Метод для получения списка брендов, для которых требуется предоставить сертификат. 
+     *
+     * Метод для получения списка брендов, для которых требуется предоставить сертификат.
      * Ответ содержит список брендов, товары которых есть в вашем личном кабинете.
      * Список брендов может изменяться, если Ozon получит требование от бренда предоставлять сертификат.
-     * 
+     *
      * @param int $page <int32> Номер страницы, возвращаемой в запросе.
      * @param int $page_size <int32> Количество элементов на странице.
      * @return mixed
@@ -734,9 +732,9 @@ class Ozon extends OzonClient
 
     /**
      * Список складов
-     * 
+     *
      * В запросе не нужно указывать параметры. Ваша компания будет определена по Client-ID.
-     * 
+     *
      * @return mixed
      */
     public function getWarehouseList(): mixed
@@ -750,10 +748,9 @@ class Ozon extends OzonClient
         )->data;
     }
 
-
     /**
      * Список методов доставки склада
-     * 
+     *
      * filter object (DeliveryMethodListRequestFilter) Фильтр для поиска методов доставки.
      *      @param int|null $warehouse_id <int64> Идентификатор склада.
      *      @param int|null $provider_id <int64> Идентификатор службы доставки.
@@ -762,7 +759,7 @@ class Ozon extends OzonClient
      *       - EDITED — редактируется,
      *       - ACTIVE — активный,
      *       - DISABLED — неактивный.
-     * @param int|null $offset <int64> Количество элементов, которое будет пропущено в ответе. 
+     * @param int|null $offset <int64> Количество элементов, которое будет пропущено в ответе.
      * Например, если offset = 10, то ответ начнётся с 11-го найденного элемента.
      * @param int $limit <int64> Количество элементов в ответе. Максимум — 50, минимум — 1.
      * @return mixed
@@ -782,8 +779,8 @@ class Ozon extends OzonClient
 
     /**
      * Список отправлений
-     * 
-     * Возвращает список отправлений за указанный период времени. 
+     *
+     * Возвращает список отправлений за указанный период времени.
      * Дополнительно можно отфильтровать отправления по их статусу.
      *
      * filter object (postingGetFboPostingListRequestFilter) Фильтр для поиска отправлений.
@@ -802,7 +799,7 @@ class Ozon extends OzonClient
      * with object (postingFboPostingWithParams) Дополнительные поля, которые нужно добавить в ответ.
      *      @param bool|null $analytics_data Передайте true, чтобы добавить в ответ данные аналитики.
      *      @param bool|null $financial_data Передайте true, чтобы добавить в ответ финансовые данные.
-     * @param int|null $offset <int64> Количество элементов, которое будет пропущено в ответе. 
+     * @param int|null $offset <int64> Количество элементов, которое будет пропущено в ответе.
      * Например, если offset = 10, то ответ начнётся с 11-го найденного элемента.
      * @param int $limit <int64> Количество значений в ответе:
      *  - максимум — 1000,
@@ -821,10 +818,10 @@ class Ozon extends OzonClient
         int $limit = 1000
     ): mixed {
         $since = $this->formatDate($since);
-        $to = $this->formatDate($to);
+        $to    = $this->formatDate($to);
 
         $filter = compact('since', 'status', 'to');
-        $with = compact('analytics_data', 'financial_data');
+        $with   = compact('analytics_data', 'financial_data');
         return (
             new OzonData(
                 $this->postResponse(
@@ -837,9 +834,9 @@ class Ozon extends OzonClient
 
     /**
      * Информация об отправлении
-     * 
+     *
      * Возвращает информацию об отправлении по его идентификатору.
-     * 
+     *
      * @param string $posting_number Номер отправления.
      * @param bool|null $translit Если включена транслитерация адреса из кириллицы в латиницу — true.
      * with object (postingFboPostingWithParams) Дополнительные поля, которые нужно добавить в ответ.
@@ -862,7 +859,7 @@ class Ozon extends OzonClient
 
     /**
      * Список необработанных отправлений (версия 3)
-     * 
+     *
      * Возвращает список необработанных отправлений за указанный период времени — он должен не больше одного года.
      * Возможные статусы отправлений:
      *  - awaiting_registration — ожидает регистрации,
@@ -878,19 +875,19 @@ class Ozon extends OzonClient
      *  - cancelled — отменено,
      *  - not_accepted — не принят на сортировочном центре,
      *  - sent_by_seller — отправлено продавцом.
-     * 
+     *
      * Обязательно должна быть передана пара параметров: cutoff_from, cutoff_to или delivering_date_from, delivering_date_to.
      * filter object (postingv3GetFbsPostingUnfulfilledListRequestFilter) Фильтр запроса.
-     *      Используйте фильтр либо по времени сборки — cutoff, 
-     *      либо по дате передачи отправления в доставку — delivering_date. 
+     *      Используйте фильтр либо по времени сборки — cutoff,
+     *      либо по дате передачи отправления в доставку — delivering_date.
      *      Если использовать их вместе, в ответе вернётся ошибка.
      *      Чтобы использовать фильтр по времени сборки, заполните поля cutoff_from и cutoff_to.
      *      Чтобы использовать фильтр по дате передачи отправления в доставку,
      *      заполните поля delivering_date_from и delivering_date_to.
-     *      @param DateTime|null $cutoff_from <date-time> Фильтр по времени, 
+     *      @param DateTime|null $cutoff_from <date-time> Фильтр по времени,
      *      до которого продавцу нужно собрать заказ. Начало периода.
      *      Формат: YYYY-MM-DDThh:mm:ss.mcsZ. Пример: 2020-03-18T07:34:50.359Z.
-     *      @param DateTime|null $cutoff_to <date-time> Фильтр по времени, 
+     *      @param DateTime|null $cutoff_to <date-time> Фильтр по времени,
      *      до которого продавцу нужно собрать заказ. Конец периода.
      *      Формат: YYYY-MM-DDThh:mm:ss.mcsZ. Пример: 2020-03-18T07:34:50.359Z.
      *      @param DateTime|null $delivering_date_from <date-time> Минимальная дата передачи отправления в доставку.
@@ -918,7 +915,7 @@ class Ozon extends OzonClient
      * @param string $dir Направление сортировки:
      *  - asc — по возрастанию,
      *  - desc — по убыванию.
-     * @param int|null $offset <int64> Количество элементов, которое будет пропущено в ответе. 
+     * @param int|null $offset <int64> Количество элементов, которое будет пропущено в ответе.
      * @param int $limit <int64> Количество значений в ответе:
      *  - максимум — 1000,
      *  - минимум — 1.
@@ -940,13 +937,13 @@ class Ozon extends OzonClient
         int $offset = null,
         int $limit = 1000
     ): mixed {
-        $cutoff_from = $this->formatDate($cutoff_from);
-        $cutoff_to = $this->formatDate($cutoff_to);
+        $cutoff_from          = $this->formatDate($cutoff_from);
+        $cutoff_to            = $this->formatDate($cutoff_to);
         $delivering_date_from = $this->formatDate($delivering_date_from);
-        $delivering_date_to = $this->formatDate($delivering_date_to);
+        $delivering_date_to   = $this->formatDate($delivering_date_to);
 
         $filter = compact('cutoff_from', 'cutoff_to', 'delivering_date_from', 'delivering_date_to', 'provider_id', 'status', 'warehouse_id');
-        $with = compact('analytics_data', 'barcodes', 'financial_data', 'translit');
+        $with   = compact('analytics_data', 'barcodes', 'financial_data', 'translit');
         return (
             new OzonData(
                 $this->postResponse(
@@ -959,12 +956,12 @@ class Ozon extends OzonClient
 
     /**
      * Список отправлений (версия 3)
-     * 
+     *
      * Возвращает список отправлений за указанный период времени — он должен быть не больше одного года.
      * Дополнительно можно отфильтровать отправления по их статусу.
-     * has_next = true в ответе может значить, что вернули не весь массив отправлений. 
+     * has_next = true в ответе может значить, что вернули не весь массив отправлений.
      * Чтобы получить информацию об остальных отправлениях, сделайте новый запрос с другим значением offset.
-     * 
+     *
      * filter object (postingv3GetFbsPostingListRequestFilter) Фильтр.
      *      @param DateTime $since <date-time> Дата начала периода, за который нужно получить список отправлений.
      *      Формат UTC: ГГГГ-ММ-ДДTЧЧ:ММ:ССZ. Пример: 2019-08-24T14:15:22Z.
@@ -996,7 +993,7 @@ class Ozon extends OzonClient
      * @param string $dir Направление сортировки:
      *  - asc — по возрастанию,
      *  - desc — по убыванию.
-     * @param int|null $offset <int64> Количество элементов, которое будет пропущено в ответе. 
+     * @param int|null $offset <int64> Количество элементов, которое будет пропущено в ответе.
      * Например, если offset = 10, то ответ начнётся с 11-го найденного элемента.
      * @param int $limit <int64> Количество значений в ответе:
      *  - максимум — 1000,
@@ -1020,10 +1017,10 @@ class Ozon extends OzonClient
         int $limit = 1000
     ): mixed {
         $since = $this->formatDate($since);
-        $to = $this->formatDate($to);
+        $to    = $this->formatDate($to);
 
         $filter = compact('since', 'to', 'status', 'delivery_method_id', 'order_id', 'provider_id', 'warehouse_id');
-        $with = compact('analytics_data', 'barcodes', 'financial_data', 'translit');
+        $with   = compact('analytics_data', 'barcodes', 'financial_data', 'translit');
         return (
             new OzonData(
                 $this->postResponse(
@@ -1036,14 +1033,14 @@ class Ozon extends OzonClient
 
     /**
      * Получить информацию об отправлении по идентификатору
-     * 
+     *
      * @param string $posting_number string Идентификатор отправления.
      * with object (postingv3FbsPostingWithParamsExamplars) Дополнительные поля, которые нужно добавить в ответ.
      *      @param bool|null $analytics_data Передайте true, чтобы добавить в ответ данные аналитики.
      *      @param bool|null $barcodes Добавить в ответ штрихкоды отправления.
      *      @param bool|null $financial_data Передайте true, чтобы добавить в ответ финансовые данные.
      *      @param bool|null $product_exemplars Добавить в ответ данные о продуктах и их экземплярах.
-     *      @param bool|null $related_postings Добавить в ответ номера связанных отправлений. 
+     *      @param bool|null $related_postings Добавить в ответ номера связанных отправлений.
      *      Связанные отправления — те, на которое было разделено родительское отправление при сборке.
      *      @param bool|null $translit Выполнить транслитерацию возвращаемых значений.
      * @return mixed
@@ -1070,7 +1067,7 @@ class Ozon extends OzonClient
 
     /**
      * Получить информацию об отправлении по штрихкоду
-     * 
+     *
      * @param string $barcode Штрихкод отправления.
      * @return mixed
      */
@@ -1088,9 +1085,9 @@ class Ozon extends OzonClient
 
     /**
      * Список доступных стран-изготовителей
-     * 
+     *
      * Метод для получения списка доступных стран-изготовителей и их ISO кодов.
-     * 
+     *
      * @param string|null $name_search Фильтрация по строке.
      * @return mixed
      */
@@ -1108,10 +1105,10 @@ class Ozon extends OzonClient
 
     /**
      * Получить ограничения пункта приёма
-     * 
-     * Метод для получения габаритных, весовых и прочих ограничений пункта приёма по номеру отправления. 
+     *
+     * Метод для получения габаритных, весовых и прочих ограничений пункта приёма по номеру отправления.
      * Метод применим только для работы по схеме FBS.
-     * 
+     *
      * @param string $posting_number required Номер отправления, для которого нужно определить ограничения.
      * @return mixed
      */
@@ -1129,7 +1126,7 @@ class Ozon extends OzonClient
 
     /**
      * Причины отмены отправлений
-     * 
+     *
      * Возвращает список причин отмены для всех отправлений.
      *
      * @return mixed
@@ -1147,7 +1144,7 @@ class Ozon extends OzonClient
 
     /**
      * Причины отмены отправления
-     * 
+     *
      * Возвращает список причин отмены для конкретных отправлений.
      *
      * @param array $related_posting_numbers
@@ -1167,10 +1164,10 @@ class Ozon extends OzonClient
 
     /**
      * Список актов по отгрузкам
-     * 
-     * Возвращает список актов по отгрузкам с возможностью отфильтровать отгрузки по периоду, 
+     *
+     * Возвращает список актов по отгрузкам с возможностью отфильтровать отгрузки по периоду,
      * статусу и типу интеграции.
-     * 
+     *
      * filter object (v2PostingFBSActListFilter) Параметры фильтра.
      *      @param DateTime $date_from Начальная дата создания отгрузок.
      *      @param DateTime $date_to Конечная дата создания отгрузок.
@@ -1199,7 +1196,7 @@ class Ozon extends OzonClient
     public function getPostingFbsActList(DateTime $date_from, DateTime $date_to, string $integration_type = null, array $status = null, int $limit = 50): mixed
     {
         $date_from = $this->formatDate($date_from, self::DT_FORMAT_DATE);
-        $date_to = $this->formatDate($date_to, self::DT_FORMAT_DATE);
+        $date_to   = $this->formatDate($date_to, self::DT_FORMAT_DATE);
 
         $filter = compact('date_from', 'date_to', 'integration_type', 'status');
         return (
@@ -1235,14 +1232,14 @@ class Ozon extends OzonClient
 
     /**
      * Получить информацию о возвратах FBO (версия 3)
-     * 
+     *
      * Метод для получения информации о возвращённых товарах, которые продаются со склада Ozon.
-     * 
+     *
      * filter object (v3ReturnsCompanyFilterFbo) Фильтр.
      *      @param string|null $posting_number Номер отправления.
-     *      @param array|null $status Array of strings 
+     *      @param array|null $status Array of strings
      *      Enums: "Created", "ReturnedToOzon", "Cancelled", "CancelledWithCompensation", "Deleted", "TechnicalReturn", "RemovedFromRms"
-     * @param int|null $last_id <int64> Идентификатор последнего значения на странице. 
+     * @param int|null $last_id <int64> Идентификатор последнего значения на странице.
      * Оставьте это поле пустым при выполнении первого запроса.
      * Чтобы получить следующие значения, укажите last_id из ответа предыдущего запроса.
      * @param int $limit <int64> Количество значений в ответе.
@@ -1262,17 +1259,16 @@ class Ozon extends OzonClient
         )->data;
     }
 
-
     /**
      * Получить информацию о возвратах FBS (версия 3)
-     * 
+     *
      * Метод для получения информации о возвращённых товарах, которые продаются со склада Ozon.
-     * 
+     *
      * filter object (v3ReturnsCompanyFilterFbo) Фильтр.
      *      @param string|null $posting_number Номер отправления.
-     *      @param array|null $status Array of strings 
+     *      @param array|null $status Array of strings
      *      Enums: "Created", "ReturnedToOzon", "Cancelled", "CancelledWithCompensation", "Deleted", "TechnicalReturn", "RemovedFromRms"
-     * @param int|null $last_id <int64> Идентификатор последнего значения на странице. 
+     * @param int|null $last_id <int64> Идентификатор последнего значения на странице.
      * Оставьте это поле пустым при выполнении первого запроса.
      * Чтобы получить следующие значения, укажите last_id из ответа предыдущего запроса.
      * @param int $limit <int64> Количество значений в ответе.
@@ -1294,15 +1290,15 @@ class Ozon extends OzonClient
 
     /**
      * Получить информацию о возвратах FBO
-     * 
+     *
      * Метод для получения информации о возвращённых товарах, которые продаются со склада Ozon.
-     * 
+     *
      * filter object (returnsGetReturnsCompanyFboRequestFilter) Фильтр.
      *      @param string|null $posting_number Идентификатор отправления.
      *      @param array|null $status Array of strings Статус возврата:
      *       - Created — возврат создан,
      *       - ReturnedToOzon — возврат на складе Ozon.
-     * @param int|null $offset <int64> Количество элементов, которое будет пропущено в ответе. 
+     * @param int|null $offset <int64> Количество элементов, которое будет пропущено в ответе.
      * Например, если offset = 10, то ответ начнётся с 11-го найденного элемента.
      * @param int $limit <int64> Количество значений в ответе:
      *  - максимум — 1000,
@@ -1324,12 +1320,12 @@ class Ozon extends OzonClient
 
     /**
      * Получить информацию о возвратах FBS
-     * 
+     *
      * Метод для получения информации о возвращённых товарах, которые продаются со склада продавца.
-     * 
+     *
      * filter object (returnsGetReturnsCompanyFBSRequestFilter) Фильтр.
      *      accepted_from_customer_moment Array of objects (FilterTimeRange) Время приёма возврата от поĸупателя.
-     *          @param DateTime|null $accepted_from_customer_moment_time_from <date-time> Начало периода. 
+     *          @param DateTime|null $accepted_from_customer_moment_time_from <date-time> Начало периода.
      *          Формат: YYYY-MM-DDTHH:mm:ss.sssZ. Пример: 2019-11-25T10:43:06.51.
      *          @param DateTime|null $accepted_from_customer_moment_time_to <date-time> Окончание периода.
      *          Формат: YYYY-MM-DDTHH:mm:ss.sssZ. Пример: 2019-11-25T10:43:06.51.
@@ -1348,7 +1344,7 @@ class Ozon extends OzonClient
      *       - accepted_from_customer — принят от покупателя,
      *       - cancelled_with_compensation — отменено с компенсацией,
      *       - ready_for_shipment — готов к отправке.
-     * @param int|null $offset <int64> Количество элементов, которое будет пропущено в ответе. 
+     * @param int|null $offset <int64> Количество элементов, которое будет пропущено в ответе.
      * Например, если offset = 10, то ответ начнётся с 11-го найденного элемента.
      * @param int $limit <int64> Количество значений в ответе:
      *  - максимум — 1000,
@@ -1369,13 +1365,13 @@ class Ozon extends OzonClient
         int $limit = 1000
     ): mixed {
         $accepted_from_customer_moment_time_from = $this->formatDate($accepted_from_customer_moment_time_from);
-        $accepted_from_customer_moment_time_to = $this->formatDate($accepted_from_customer_moment_time_to);
-        $last_free_waiting_day_time_from = $this->formatDate($last_free_waiting_day_time_from);
-        $last_free_waiting_day_time_to = $this->formatDate($last_free_waiting_day_time_to);
+        $accepted_from_customer_moment_time_to   = $this->formatDate($accepted_from_customer_moment_time_to);
+        $last_free_waiting_day_time_from         = $this->formatDate($last_free_waiting_day_time_from);
+        $last_free_waiting_day_time_to           = $this->formatDate($last_free_waiting_day_time_to);
 
         $accepted_from_customer_moment = ['time_from' => $accepted_from_customer_moment_time_from, 'time_to' => $accepted_from_customer_moment_time_to];
-        $last_free_waiting_day = ['time_from' => $last_free_waiting_day_time_from, 'time_to' => $last_free_waiting_day_time_to];
-        $filter = compact('accepted_from_customer_moment', 'last_free_waiting_day', 'order_id', 'posting_number', 'product_name', 'product_offer_id', 'status');
+        $last_free_waiting_day         = ['time_from' => $last_free_waiting_day_time_from, 'time_to' => $last_free_waiting_day_time_to];
+        $filter                        = compact('accepted_from_customer_moment', 'last_free_waiting_day', 'order_id', 'posting_number', 'product_name', 'product_offer_id', 'status');
         return (
             new OzonData(
                 $this->postResponse(
@@ -1388,9 +1384,9 @@ class Ozon extends OzonClient
 
     /**
      * Получить список заявок на отмену rFBS
-     * 
+     *
      * Метод для получения списка заявок на отмену rFBS-заказов.
-     * 
+     *
      * filter object (GetConditionalCancellationListRequestFilters) Фильтры.
      *      @param array|null $cancellation_initiator Array of strings Фильтр по инициатору отмены:
      *       - OZON — Ozon,
@@ -1411,7 +1407,7 @@ class Ozon extends OzonClient
      * Например, если offset=10, ответ начнётся с 11-го найденного элемента.
      * with object (GetConditionalCancellationListRequestWith) Дополнительная информация.
      *      @param bool|null $counters Признак, что в ответе нужно вывести счётчик заявок в разных статусах.
-     * @param int|null $offset <int32> Количество элементов, которое будет пропущено в ответе. 
+     * @param int|null $offset <int32> Количество элементов, которое будет пропущено в ответе.
      * @param int $limit <int32> required Количество заявок в ответе.
      * @return mixed
      */
@@ -1424,7 +1420,7 @@ class Ozon extends OzonClient
         int $limit = 1000
     ): mixed {
         $filter = compact('cancellation_initiator', 'posting_number', 'state');
-        $with = compact('counters');
+        $with   = compact('counters');
         return (
             new OzonData(
                 $this->postResponse(
@@ -1437,9 +1433,9 @@ class Ozon extends OzonClient
 
     /**
      * Список чатов (версия 2)
-     * 
+     *
      * Возвращает информацию о чатах по указанным фильтрам.
-     * 
+     *
      * filter object (ChatListRequestFilter) Фильтр по чатам.
      *      @param string $chat_status Фильтр по статусу чата:
      *       - All — все чаты.
@@ -1447,9 +1443,9 @@ class Ozon extends OzonClient
      *       - Closed — закрытые чаты.
      *      Значение по умолчанию: All.
      *      @param bool $unread_only Фильтр по чатам с непрочитанными сообщениями.
-     * @param int $offset <int64> Количество элементов, которое будет пропущено в ответе. 
+     * @param int $offset <int64> Количество элементов, которое будет пропущено в ответе.
      * Например, если offset=10, ответ начнётся с 11-го найденного элемента.
-     * @param int $limit <int64> Количество значений в ответе. Значение по умолчанию — 30. 
+     * @param int $limit <int64> Количество значений в ответе. Значение по умолчанию — 30.
      *  - максимум — 4294967295 (uint32),
      *  - минимум — 1.
      * @return mixed
@@ -1469,19 +1465,19 @@ class Ozon extends OzonClient
 
     /**
      * Список чатов
-     * 
+     *
      * Возвращает информацию о чатах с указанными идентификаторами.
-     * В ответе метода могут быть чаты с last_message_id = 0 и без сообщений. 
+     * В ответе метода могут быть чаты с last_message_id = 0 и без сообщений.
      * Это происходит, когда покупатель открыл чат с продавцом, но ничего не написал.
-     * 
+     *
      * @param array|null $chat_id_list Array of strings Массив с идентификаторами чатов, для которых нужно вывести информацию.
      * with object (ChatListRequestWith) Дополнительные поля, которые нужно добавить в ответ.
-     *      @param bool|null $irst_unread_message_id Атрибут выдачи параметра first_unread_message_id в ответе. 
+     *      @param bool|null $irst_unread_message_id Атрибут выдачи параметра first_unread_message_id в ответе.
      *      Если true, в ответе вы получите идентификатор первого непрочитанного сообщения в чате.
-     *      @param bool|null $unread_count Атрибут выдачи параметра unread_count в ответе. 
+     *      @param bool|null $unread_count Атрибут выдачи параметра unread_count в ответе.
      *      Если true, в ответе вы получите количество непрочитанных сообщений в чате.
      * @param int|null $page <int32> Количество страниц в ответе.
-     * @param int $page_size <int32> Количество чатов на странице. 
+     * @param int $page_size <int32> Количество чатов на странице.
      * Значение по умолчанию — 100. Максимальное значение — 1000.
      * @return mixed
      */
@@ -1500,13 +1496,13 @@ class Ozon extends OzonClient
 
     /**
      * История чата (версия 2)
-     * 
+     *
      * @param string $chat_id required Идентификатор чата.
      * @param string $direction Направление сортировки сообщений:
      *  - Forward — от старых к новым.
      *  - Backward — от новых к старым.
      * Значение по умолчанию — Backward. Количество сообщений можно установить в параметре limit.
-     * @param int|null $from_message_id <uint64> Идентификатор сообщения, с которого начать вывод истории чата. 
+     * @param int|null $from_message_id <uint64> Идентификатор сообщения, с которого начать вывод истории чата.
      * По умолчанию — последнее видимое сообщение.
      * @param int $limit <int64> Количество сообщений в ответе. По умолчанию — 50.
      * @return mixed
@@ -1525,11 +1521,11 @@ class Ozon extends OzonClient
 
     /**
      * История чата
-     * 
-     * Возвращает историю сообщений в чате. По умолчанию сообщения показываются от старого к новому. 
-     * Чтобы получить историю сообщений от самого нового сообщения до самого старого, используйте метод /v1/chat/updates. 
+     *
+     * Возвращает историю сообщений в чате. По умолчанию сообщения показываются от старого к новому.
+     * Чтобы получить историю сообщений от самого нового сообщения до самого старого, используйте метод /v1/chat/updates.
      * У методов /v1/chat/history и /v1/chat/updates одинаковая структура запроса и ответа.
-     * 
+     *
      * @param string $chat_id Идентификатор чата.
      * @param string|null $from_message_id <uint64> Идентификатор сообщения, с которого начать вывод истории чата.
      * @param int $limit <int64> Количество сообщений в ответе.
@@ -1549,10 +1545,10 @@ class Ozon extends OzonClient
 
     /**
      * Список накладных
-     * 
+     *
      * Метод для получения списка накладных по номеру заявки.
      * Пример URL с orderId = 354679434: /v1/supplier/orders/354679434/waybill_acceptance_results
-     * 
+     *
      * @param string $orderId <int64> required Номер заявки.
      * @return mixed
      */
@@ -1569,10 +1565,10 @@ class Ozon extends OzonClient
 
     /**
      * Результаты приёмки
-     * 
+     *
      * Метод для получения результатов приёмки по номеру накладной.
      * Пример URL с waybillId = 0: /v1/supplier/waybill_acceptance_results/0
-     * 
+     *
      * @param string $waybillId <int64> required Номер накладной.
      * @return mixed
      */
@@ -1589,9 +1585,9 @@ class Ozon extends OzonClient
 
     /**
      * Список отчётов
-     * 
+     *
      * Возвращает список отчётов, которые были сформированы раньше.
-     * 
+     *
      * @param int|null $page <int32> Номер страницы.
      * @param int $page_size <int32> Количество значений на странице:
      *  - по умолчанию — 100,
@@ -1623,9 +1619,9 @@ class Ozon extends OzonClient
 
     /**
      * Информация об отчёте
-     * 
+     *
      * Возвращает информацию о созданном ранее отчёте по его идентификатору.
-     * 
+     *
      * @param string $code Уникальный идентификатор отчёта.
      * @return mixed
      */
@@ -1643,7 +1639,7 @@ class Ozon extends OzonClient
 
     /**
      * Финансовый отчёт
-     * 
+     *
      * date object (financev3Period) required Период формирования отчёта.
      *      @param DateTime $from <date-time> required Дата, с ĸоторой рассчитывается отчёт.
      *      @param DateTime $to <date-time> required Дата, по ĸоторую рассчитывается отчёт.
@@ -1654,7 +1650,7 @@ class Ozon extends OzonClient
     public function getFinanceCashFlowStatementList(DateTime $from, DateTime $to, int $page = 1, int $page_size = 1000): mixed
     {
         $from = $this->formatDate($from);
-        $to = $this->formatDate($to);
+        $to   = $this->formatDate($to);
 
         $date = compact('from', 'to');
         return (
@@ -1669,7 +1665,7 @@ class Ozon extends OzonClient
 
     /**
      * Список отчётов об уценённых товарах
-     * 
+     *
      * @return mixed
      */
     public function getReportDiscountedList(): mixed
@@ -1684,10 +1680,26 @@ class Ozon extends OzonClient
     }
 
     /**
+     *  Отчёт об уценённых товарах
+     *
+     * @return mixed
+     */
+    public function getReportDiscounted(): mixed
+    {
+        return (
+            new OzonData(
+                $this->postResponse(
+                    'v1/report/discounted/create',
+                )
+            )
+        )->data;
+    }
+
+    /**
      * Отчёт об уценённых товарах
-     * 
+     *
      * Возвращает информацию о созданном ранее отчёте по его идентификатору.
-     * 
+     *
      * @param string $code Уникальный идентификатор отчёта.
      * @return mixed
      */
@@ -1705,12 +1717,12 @@ class Ozon extends OzonClient
 
     /**
      * Данные аналитики
-     * 
+     *
      * Уĸажите период и метриĸи, ĸоторые нужно посчитать — в ответе будет аналитиĸа, сгруппированная по параметру dimensions.
-     * 
+     *
      * @param DateTime $date_from Дата, с которой будут данные в отчёте.
      * @param DateTime $date_to Дата, по которую будут данные в отчёте.
-     * @param array $metrics Array of strings (analyticsMetric) Укажите до 14 метрик. 
+     * @param array $metrics Array of strings (analyticsMetric) Укажите до 14 метрик.
      * Если их будет больше, вы получите ошибку с кодом InvalidArgument.
      * Список метриĸ, по ĸоторым будет сформирован отчёт:
      *  - unknown_metric — неизвестная метрика,
@@ -1753,7 +1765,7 @@ class Ozon extends OzonClient
      *  - brand — бренд,
      *  - modelID — модель.
      * @param array|null $filters Array of objects (analyticsFilter) Фильтры.
-     *      key string Параметр сортировки. 
+     *      key string Параметр сортировки.
      *      Можно передать любой атрибут из параметров dimension и metric, кроме атрибута brand.
      *      op string (FilterOp) Операция сравнения:
      *       - EQ — равно,
@@ -1769,7 +1781,7 @@ class Ozon extends OzonClient
      *       - ASC — по возрастанию,
      *       - DESC — по убыванию.
      *      Default: "ASC"
-     * @param int|null $offset <int64> Количество элементов, которое будет пропущено в ответе. 
+     * @param int|null $offset <int64> Количество элементов, которое будет пропущено в ответе.
      * Например, если offset = 10, то ответ начнётся с 11-го найденного элемента.
      * @param int $limit <int64> Количество значений в ответе:
      *  - максимум — 1000,
@@ -1787,9 +1799,9 @@ class Ozon extends OzonClient
         int $limit = 1000
     ): mixed {
         $date_from = $this->formatDate($date_from, self::DT_FORMAT_DATE);
-        $date_to = $this->formatDate($date_to, self::DT_FORMAT_DATE);
-        $filters = $this->wrapToArrayIfNotNull($filters);
-        $sort = $this->wrapToArrayIfNotNull($sort);
+        $date_to   = $this->formatDate($date_to, self::DT_FORMAT_DATE);
+        $filters   = $this->wrapToArrayIfNotNull($filters);
+        $sort      = $this->wrapToArrayIfNotNull($sort);
 
         return (
             new OzonData(
@@ -1803,10 +1815,10 @@ class Ozon extends OzonClient
 
     /**
      * Отчёт по остаткам и товарам
-     * 
+     *
      * Отчёт по остаткам и товарам в перемещении по складам Ozon.
-     * 
-     * @param int|null $offset <int64> Количество элементов, которое будет пропущено в ответе. 
+     *
+     * @param int|null $offset <int64> Количество элементов, которое будет пропущено в ответе.
      * Например, если offset = 10, то ответ начнётся с 11-го найденного элемента.
      * @param int $limit <int64> Количество ответов на странице. По умолчанию — 100.
      * @return mixed
@@ -1825,10 +1837,10 @@ class Ozon extends OzonClient
 
     /**
      * Отчёт по остаткам и товарам (версия 2)
-     * 
+     *
      * Отчёт по остаткам и товарам в перемещении по складам Ozon.
-     * 
-     * @param int|null $offset <int64> Количество элементов, которое будет пропущено в ответе. 
+     *
+     * @param int|null $offset <int64> Количество элементов, которое будет пропущено в ответе.
      * Например, если offset = 10, то ответ начнётся с 11-го найденного элемента.
      * @param int $limit <int64> Количество ответов на странице. По умолчанию — 100.
      * @param string $warehouse_type Фильтр по типу склада
@@ -1848,9 +1860,9 @@ class Ozon extends OzonClient
 
     /**
      * Отчёт по оборачиваемости (FBO)
-     * 
+     *
      * Метод для получения отчёта по оборачиваемости (FBO) по категориям за 15 дней.
-     * 
+     *
      * @param DateTime $date_from Дата. 1-е или 15-е число месяца в формате: 2021-05-01.
      * 1-е число месяца вводится для получения отчёта за первую половину месяца.
      * 15-е число вводится для получения отчёта за вторую половину месяца.
@@ -1872,10 +1884,10 @@ class Ozon extends OzonClient
 
     /**
      * Отчёт о реализации товаров
-     * 
+     *
      * Отчёт о реализации доставленных и возвращённых товаров за месяц. Отмены и невыкупы не включаются.
      * Отчёт придёт не позднее 5-го числа следующего месяца.
-     * 
+     *
      * @param DateTime $date Отчётный период в формате YYYY-MM.
      * @return mixed
      */
@@ -1934,17 +1946,17 @@ class Ozon extends OzonClient
 
     /**
      * Список транзакций (версия 3)
-     * 
-     * Возвращает подробную информацию по всем начислениям. 
+     *
+     * Возвращает подробную информацию по всем начислениям.
      * Максимальный период, за который можно получить информацию в одном запросе — 3 месяца.
-     * Если в запросе не указывать posting_number, 
+     * Если в запросе не указывать posting_number,
      * то в ответе будут все отправления за указанный период или отправления определённого типа.
-     * 
+     *
      * filter object (FinanceTransactionListV3RequestFilter) Фильтр.
      *      date object (FilterPeriod) Фильтр по дате.
      *          @param DateTime|null $from <date-time> Начало периода.
      *          Формат: YYYY-MM-DDTHH:mm:ss.sssZ. Пример: 2019-11-25T10:43:06.51.
-     *          @param DateTime string $to <date-time> Конец периода. 
+     *          @param DateTime string $to <date-time> Конец периода.
      *          Формат: YYYY-MM-DDTHH:mm:ss.sssZ. Пример: 2019-11-25T10:43:06.51.
      *      @param array|null $operation_type Array of strings Тип операции:
      *       - ClientReturnAgentOperation — получение возврата, отмены, невыкупа от покупателя;
@@ -1976,8 +1988,8 @@ class Ozon extends OzonClient
      *       - compensation — компенсация,
      *       - transferDelivery — стоимость доставки,
      *       - other — прочее.
-     *      Некоторые операции могут быть разделены во времени. 
-     *      Например, при приёме возврата от покупателя списывается стоимость товара и возвращается комиссия, 
+     *      Некоторые операции могут быть разделены во времени.
+     *      Например, при приёме возврата от покупателя списывается стоимость товара и возвращается комиссия,
      *      а когда товар возвращается на склад, взимается стоимость услуга по обработке возврата.
      * @param int $page <int64> Номер страницы, возвращаемой в запросе.
      * @param int $page_size <int64> Количество элементов на странице.
@@ -1993,7 +2005,7 @@ class Ozon extends OzonClient
         int $page_size = 1000
     ): mixed {
         $from = $this->formatDate($from);
-        $to = $this->formatDate($to);
+        $to   = $this->formatDate($to);
 
         $filter = array_merge(['date' => compact('from', 'to')], compact('operation_type', 'posting_number', 'transaction_type'));
         return (
@@ -2008,9 +2020,9 @@ class Ozon extends OzonClient
 
     /**
      * Суммы транзакций
-     * 
+     *
      * Возвращает итоговые суммы по транзакциям за указанный период.
-     * 
+     *
      * date object (FinanceTransactionTotalsV3RequestDate) Фильтр по дате.
      *      @param DateTime|null $from <date-time> Начало периода.
      *      Формат: YYYY-MM-DDTHH:mm:ss.sssZ. Пример: 2019-11-25T10:43:06.51.
@@ -2030,7 +2042,7 @@ class Ozon extends OzonClient
     public function getFinanceTransactionTotals(DateTime $from = null, DateTime $to, string $posting_number = null, string $transaction_type = null): mixed
     {
         $from = $this->formatDate($from);
-        $to = $this->formatDate($to);
+        $to   = $this->formatDate($to);
 
         $date = compact('from', 'to');
         return (
@@ -2045,16 +2057,16 @@ class Ozon extends OzonClient
 
     /**
      * Получить список бронирований
-     * 
+     *
      * Метод для получения списка бронирований.
      * Бронирования сортируются по идентификатору бронирования в порядке возрастания.
      * Для получения первой страницы списка передайте 1 в парметре booking_id_gt_or_eq.
-     * Для получения следующей страницы добавьте к максимальному идентификатору бронирования текущего ответа единицу 
+     * Для получения следующей страницы добавьте к максимальному идентификатору бронирования текущего ответа единицу
      * и передайте это число в следующем запросе в параметре booking_id_gt_or_eq.
-     * 
-     * @param string $booking_id_gt_or_eq <int64> required Идентификатор бронирования, с которого начинается список. 
+     *
+     * @param string $booking_id_gt_or_eq <int64> required Идентификатор бронирования, с которого начинается список.
      * Минимальное значение — 1.
-     * @param string $per_page <int64> required Количество бронирований на странице. 
+     * @param string $per_page <int64> required Количество бронирований на странице.
      * Минимальное значение — 1, максимальное — 100.
      * @param DateTime|null $created_at_gt_or_eq <date-time> Фильтр по времени создания бронирования — начало периода.
      * @param DateTime|null $created_at_lt_or_eq <date-time> Фильтр по времени создания бронирования — конец периода.
@@ -2074,7 +2086,7 @@ class Ozon extends OzonClient
 
     /**
      * Получить информацию о бронировании
-     * 
+     *
      * Метод для получения информации о бронировании по его идентификатору.
      * @param int $booking_id <int64> required Идентификатор бронирования.
      * @return mixed
@@ -2093,9 +2105,9 @@ class Ozon extends OzonClient
 
     /**
      * Получить список автосалонов
-     * 
+     *
      * Метод для получения списка автосалонов.
-     * 
+     *
      * @param int $page <int64> required Номер страницы. Минимальное значение — 1.
      * @param int $per_page <int64> required Количество автосалонов на странице.
      * Минимальное значение — 1, максимальное — 100.
@@ -2115,15 +2127,15 @@ class Ozon extends OzonClient
 
     /**
      * Получить список модификаций
-     * 
+     *
      * Метод для получения списка модификаций. Модификации сортируются по идентификатору модификации в порядке возрастания.
      * Для получения первой страницы списка передайте 1 в парметре modification_id_gt_or_eq.
-     * Для получения следующей страницы добавьте к максимальному идентификатору бронирования текущего ответа единицу 
+     * Для получения следующей страницы добавьте к максимальному идентификатору бронирования текущего ответа единицу
      * и передайте это число в следующем запросе в параметре modification_id_gt_or_eq.
-     * 
+     *
      * @param int $modification_id_gt_or_eq <int64> required Идентификатор модификации, с которого начинается список.
      * Минимальное значение — 1.
-     * @param int $per_page <int64> required Количество модификаций на странице. 
+     * @param int $per_page <int64> required Количество модификаций на странице.
      * Минимальное значение — 1, максимальное — 500.
      * @return mixed
      */
@@ -2142,8 +2154,8 @@ class Ozon extends OzonClient
     /**
      * Получить список товаров
      *
-     * @param int|null $last_id  
-     * @param int $limit 
+     * @param int|null $last_id
+     * @param int $limit
      * @return mixed
      */
     public function getProducts(array $offer_ids = null, int $last_id = null, int $limit = 1000): mixed
@@ -2160,16 +2172,16 @@ class Ozon extends OzonClient
     }
     /**
      * Получить список предложений
-     * 
+     *
      * Метод для получения списка предложений о продаже автомобилей.
-     * 
+     *
      * filter object (AutoOffersListV1RequestFilter) Фильтр.
      *      @param array|null $offer_ids Array of strings Идентификаторы предложений в системе автодилера.
      *      Максимальное количество идентификаторов в одном запросе — 1000.
-     * @param int|null $last_id required Идентификатор последнего значения на странице. 
+     * @param int|null $last_id required Идентификатор последнего значения на странице.
      * Оставьте это поле пустым при выполнении первого запроса.
      * Чтобы получить следующие значения, укажите last_id из ответа предыдущего запроса.
-     * @param int $limit <int64> required Количество предложений на странице. 
+     * @param int $limit <int64> required Количество предложений на странице.
      * Минимальное значение — 1, максимальное — 1000.
      * @return mixed
      */
@@ -2188,7 +2200,7 @@ class Ozon extends OzonClient
 
     /**
      * Получить информацию о текущих рейтингах продавца
-     * 
+     *
      * @return mixed
      */
     public function getRatingSummary(): mixed
@@ -2204,7 +2216,7 @@ class Ozon extends OzonClient
 
     /**
      * Получить информацию о рейтингах продавца за период
-     * 
+     *
      * @param DateTime $date_from <date-time> Начало периода.
      * @param DateTime $date_to <date-time> Конец периода.
      * @param array $ratings Array of strings required Фильтр по рейтингу.
@@ -2221,7 +2233,7 @@ class Ozon extends OzonClient
      *  - rating_reaction_time — время, в течение которого покупатели в среднем ждали ответа на своё первое сообщение в чате за последние 30 дней.
      *  - rating_average_response_time — время, в течение которого покупатели в среднем ждали вашего ответа за последние 30 дней.
      *  - rating_replied_dialogs_ratio — доля диалогов хотя бы с одним вашим ответом в течение 24 часов за последние 30 дней.
-     * Если вы хотите получить информацию по начисленным штрафным баллам для рейтингов rating_on_time и rating_review_avg_score_total, 
+     * Если вы хотите получить информацию по начисленным штрафным баллам для рейтингов rating_on_time и rating_review_avg_score_total,
      * передайте значения нужных рейтингов в этом параметре и with_premium_scores=true.
      * @param bool|null $with_premium_scores Признак, что в ответе нужно вернуть информацию о штрафных баллах в Premium-программе.
      * @return mixed
@@ -2229,7 +2241,7 @@ class Ozon extends OzonClient
     public function getRatingHistory(DateTime $date_from, DateTime $date_to, array $ratings, bool $with_premium_scores = null): mixed
     {
         $date_from = $this->formatDate($date_from);
-        $date_to = $this->formatDate($date_to);
+        $date_to   = $this->formatDate($date_to);
 
         return (
             new OzonData(
@@ -2299,7 +2311,6 @@ class Ozon extends OzonClient
             )
         )->data;
     }
-
 
     /**
      * Получить связанные sku
@@ -2378,7 +2389,6 @@ class Ozon extends OzonClient
             )
         )->data;
     }
-
 
     /**
      * Получить отзывы
