@@ -576,18 +576,18 @@ class Ozon extends OzonClient
      * Метод для получения списка товаров, которые могут участвовать в акции, по её идентификатору.
      *
      * @param float action_id <double> Идентификатор акции.
-     * @param float|null offset <double> Количество элементов, которое будет пропущено в ответе.
+     * @param string|null last_id <double> Идентификатор последнего значения на странице
      * Например, если offset=10, ответ начнётся с 11-го найденного элемента.
      * @param float|null limit <double> Количество ответов на странице. По умолчанию — 100.
      * @return mixed
      */
-    public function getActionsCandidates(float $action_id, float $offset = null, ?float $limit = 100): mixed
+    public function getActionsCandidates(float $action_id, string | null $last_id, ?float $limit = 100): mixed
     {
         return (
             new OzonData(
                 $this->postResponse(
                     'v1/actions/candidates',
-                    array_diff(compact('action_id', 'offset', 'limit'), [''])
+                    array_diff(compact('action_id', 'last_id', 'limit'), [''])
                 )
             )
         )->data;
