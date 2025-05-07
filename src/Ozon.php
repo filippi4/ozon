@@ -2412,4 +2412,23 @@ class Ozon extends OzonClient
             )
         )->data;
     }
+
+    /**
+     * Отчёт о реализации доставленных и возвращённых товаров с детализацией по каждому заказу
+     *
+     * @param integer $month
+     * @param integer $year
+     * @return mixed
+     */
+    public function getFinanceRealizationPosting(int $month, int $year): mixed
+    {
+        return (
+        new OzonData(
+            $this->postResponse(
+                'v1/finance/realization/posting',
+                compact('month', 'year')
+            )
+        )
+        )->data;
+    }
 }
