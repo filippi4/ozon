@@ -2548,4 +2548,24 @@ class Ozon extends OzonClient
         )
         )->data;
     }
+
+        /**
+     * Отчёт о среднем времени доставки
+     *
+     * @param integer $cluster_id
+     * @param integer $limit
+     * @param integer $offset
+     * @return mixed
+     */
+    public function getAverageDeliveryTime(int $cluster_id, int $offset = 0, int $limit = 100): mixed
+    {
+        return (
+            new OzonData(
+                $this->postResponse(
+                    'v1/analytics/average-delivery-time/details',
+                    compact('cluster_id', 'limit', 'offset')
+                )
+            )
+        )->data;
+    }
 }
