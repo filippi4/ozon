@@ -1813,6 +1813,64 @@ class Ozon extends OzonClient
         )->data;
     }
 
+    /**
+     * Получить аналитику по остаткам
+     *
+     * Метод для поулчения аналитики по остаткам с помощью skus
+     *
+     * @param array $cluster_ids <array> Фильтр по идентификаторам кластеров. Получить идентификаторы можно через метод /v1/cluster/list.
+     * @param array $item_tags
+     * Array of strings
+     * Items Enum: "ITEM_ATTRIBUTE_NONE" "ECONOM" "NOVEL" "DISCOUNT" "FBS_RETURN" "SUPER"
+     * Фильтр по тегам товара:
+     *
+     * ITEM_ATTRIBUTE_NONE — без тега;
+     * ECONOM — эконом-товар;
+     * NOVEL — новинка;
+     * DISCOUNT — уценённый товар;
+     * FBS_RETURN — товар из возврата FBS;
+     * SUPER — Super-товар.
+     * @param array $skus Array of strings <int64> <= 100
+     * Фильтр по идентификаторам товаров в системе Ozon — SKU.
+     * @param array $turnover_grades
+     * Array of strings
+     * Items Enum: "TURNOVER_GRADE_NONE" "DEFICIT" "POPULAR" "ACTUAL" "SURPLUS" "NO_SALES" "WAS_NO_SALES" "RESTRICTED_NO_SALES" "COLLECTING_DATA" "WAITING_FOR_SUPPLY" "WAS_DEFICIT" "WAS_POPULAR" "WAS_ACTUAL" "WAS_SURPLUS"
+     * Фильтр по статусу ликвидности товаров:
+     *
+     * TURNOVER_GRADE_NONE — нет статуса ликвидности.
+     * DEFICIT — дефицитный. Остатков товара хватит до 28 дней.
+     * POPULAR — очень популярный. Остатков товара хватит на 28–56 дней.
+     * ACTUAL — популярный. Остатков товара хватит на 56–120 дней.
+     * SURPLUS — избыточный. Товар продаётся медленно, остатков хватит более чем на 120 дней.
+     * NO_SALES — без продаж. У товара нет продаж последние 28 дней.
+     * WAS_NO_SALES — был без продаж. У товара не было продаж и остатков последние 28 дней.
+     * RESTRICTED_NO_SALES — без продаж, ограничен. У товара не было продаж более 120 дней. Такой товар нельзя добавить в поставку.
+     * COLLECTING_DATA — сбор данных. Для расчёта ликвидности нового товара собираем данные в течение 60 дней после поставки.
+     * WAITING_FOR_SUPPLY — ожидаем поставки. На складе нет остатков, доступных к продаже. Сделайте поставку для начала сбора данных.
+     * WAS_DEFICIT — был дефицитным. Товар был дефицитным последние 56 дней. Сейчас у него нет остатков.
+     * WAS_POPULAR — был очень популярным. Товар был очень популярным последние 56 дней. Сейчас у него нет остатков.
+     * WAS_ACTUAL — был популярным. Товар был популярным последние 56 дней. Сейчас у него нет остатков.
+     * WAS_SURPLUS — был избыточным. Товар был избыточным последние 56 дней. Сейчас у него нет остатков.
+     * @param array $warehouse_ids Array of strings <int64> Фильтр по идентификаторам складов. Получить идентификаторы можно через метод /v1/warehouse/list.
+     * @return mixed
+     **/
+    public function getAnalyticsStocks(
+        array $skus,
+        array $cluster_ids = null,
+        array $item_tags = null,
+        array $turnover_grades = null,
+        array $warehouse_ids = null,
+    ): mixed {
+        return (
+            new OzonData(
+                $this->postResponse(
+                    'v1/analytics/stocks',
+                    compact('cluster_ids', 'item_tags', 'skus', 'turnover_grades', 'warehouse_ids')
+                )
+            )
+        )->data;
+    }
+
 
     /**
      * Получить аналитику по остаткам
