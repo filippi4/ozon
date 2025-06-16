@@ -2529,4 +2529,16 @@ class Ozon extends OzonClient
             )
         )->data;
     }
+
+    public function getFeedbackDetails(string $reviewId): mixed
+    {
+        return (
+            new OzonData(
+                $this->postResponse(
+                    'v1/review/info',
+                    ['review_id' => $reviewId]
+                )
+            )
+        )->data;
+    }
 }
