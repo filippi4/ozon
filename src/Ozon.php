@@ -2541,4 +2541,46 @@ class Ozon extends OzonClient
             )
         )->data;
     }
+
+
+    /**
+     * Метод для получения списка активных возвратов.
+     * Возвратная отгрузка становится активной после сканирования штрихкода.
+     * После сканирования штрихкода второй раз активная выдача переходит в статус неактивной.
+     *
+     * @param int|null $last_id = null Идентификатор последнего значения на странице.
+     * @param int $limit = 100 Количество элементов в ответе.
+     * @return mixed
+     */
+    public function getGiveOutList(?int $last_id = null, int $limit = 100):mixed
+    {
+        return(
+            new OzonData(
+                $this->postResponse(
+                    '/v1/return/giveout/list',
+                    compact('last_id', 'limit')
+                )
+            )
+        )->data;
+    }
+
+
+    /**
+     * Метод для получения информации о возвратной отгрузке.
+     * В параметр giveout_id передаётся значение, полученное в методе getGiveOutList().
+     *
+     * @param int $giveout_id Идентификатор отгрузки.
+     * @return mixed
+     */
+    public function getGiveOutInfo(int $giveout_id):mixed
+    {
+        return(
+        new OzonData(
+            $this->postResponse(
+                '/v1/return/giveout/info',
+                compact('giveout_id')
+            )
+        )
+        )->data;
+    }
 }
