@@ -2596,10 +2596,10 @@ class Ozon extends OzonClient
      * @param string $date_from
      * @param string $date_to
      * @param string $last_id
-     * @param int|null $limit
+     * @param int $limit
      * @return mixed
      */
-    public function getDisposalReportFromStockFBO(string $date_from, string $date_to, string $last_id, int|null $limit):mixed
+    public function getDisposalReportFromStockFBO(string $date_from, string $date_to, string $last_id, int $limit):mixed
     {
         return(
         new OzonData(
@@ -2623,10 +2623,10 @@ class Ozon extends OzonClient
      * @param string $date_from
      * @param string $date_to
      * @param string $last_id
-     * @param int|null $limit
+     * @param int $limit
      * @return mixed
      */
-    public function getDisposalReportFromSupplyFBO(string $date_from, string $date_to, string $last_id, int|null $limit):mixed
+    public function getDisposalReportFromSupplyFBO(string $date_from, string $date_to, string $last_id, int $limit):mixed
     {
         return(
         new OzonData(
