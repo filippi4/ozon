@@ -2583,4 +2583,58 @@ class Ozon extends OzonClient
         )
         )->data;
     }
+
+
+    /**
+     * Метод для получения отчёта по вывозу и утилизации со стока FBO.
+     * Метод соответствует разделу FBO → Вывоз и утилизация в личном кабинете.
+     * В параметр date_from передаётся дата начала отчётного периода в формате YYYY-MM-DD.
+     * В параметр date_to передаётся дата окончания отчётного периода в формате YYYY-MM-DD.
+     * В параметр last_id передается идентификатор последнего значения на странице. Чтобы получить следующие значения, укажите last_id из ответа предыдущего запроса.
+     * В параметр limit передаётся количество элементов в ответе[1..500].
+     *
+     * @param string $date_from
+     * @param string $date_to
+     * @param string $last_id
+     * @param int|null $limit
+     * @return mixed
+     */
+    public function getDisposalReportFromStockFBO(string $date_from, string $date_to, string $last_id, int|null $limit):mixed
+    {
+        return(
+        new OzonData(
+            $this->postResponse(
+                '/v1/removal/from-stock/list',
+                compact('date_from', 'date_to', 'last_id', 'limit')
+            )
+        )
+        )->data;
+    }
+
+
+    /**
+     * Метод для получения отчёта по вывозу и утилизации с поставки FBO.
+     * Метод соответствует разделу FBO → Вывоз и утилизация в личном кабинете.
+     * В параметр date_from передаётся дата начала отчётного периода в формате YYYY-MM-DD.
+     * В параметр date_to передаётся дата окончания отчётного периода в формате YYYY-MM-DD.
+     * В параметр last_id передается идентификатор последнего значения на странице. Чтобы получить следующие значения, укажите last_id из ответа предыдущего запроса.
+     * В параметр limit передаётся количество элементов в ответе[1..500].
+     *
+     * @param string $date_from
+     * @param string $date_to
+     * @param string $last_id
+     * @param int|null $limit
+     * @return mixed
+     */
+    public function getDisposalReportFromSupplyFBO(string $date_from, string $date_to, string $last_id, int|null $limit):mixed
+    {
+        return(
+        new OzonData(
+            $this->postResponse(
+                '/v1/removal/from-supply/list',
+                compact('date_from', 'date_to', 'last_id', 'limit')
+            )
+        )
+        )->data;
+    }
 }
