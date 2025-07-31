@@ -1431,6 +1431,57 @@ class Ozon extends OzonClient
         )->data;
     }
 
+
+    /**
+     * Метод для получения списка заявок на отмену rFBS-заказов.(версия2)
+     *
+     * @param int $limit <int32> required Количество заявок в ответе.
+     * filter object (GetConditionalCancellationListRequestFilters) Фильтры.
+     *      @param array|null $cancellation_initiator Array of strings Фильтр по инициатору отмены:
+     *       - OZON — Ozon,
+     *       - SELLER — продавец,
+     *       - CLIENT — покупатель,
+     *       - SYSTEM — система,
+     *       - DELIVER — служба доставки.
+     *      Необязательный параметр. Можно передавать несколько значений.
+     *      Items Enum: "OZON" "SELLER" "CLIENT" "SYSTEM" "DELIVER"
+     *      @param array|null $posting_number Фильтр по номеру отправления.
+     *      Необязательный параметр. Можно передавать несколько значений.
+     *      @param string|null $state Фильтр по статусу заявки на отмену:
+     *       - ALL — заявки в любом статусе,
+     *       - ON_APPROVAL — заявки на рассмотрении,
+     *       - APPROVED — подтверждённые заявки,
+     *       - REJECTED — отклонённые заявки.
+     *      Enum: "ALL" "ON_APPROVAL" "APPROVED" "REJECTED"
+     * Например, если offset=10, ответ начнётся с 11-го найденного элемента.
+     * with object (GetConditionalCancellationListRequestWith) Дополнительная информация.
+     *      @param bool|null $counter Признак, что в ответе нужно вывести счётчик заявок в разных статусах.
+     * @param int|null $last_id <int32> Идентификатор последнего значения на странице. Оставьте это поле пустым при выполнении первого запроса.
+     * Чтобы получить следующие значения, укажите last_id из ответа предыдущего запроса.
+     * @return mixed
+     */
+    public function getConditionalCancellationListV2(
+        int $limit,
+        array|null $cancellation_initiator = null,
+        array|null $posting_number = null,
+        string|null $state = null,
+        bool|null $counter = null,
+        int|null $last_id = null,
+    ):mixed
+    {
+        $filter = compact('cancellation_initiator', 'posting_number', 'state');
+        $with   = compact('counter');
+        return(
+        new OzonData(
+            $this->postResponse(
+                '/v2/conditional-cancellation/list',
+                compact('filter', 'last_id', 'limit', 'with')
+            )
+        )
+        )->data;
+    }
+
+
     /**
      * Список чатов (версия 2)
      *
