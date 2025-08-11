@@ -2688,4 +2688,25 @@ class Ozon extends OzonClient
         )
         )->data;
     }
+
+
+    /**
+     * Возвращает отчёт о товарах, которые выкупил Ozon для продажи в ЕАЭС и другие страны.
+     * В параметр date_from передаётся дата начала отчётного периода в формате YYYY-MM-DD.
+     *
+     * @param string $date_from
+     * @param string $date_to
+     * @return mixed
+     */
+    public function getRealizationByDayReportV1(string $date_from, string $date_to):mixed
+    {
+        return(
+        new OzonData(
+            $this->postResponse(
+                '/v1/finance/products/buyout',
+                compact('date_from', 'date_to')
+            )
+        )
+        )->data;
+    }
 }
