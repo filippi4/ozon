@@ -2701,4 +2701,27 @@ class Ozon extends OzonClient
             )
         )->data;
     }
+
+    /**
+     * Отчёт о детализации запросов по товару
+     *
+     * @param string $date_from
+     * @param string $date_to
+     * @param array $skus
+     * @param integer $page
+     * @param integer $limit_by_sku
+     * @param integer $page_size
+     * @return mixed
+     */
+    public function getOzonProductQueriesDetails(string $date_from, string $date_to, array $skus = [], int $page = 0, int $limit_by_sku = 15, int $page_size = 100): mixed
+    {
+        return (
+            new OzonData(
+                $this->postResponse(
+                    'v1/analytics/product-queries/details',
+                    compact('date_from', 'date_to', 'skus', 'page', 'limit_by_sku', 'page_size')
+                )
+            )
+        )->data;
+    }
 }
