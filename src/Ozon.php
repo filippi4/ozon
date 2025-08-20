@@ -1431,7 +1431,6 @@ class Ozon extends OzonClient
         )->data;
     }
 
-
     /**
      * Метод для получения списка заявок на отмену rFBS-заказов.(версия2)
      *
@@ -1462,25 +1461,23 @@ class Ozon extends OzonClient
      */
     public function getConditionalCancellationListV2(
         int $limit,
-        array|null $cancellation_initiator = null,
-        array|null $posting_number = null,
-        string|null $state = null,
-        bool|null $counter = null,
-        int|null $last_id = null,
-    ):mixed
-    {
+        array | null $cancellation_initiator = null,
+        array | null $posting_number = null,
+        string | null $state = null,
+        bool | null $counter = null,
+        int | null $last_id = null,
+    ): mixed {
         $filter = compact('cancellation_initiator', 'posting_number', 'state');
         $with   = compact('counter');
-        return(
-        new OzonData(
-            $this->postResponse(
-                '/v2/conditional-cancellation/list',
-                compact('filter', 'last_id', 'limit', 'with')
+        return (
+            new OzonData(
+                $this->postResponse(
+                    '/v2/conditional-cancellation/list',
+                    compact('filter', 'last_id', 'limit', 'with')
+                )
             )
-        )
         )->data;
     }
-
 
     /**
      * Список чатов (версия 2)
@@ -2593,7 +2590,6 @@ class Ozon extends OzonClient
         )->data;
     }
 
-
     /**
      * Метод для получения списка активных возвратов.
      * Возвратная отгрузка становится активной после сканирования штрихкода.
@@ -2603,9 +2599,9 @@ class Ozon extends OzonClient
      * @param int $limit = 100 Количество элементов в ответе.
      * @return mixed
      */
-    public function getGiveOutList(?int $last_id = null, int $limit = 100):mixed
+    public function getGiveOutList(?int $last_id = null, int $limit = 100): mixed
     {
-        return(
+        return (
             new OzonData(
                 $this->postResponse(
                     '/v1/return/giveout/list',
@@ -2615,7 +2611,6 @@ class Ozon extends OzonClient
         )->data;
     }
 
-
     /**
      * Метод для получения информации о возвратной отгрузке.
      * В параметр giveout_id передаётся значение, полученное в методе getGiveOutList().
@@ -2623,18 +2618,17 @@ class Ozon extends OzonClient
      * @param int $giveout_id Идентификатор отгрузки.
      * @return mixed
      */
-    public function getGiveOutInfo(int $giveout_id):mixed
+    public function getGiveOutInfo(int $giveout_id): mixed
     {
-        return(
-        new OzonData(
-            $this->postResponse(
-                '/v1/return/giveout/info',
-                compact('giveout_id')
+        return (
+            new OzonData(
+                $this->postResponse(
+                    '/v1/return/giveout/info',
+                    compact('giveout_id')
+                )
             )
-        )
         )->data;
     }
-
 
     /**
      * Метод для получения отчёта по вывозу и утилизации со стока FBO.
@@ -2650,18 +2644,17 @@ class Ozon extends OzonClient
      * @param int $limit
      * @return mixed
      */
-    public function getDisposalReportFromStockFBO(string $date_from, string $date_to, string $last_id, int $limit):mixed
+    public function getDisposalReportFromStockFBO(string $date_from, string $date_to, string $last_id, int $limit): mixed
     {
-        return(
-        new OzonData(
-            $this->postResponse(
-                '/v1/removal/from-stock/list',
-                compact('date_from', 'date_to', 'last_id', 'limit')
+        return (
+            new OzonData(
+                $this->postResponse(
+                    '/v1/removal/from-stock/list',
+                    compact('date_from', 'date_to', 'last_id', 'limit')
+                )
             )
-        )
         )->data;
     }
-
 
     /**
      * Метод для получения отчёта по вывозу и утилизации с поставки FBO.
@@ -2677,18 +2670,17 @@ class Ozon extends OzonClient
      * @param int $limit
      * @return mixed
      */
-    public function getDisposalReportFromSupplyFBO(string $date_from, string $date_to, string $last_id, int $limit):mixed
+    public function getDisposalReportFromSupplyFBO(string $date_from, string $date_to, string $last_id, int $limit): mixed
     {
-        return(
-        new OzonData(
-            $this->postResponse(
-                '/v1/removal/from-supply/list',
-                compact('date_from', 'date_to', 'last_id', 'limit')
+        return (
+            new OzonData(
+                $this->postResponse(
+                    '/v1/removal/from-supply/list',
+                    compact('date_from', 'date_to', 'last_id', 'limit')
+                )
             )
-        )
         )->data;
     }
-
 
     /**
      * Возвращает отчёт о товарах, которые выкупил Ozon для продажи в ЕАЭС и другие страны.
@@ -2698,15 +2690,15 @@ class Ozon extends OzonClient
      * @param string $date_to
      * @return mixed
      */
-    public function getRealizationByDayReportV1(string $date_from, string $date_to):mixed
+    public function getRealizationByDayReportV1(string $date_from, string $date_to): mixed
     {
-        return(
-        new OzonData(
-            $this->postResponse(
-                '/v1/finance/products/buyout',
-                compact('date_from', 'date_to')
+        return (
+            new OzonData(
+                $this->postResponse(
+                    '/v1/finance/products/buyout',
+                    compact('date_from', 'date_to')
+                )
             )
-        )
         )->data;
     }
 }
