@@ -2561,14 +2561,18 @@ class Ozon extends OzonClient
     /**
      * Отчёт о среднем времени доставки
      *
+     * @param string $delivery_schema Схема доставки: All, FBO, FBS, UNKNOWN (по умолчанию 'All')
+     * @param string $supply_period Период поставки: ONE_WEEK, TWO_WEEKS, FOUR_WEEKS, EIGHT_WEEKS (по умолчанию 'FOUR_WEEKS')
+     * @param array<int|string> $sku Массив SKU (до 100 значений)
      * @return mixed
      */
-    public function getAverageDeliveryOverview(): mixed
+    public function getAverageDeliveryOverview(string $delivery_schema = 'All', string $supply_period = 'FOUR_WEEKS', array $sku = []): mixed
     {
         return (
             new OzonData(
                 $this->postResponse(
-                    'v1/analytics/average-delivery-time'
+                    'v1/analytics/average-delivery-time',
+                    compact('delivery_schema', 'sku', 'supply_period')
                 )
             )
         )->data;
