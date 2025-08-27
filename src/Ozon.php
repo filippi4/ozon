@@ -2744,4 +2744,25 @@ class Ozon extends OzonClient
             )
         )->data;
     }
+
+    /**
+     * Метод для получения списка конкурентов — продавцов с похожими товарами в других интернет-магазинах и маркетплейсах.
+     *
+     * @param integer $page
+     * Минимальное значение — 1.
+     * @param integer $limit
+     * Минимальное значение — 1, максимальное — 50.
+     * @return mixed
+     */
+    public function getPricingCompetitors(int $page = 1, int $limit = 50): mixed
+    {
+        return (
+        new OzonData(
+            $this->postResponse(
+                'v1/pricing-strategy/competitors/list',
+                compact('page', 'limit')
+            )
+        )
+        )->data;
+    }
 }
