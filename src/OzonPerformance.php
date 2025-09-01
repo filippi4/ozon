@@ -274,8 +274,8 @@ class OzonPerformance extends OzonPerformanceClient
      * @param array<string> $campaigns
      * @param string|null $from
      * @param string|null $to
-     * @param string|null $dateFrom
-     * @param string|null $dateTo
+     * @param Carbon|null $dateFrom
+     * @param Carbon|null $dateTo
      * @param string $groupBy ["NO_GROUP_BY", "DATE", "START_OF_WEEK", "START_OF_MONTH"]
      * @return mixed
      */
@@ -283,8 +283,8 @@ class OzonPerformance extends OzonPerformanceClient
         array $campaigns,
         string $from = null,
         string $to = null,
-        string $dateFrom = null,
-        string $dateTo = null,
+        Carbon $dateFrom = null,
+        Carbon $dateTo = null,
         string $groupBy = "NO_GROUP_BY"
     ): mixed {
         $dateFrom = $this->formatDate($dateFrom, self::DT_FORMAT_DATE);
@@ -292,7 +292,7 @@ class OzonPerformance extends OzonPerformanceClient
 
         $params = $this->getNotNullParams(compact('campaigns', 'from', 'to', 'dateFrom', 'dateTo', 'groupBy'));
 
-        return (new OzonData($this->postResponse('api/client/statistics/attribution/json', $params, false)))->data;
+        return (new OzonData($this->postResponse('api/client/statistics/attribution/json', $params)))->data;
     }
 
 
