@@ -2751,10 +2751,10 @@ class Ozon extends OzonClient
      * @param integer $page
      * Минимальное значение — 1.
      * @param integer $limit
-     * Минимальное значение — 1, максимальное — 50.
+     * Минимальное значение — 1, максимальное — 49.
      * @return mixed
      */
-    public function getPricingCompetitors(int $page = 1, int $limit = 50): mixed
+    public function getPricingCompetitors(int $page = 1, int $limit = 49): mixed
     {
         return (
         new OzonData(

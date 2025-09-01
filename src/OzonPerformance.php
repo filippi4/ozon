@@ -268,6 +268,33 @@ class OzonPerformance extends OzonPerformanceClient
         return (new OzonData($this->getResponse('/api/client/statistics/report', $params)))->data;
     }
 
+    /**
+     * Метод для получения отчёта по заказам на баннеры в формате JSON.
+     *
+     * @param array<string> $campaigns
+     * @param string|null $from
+     * @param string|null $to
+     * @param Carbon|null $dateFrom
+     * @param Carbon|null $dateTo
+     * @param string $groupBy ["NO_GROUP_BY", "DATE", "START_OF_WEEK", "START_OF_MONTH"]
+     * @return mixed
+     */
+    public function getStatisticsAttributionJson(
+        array $campaigns,
+        string $from = null,
+        string $to = null,
+        Carbon $dateFrom = null,
+        Carbon $dateTo = null,
+        string $groupBy = "NO_GROUP_BY"
+    ): mixed {
+        $dateFrom = $this->formatDate($dateFrom, self::DT_FORMAT_DATE);
+        $dateTo = $this->formatDate($dateTo, self::DT_FORMAT_DATE);
+
+        $params = $this->getNotNullParams(compact('campaigns', 'from', 'to', 'dateFrom', 'dateTo', 'groupBy'));
+
+        return (new OzonData($this->postResponse('api/client/statistics/attribution/json', $params)))->data;
+    }
+
 
     private function getNotNullParams(array $params): array
     {
