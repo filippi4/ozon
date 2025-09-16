@@ -2757,12 +2757,31 @@ class Ozon extends OzonClient
     public function getPricingCompetitors(int $page = 1, int $limit = 49): mixed
     {
         return (
-        new OzonData(
-            $this->postResponse(
-                'v1/pricing-strategy/competitors/list',
-                compact('page', 'limit')
+            new OzonData(
+                $this->postResponse(
+                    'v1/pricing-strategy/competitors/list',
+                    compact('page', 'limit')
+                )
             )
-        )
+        )->data;
+    }
+    /**
+     * Позаказный отчёт о реализации товаров
+     *
+     * @param integer $year
+     * @param integer $month
+     * @return mixed
+     */
+
+    public function getRealizationPosting(int $year, int $month): mixed
+    {
+        return (
+            new OzonData(
+                $this->postResponse(
+                    'v1/finance/realization/posting',
+                    compact('year', 'month')
+                )
+            )
         )->data;
     }
 }
