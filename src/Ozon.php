@@ -2126,7 +2126,7 @@ class Ozon extends OzonClient
         DateTime $to,
         array $operation_type = [],
         string $posting_number = "",
-        string $transaction_type = null,
+        string $transaction_type = "all",
         int $page = 1,
         int $page_size = 1000
     ): mixed {
