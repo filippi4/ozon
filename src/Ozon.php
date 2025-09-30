@@ -2133,7 +2133,7 @@ class Ozon extends OzonClient
         $from = $this->formatDate($from);
         $to   = $this->formatDate($to);
 
-        $filter = array_merge(['date' => compact('from', 'to')], compact('operation_type', 'posting_number', 'transaction_type'));
+        $filter = array_merge(['date' => compact('from', 'to')], compact('transaction_type'));
         return (
             new OzonData(
                 $this->postResponse(
