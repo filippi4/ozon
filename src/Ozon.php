@@ -2124,8 +2124,8 @@ class Ozon extends OzonClient
     public function getFinanceTransactionList(
         DateTime $from,
         DateTime $to,
-        array $operation_type = null,
-        string $posting_number = null,
+        array $operation_type = [],
+        string $posting_number = "",
         string $transaction_type = null,
         int $page = 1,
         int $page_size = 1000
