@@ -1,27 +1,26 @@
 <?php
-
 namespace Filippi4\Ozon;
 
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\Http;
 use Exception;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class OzonPerformanceClient
 {
     private const CONNECT_TIMEOUT = 5;
-    private const TIMEOUT = 120;
+    private const TIMEOUT         = 120;
 
     protected const URL = 'https://api-performance.ozon.ru/';
 
     private const DEFAULT_HEADER = [
-        'Accept' => 'application/json',
+        'Accept'       => 'application/json',
         'Content-Type' => 'application/json',
     ];
 
     private const DEFAULT_OPTIONS = [
-        'headers' => self::DEFAULT_HEADER
+        'headers' => self::DEFAULT_HEADER,
     ];
 
     protected ?array $config;
@@ -40,7 +39,7 @@ class OzonPerformanceClient
     protected function validateKeys(array $keys): void
     {
         $validator = Validator::make($keys, [
-            'client_id' => 'required|string',
+            'client_id'     => 'required|string',
             'client_secret' => 'required|string',
         ]);
 
@@ -61,13 +60,13 @@ class OzonPerformanceClient
     {
         $full_path = self::URL . $uri;
 
-        if (!empty($params)) {
+        if (! empty($params)) {
             $full_path .= '?' . $this->httpBuildQuery($params);
         }
 
-        $options = self::DEFAULT_OPTIONS;
-        $options['connect_timeout'] = self::CONNECT_TIMEOUT;
-        $options['timeout'] = self::TIMEOUT;
+        $options                             = self::DEFAULT_OPTIONS;
+        $options['connect_timeout']          = self::CONNECT_TIMEOUT;
+        $options['timeout']                  = self::TIMEOUT;
         $options['headers']['Authorization'] = 'Bearer ' . Token::create($this->config);
 
         return OzonRequest::makeRequest($full_path, $options, 'get', $is_json);
@@ -83,14 +82,14 @@ class OzonPerformanceClient
     protected function postResponse(string $uri = null, array $params = []): OzonResponse
     {
         $full_path = self::URL . $uri;
-        $options = self::DEFAULT_OPTIONS;
+        $options   = self::DEFAULT_OPTIONS;
 
         $options['connect_timeout'] = self::CONNECT_TIMEOUT;
-        $options['timeout'] = self::TIMEOUT;
+        $options['timeout']         = self::TIMEOUT;
 
         $options['headers']['Authorization'] = 'Bearer ' . Token::create($this->config);
 
-        if (!empty($params)) {
+        if (! empty($params)) {
             $options['json'] = $params;
         }
 
@@ -117,13 +116,13 @@ class OzonPerformanceClient
 
         $fileNames = [];
         if ($quantityOfCampaigns > 1) {
-            $zip = new \ZipArchive;
+            $zip      = new \ZipArchive;
             $fileName = Str::random(10) . '_file.zip';
             file_put_contents(storage_path() . '/' . $fileName, curl_exec($ch));
             curl_close($ch);
             $res = $zip->open(storage_path() . '/' . $fileName);
 
-            if ($res === TRUE) {
+            if ($res === true) {
                 for ($i = 0; $i < $zip->numFiles; $i++) {
                     $fileNames[] = $zip->getNameIndex($i);
                 }
@@ -138,7 +137,7 @@ class OzonPerformanceClient
         } else {
             $contents = curl_exec($ch);
             preg_match("/\d+/", $contents, $matches);
-            if (!empty($matches)) {
+            if (! empty($matches)) {
                 $fileName = Str::random(10) . '_' . $matches[0] . '.csv';
                 file_put_contents(storage_path() . '/' . $fileName, $contents);
                 $fileNames = [$fileName];
@@ -147,6 +146,31 @@ class OzonPerformanceClient
         }
 
         return $fileNames;
+    }
+
+    /**
+     * Get file
+     *
+     * @param string|null $uri
+     * @param int $quantityOfCampaigns
+     * @param array $params
+     * @return mixed
+     */
+    protected function getXlsxFile(string $uri = null, array $params = []): mixed
+    {
+        $full_path = self::URL . $uri;
+
+        $ch = curl_init($full_path);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Authorization: Bearer ' . Token::create($this->config), "Content-Type: text/csv"]);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+
+        $fileName = '/' . Str::random(10) . '_file.xlsx';
+        file_put_contents(storage_path() . $fileName, curl_exec($ch));
+        curl_close($ch);
+
+        return $fileName;
     }
 
     /**
@@ -207,11 +231,10 @@ class OzonPerformanceClient
         $full_path = self::URL . $uri;
 
         $response = Http::timeout(60)->withHeaders([
-            'Accept' => 'application/json',
-            'Content-Type' => 'application/json',
-            'Authorization' => 'Bearer ' . Token::create($this->config)
+            'Accept'        => 'application/json',
+            'Content-Type'  => 'application/json',
+            'Authorization' => 'Bearer ' . Token::create($this->config),
         ])->withBody(json_encode($params, JSON_UNESCAPED_UNICODE))->post($full_path);
-
 
         if ($response->status() > 399) {
             throw new Exception('Response status: ' . $response->status() . ' | Message: ' . json_encode($response->json(), JSON_UNESCAPED_UNICODE) . $response->body());
