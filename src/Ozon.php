@@ -2598,6 +2598,20 @@ class Ozon extends OzonClient
         )->data;
     }
 
+    /**
+     * Отчёт об общей аналитике (summary) по среднему времени доставки
+     *
+     * @return mixed
+     */
+    public function getAverageDeliveryTimeSummary(): mixed
+    {
+        return (
+            new OzonData(
+                $this->postResponse('v1/analytics/average-delivery-time/summary')
+            )
+        )->data;
+    }
+
     public function getFeedbackDetails(string $reviewId): mixed
     {
         return (
