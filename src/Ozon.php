@@ -2420,19 +2420,41 @@ class Ozon extends OzonClient
     /**
      * Получить список заявок на поставку
      *
-     * @param int $from_supply_order_id
+     * @param ?string $last_id
      * @param int $limit
-     * @param object|null $filter
      * @return mixed
      */
-    public function getSupplyOrdersList(int $from_supply_order_id, int $limit, object $filter = null): mixed
+    public function getSupplyOrdersList(string $last_id = null, int $limit = 100): mixed
     {
-        $paging = compact('from_supply_order_id', 'limit');
+
+        $body = [
+            'filter' => [
+                "states" => [
+                    'DATA_FILLING',
+                    'READY_TO_SUPPLY',
+                    'ACCEPTED_AT_SUPPLY_WAREHOUSE',
+                    'IN_TRANSIT',
+                    'ACCEPTANCE_AT_STORAGE_WAREHOUSE',
+                    'REPORTS_CONFIRMATION_AWAITING',
+                    'REPORT_REJECTED',
+                    'COMPLETED',
+                    'REJECTED_AT_SUPPLY_WAREHOUSE',
+                    'CANCELLED',
+                    'OVERDUE',
+                ],
+            ],
+            'limit' => 100,
+            'sort_by' => 'ORDER_CREATION',
+        ];
+
+        if (!is_null($last_id)) {
+            $body['last_id'] = $last_id;
+        }
         return (
             new OzonData(
                 $this->postResponse(
-                    'v2/supply-order/list',
-                    compact('paging', 'filter')
+                    'v3/supply-order/list',
+                    $body
                 )
             )
         )->data;
@@ -2462,14 +2484,14 @@ class Ozon extends OzonClient
      * Получить информацию о заявках на поставку
      *
      * @return mixed
-     * @param array $order_ids
+     * @param array $order_ids MAX 50!
      */
     public function getSupplyOrders(array $order_ids): mixed
     {
         return (
             new OzonData(
                 $this->postResponse(
-                    'v2/supply-order/get',
+                    'v3/supply-order/get',
                     compact('order_ids')
                 )
             )
