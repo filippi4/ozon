@@ -2481,6 +2481,20 @@ class Ozon extends OzonClient
     }
 
     /**
+     * Получить список ролей и методов по API-ключу
+     *
+     * @return mixed
+     */
+    public function getRoles(): mixed
+    {
+        return (
+            new OzonData(
+                $this->postResponse('v1/roles')
+            )
+        )->data;
+    }
+
+    /**
      * Получить информацию о заявках на поставку
      *
      * @return mixed
