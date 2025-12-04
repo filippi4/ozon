@@ -2280,11 +2280,11 @@ class Ozon extends OzonClient
     /**
      * Получить список товаров
      *
-     * @param int|null $last_id
+     * @param string|null $last_id
      * @param int $limit
      * @return mixed
      */
-    public function getProducts(array $offer_ids = null, int $last_id = null, int $limit = 1000): mixed
+    public function getProducts(array $offer_ids = null, string $last_id = null, int $limit = 1000): mixed
     {
         $filter = compact('offer_ids');
         return (
