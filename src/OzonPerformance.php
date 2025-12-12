@@ -1,4 +1,5 @@
 <?php
+
 namespace Filippi4\Ozon;
 
 use Carbon\Carbon;
@@ -89,7 +90,7 @@ class OzonPerformance extends OzonPerformanceClient
         string $dateTo
     ): mixed {
         $params = compact('dateFrom', 'dateTo');
-        return (new OzonData($this->getResponse('/api/client/statistics/campaign/product/json', $params)))->data;
+        return (new OzonData($this->getResponse('api/client/statistics/campaign/product/json', $params)))->data;
     }
     /**
      * Список рекламируемых объектов в кампании
@@ -110,7 +111,7 @@ class OzonPerformance extends OzonPerformanceClient
         string $to
     ): mixed {
         $params = compact('from', 'to');
-        return $this->postResponseWithJson('/api/client/statistic/products/generate/json', $params);
+        return $this->postResponseWithJson('api/client/statistic/products/generate/json', $params);
     }
 
     public function getCampaignObjects(int $campaign_id): mixed
@@ -240,7 +241,7 @@ class OzonPerformance extends OzonPerformanceClient
     public function getReportStatus(
         string $report
     ): mixed {
-        return (new OzonData($this->getResponse('/api/client/statistics/' . $report)))->data;
+        return (new OzonData($this->getResponse('api/client/statistics/' . $report)))->data;
     }
 
     /**
@@ -304,14 +305,14 @@ class OzonPerformance extends OzonPerformanceClient
         $to   = $this->formatDate($To, self::DT_FORMAT_DATE_TIME_TZ);
 
         $params = $this->getNotNullParams(compact('from', 'to'));
-        return $this->postResponseWithJson('/api/client/statistics/orders/generate/json', $params);
+        return $this->postResponseWithJson('api/client/statistics/orders/generate/json', $params);
     }
 
     public function getPromoOrdersReport(string $url, string $UUID)
     {
         $params = $this->getNotNullParams(compact('UUID'));
 
-        return (new OzonData($this->getResponse('/api/client/statistics/report', $params)))->data;
+        return (new OzonData($this->getResponse('api/client/statistics/report', $params)))->data;
     }
 
     /**
