@@ -2834,4 +2834,22 @@ class Ozon extends OzonClient
             )
         )->data;
     }
+
+    /**
+     * Получить подробную информацию о ценах товаров
+     *
+     * @param array $skus
+     * @return mixed
+     */
+    public function getProductPricesDetails(array $skus): mixed
+    {
+        return (
+        new OzonData(
+            $this->postResponse(
+                'v1/product/prices/details',
+                compact('skus')
+            )
+        )
+        )->data;
+    }
 }
