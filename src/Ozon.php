@@ -1,4 +1,5 @@
 <?php
+
 namespace Filippi4\Ozon;
 
 use DateTime;
@@ -2030,14 +2031,14 @@ class Ozon extends OzonClient
         )->data;
     }
 
-/**
- * Получить финансовый отчет за день
- *
- * @return mixed
- * @param integer $year
- * @param integer $day
- * @param integer $month
- */
+    /**
+     * Получить финансовый отчет за день
+     *
+     * @return mixed
+     * @param integer $year
+     * @param integer $day
+     * @param integer $month
+     */
     public function getRealizationByDay($day, $year, $month): mixed
     {
         return (
@@ -2443,7 +2444,7 @@ class Ozon extends OzonClient
                     'OVERDUE',
                 ],
             ],
-            'limit' => 100,
+            'limit'   => 100,
             'sort_by' => 'ORDER_CREATION',
         ];
 
@@ -2852,4 +2853,65 @@ class Ozon extends OzonClient
         )
         )->data;
     }
+
+    /**
+        * Создание отчета по отправкам
+        */
+    public function createPostingsReport(
+        string $deliverySchema,
+        string $processedAtFrom,
+        string $processedAtTo,
+        array $filters = [],
+        bool $withAdditionalData = false,
+        bool $withCustomerData = false,
+        bool $withAnalyticsData = false
+    ): ?string {
+        $payload = [
+            'filter' => array_merge(
+                [
+                    'delivery_schema'   => [$deliverySchema],
+                    'processed_at_from' => $processedAtFrom,
+                    'processed_at_to'   => $processedAtTo,
+                ],
+                $filters
+            ),
+            'language' => 'RU',
+            'with'     => [
+                'additional_data' => $withAdditionalData,
+                'customer_data'   => $withCustomerData,
+            ],
+        ];
+
+        if ($withAnalyticsData) {
+            $payload['with']['analytics_data'] = true;
+        }
+
+        return (
+            new OzonData(
+                $this->postResponse('/v1/report/postings/create', $payload)
+            )
+        )->data->result->code ?? null;
+    }
+
+
+    /**
+     * Проверка статуса отчета
+     */
+    public function getReportStatus(string $reportId): ?string
+    {
+        $info = $this->getReportInfo($reportId);
+
+        return $info->result->status ?? null;
+    }
+
+    /**
+     * Получение URL скачивания отчета
+     */
+    public function getReportDownloadUrl(string $reportId): ?string
+    {
+        $info = $this->getReportInfo($reportId);
+
+        return $info->result->file ?? null;
+    }
+
 }

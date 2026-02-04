@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Filippi4\Ozon;
 
 use GuzzleHttp\Client;
@@ -84,11 +83,19 @@ class OzonRequest
      */
     private static function runPostRequest(string $url, array $options): ResponseInterface
     {
+
         try {
             return self::getInstance()->getHttpClient()->post($url, $options);
-        } catch (Throwable $exception) {
-            throw new OzonHttpException($exception);
+        } catch (\GuzzleHttp\Exception\ClientException $exception) {
+            $response = $exception->getResponse();
+            $body     = $response ? (string) $response->getBody() : null;
+            throw new OzonHttpException(
+                $exception->getMessage() . PHP_EOL . 'Full response: ' . $body,
+                $exception->getCode(),
+                $exception
+            );
         }
+
     }
 
     private function getHttpClient(): Client
