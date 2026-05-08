@@ -2915,4 +2915,58 @@ class Ozon extends OzonClient
         return $info->result->file ?? null;
     }
 
+    /**
+     * Получить начисления по отправлениям
+     *
+     * @param array $posting_numbers
+     * @return mixed
+     */
+    public function getFinanceAccrualPostings(array $posting_numbers): mixed
+    {
+        return (
+            new OzonData(
+                $this->postResponse(
+                    'v1/finance/accrual/postings',
+                    ['posting_numbers' => $posting_numbers]
+                )
+            )
+        )->data;
+    }
+
+    /**
+     * Получить справочник начислений
+     *
+     * @return mixed
+     */
+    public function getFinanceAccrualTypes(): mixed
+    {
+        return (
+            new OzonData(
+                $this->postResponse(
+                    'v1/finance/accrual/types',
+                    []
+                )
+            )
+        )->data;
+    }
+
+    /**
+     * Получить начисления за день
+     *
+     * @param string $date
+     * @param string $last_id
+     * @return mixed
+     */
+    public function getFinanceAccrualByDay(string $date, string $last_id = ''): mixed
+    {
+        return (
+            new OzonData(
+                $this->postResponse(
+                    'v1/finance/accrual/by-day',
+                    ['date' => $date, 'last_id' => $last_id]
+                )
+            )
+        )->data;
+    }
+
 }
