@@ -835,6 +835,55 @@ class Ozon extends OzonClient
     }
 
     /**
+     * Список отправлений
+     *
+     * Возвращает список отправлений за указанный период времени.
+     *
+     * filter object Фильтр для поиска отправлений.
+     *      @param DateTime|null $since <date-time> Начало периода.
+     *      @param DateTime|null $to <date-time> Конец периода.
+     *      @param string|null $status Статус отправления.
+     * @param string $cursor Курсор для получения следующей страницы. Пустая строка для первой страницы.
+     * @param bool|null $translit Если включена транслитерация адреса из кириллицы в латиницу — true.
+     * with object Дополнительные поля, которые нужно добавить в ответ.
+     *      @param bool|null $analytics_data Передайте true, чтобы добавить в ответ данные аналитики.
+     *      @param bool|null $financial_data Передайте true, чтобы добавить в ответ финансовые данные.
+     *      @param bool|null $legal_info Передайте true, чтобы добавить в ответ юридические данные.
+     * @param string $sort_dir Направление сортировки: asc — по возрастанию, desc — по убыванию.
+     * @param int $limit <int64> Количество значений в ответе (максимум — 100, минимум — 1).
+     * @return mixed Объект с полями: postings (array), cursor (string), has_next (bool)
+     */
+    public function getPostingFboListV3(
+        DateTime $since = null,
+        DateTime $to = null,
+        string $status = null,
+        string $cursor = '',
+        bool $translit = null,
+        bool $analytics_data = null,
+        bool $financial_data = null,
+        bool $legal_info = null,
+        string $sort_dir = 'asc',
+        int $limit = 100
+    ): mixed {
+        $since = $this->formatDate($since);
+        $to    = $this->formatDate($to);
+
+        $filter = compact('since', 'status', 'to');
+        $with   = compact('analytics_data', 'financial_data', 'legal_info');
+        return (
+            new OzonData(
+                $this->postResponse(
+                    'v3/posting/fbo/list',
+                    array_merge(
+                        compact('cursor', 'filter', 'with', 'limit', 'sort_dir'),
+                        array_diff(compact('translit'), [''])
+                    )
+                )
+            )
+        )->data;
+    }
+
+    /**
      * Информация об отправлении
      *
      * Возвращает информацию об отправлении по его идентификатору.
@@ -1028,6 +1077,48 @@ class Ozon extends OzonClient
                 $this->postResponse(
                     'v3/posting/fbs/list',
                     array_merge(compact('filter', 'with', 'dir', 'limit'), array_diff(compact('offset'), ['']))
+                )
+            )
+        )->data;
+    }
+
+    /**
+     * Список FBS отправлений
+     *
+     * @param DateTime $since Начало периода.
+     * @param DateTime $to Конец периода.
+     * @param string $cursor Курсор для следующей страницы. Пустая строка для первой страницы.
+     * @param string|null $status Статус отправления.
+     * @param bool|null $analytics_data Добавить данные аналитики.
+     * @param bool|null $barcodes Добавить штрихкоды.
+     * @param bool|null $financial_data Добавить финансовые данные.
+     * @param bool|null $legal_info Добавить юридические данные.
+     * @param string $sort_dir Направление сортировки: ASC или DESC.
+     * @param int $limit Количество значений (максимум — 100).
+     * @return mixed Объект с полями: postings (array), cursor (string), has_next (bool)
+     */
+    public function getPostingFbsListV4(
+        DateTime $since,
+        DateTime $to,
+        string $cursor = '',
+        string $status = null,
+        bool $analytics_data = null,
+        bool $barcodes = null,
+        bool $financial_data = null,
+        bool $legal_info = null,
+        string $sort_dir = 'ASC',
+        int $limit = 100
+    ): mixed {
+        $since = $this->formatDate($since);
+        $to    = $this->formatDate($to);
+
+        $filter = compact('since', 'to', 'status');
+        $with   = compact('analytics_data', 'barcodes', 'financial_data', 'legal_info');
+        return (
+            new OzonData(
+                $this->postResponse(
+                    'v4/posting/fbs/list',
+                    array_merge(compact('cursor', 'filter', 'with', 'sort_dir', 'limit'))
                 )
             )
         )->data;
