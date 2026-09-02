@@ -10,7 +10,7 @@ class OzonResponse
 {
     protected ResponseInterface $response;
     /**
-     * @var false|string
+     * @var array<string, mixed>
      */
     private $output = [];
 

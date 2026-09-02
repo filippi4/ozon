@@ -42,6 +42,7 @@ class OzonRequest
      * @param string $url
      * @param array $options
      * @param string $method
+     * @param bool $is_json
      * @return OzonResponse
      * @throws OzonHttpException
      */

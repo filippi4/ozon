@@ -152,7 +152,6 @@ class OzonPerformanceClient
      * Get file
      *
      * @param string|null $uri
-     * @param int $quantityOfCampaigns
      * @param array $params
      * @return mixed
      */

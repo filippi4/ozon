@@ -232,7 +232,7 @@ class Ozon extends OzonClient
         )->data;
     }
 
-    /*
+    /**
      * @param array $discounted_skus
      * @return mixed
      */
@@ -577,10 +577,10 @@ class Ozon extends OzonClient
      *
      * Метод для получения списка товаров, которые могут участвовать в акции, по её идентификатору.
      *
-     * @param float action_id <double> Идентификатор акции.
-     * @param string|null last_id <double> Идентификатор последнего значения на странице
+     * @param float $action_id <double> Идентификатор акции.
+     * @param string|null $last_id <double> Идентификатор последнего значения на странице
      * Например, если offset=10, ответ начнётся с 11-го найденного элемента.
-     * @param float|null limit <double> Количество ответов на странице. По умолчанию — 100.
+     * @param float|null $limit <double> Количество ответов на странице. По умолчанию — 100.
      * @return mixed
      */
     public function getActionsCandidates(float $action_id, string | null $last_id, ?float $limit = 100): mixed
@@ -600,10 +600,10 @@ class Ozon extends OzonClient
      *
      * Метод для получения списка товаров, участвующих в акции, по её идентификатору.
      *
-     * @param float action_id <double> Идентификатор акции.
-     * @param float|null offset <double> Количество элементов, которое будет пропущено в ответе.
+     * @param float $action_id <double> Идентификатор акции.
+     * @param float|null $offset <double> Количество элементов, которое будет пропущено в ответе.
      * Например, если offset=10, ответ начнётся с 11-го найденного элемента.
-     * @param float|null limit <double> Количество ответов на странице. По умолчанию — 100.
+     * @param float|null $limit <double> Количество ответов на странице. По умолчанию — 100.
      * @return mixed
      */
     public function getActionsProducts(float $action_id, string $last_id = "", ?float $limit = 100): mixed
@@ -640,10 +640,10 @@ class Ozon extends OzonClient
      * Метод для получения списка товаров, которые могут участвовать
      * или уже участвуют в акции Hot Sale.
      *
-     * @param float hotsale_id <double> Идентификатор акции Hot Sale.
-     * @param float|null offset <double> Количество элементов, которое будет пропущено в ответе.
+     * @param float $hotsale_id <double> Идентификатор акции Hot Sale.
+     * @param float|null $offset <double> Количество элементов, которое будет пропущено в ответе.
      * Например, если offset = 10, то ответ начнётся с 11-го найденного элемента.
-     * @param float limit <double> Количество элементов в ответе. По умолчанию — 100.
+     * @param float $limit <double> Количество элементов в ответе. По умолчанию — 100.
      * @return mixed
      */
     public function getActionsHotSalesProducts(float $hotsale_id, float $offset = null, float $limit = 100): mixed
@@ -2107,9 +2107,9 @@ class Ozon extends OzonClient
     /**
      * Получить финансовый отчет
      *
-     * @return mixed
      * @param integer $year
      * @param integer $month
+     * @return mixed
      */
     public function getRealizationV2($year, $month): mixed
     {
@@ -2126,10 +2126,10 @@ class Ozon extends OzonClient
     /**
      * Получить финансовый отчет за день
      *
-     * @return mixed
-     * @param integer $year
      * @param integer $day
+     * @param integer $year
      * @param integer $month
+     * @return mixed
      */
     public function getRealizationByDay($day, $year, $month): mixed
     {
@@ -2175,7 +2175,7 @@ class Ozon extends OzonClient
      *      date object (FilterPeriod) Фильтр по дате.
      *          @param DateTime|null $from <date-time> Начало периода.
      *          Формат: YYYY-MM-DDTHH:mm:ss.sssZ. Пример: 2019-11-25T10:43:06.51.
-     *          @param DateTime string $to <date-time> Конец периода.
+     *          @param DateTime $to <date-time> Конец периода.
      *          Формат: YYYY-MM-DDTHH:mm:ss.sssZ. Пример: 2019-11-25T10:43:06.51.
      *      @param array|null $operation_type Array of strings Тип операции:
      *       - ClientReturnAgentOperation — получение возврата, отмены, невыкупа от покупателя;
@@ -2373,6 +2373,7 @@ class Ozon extends OzonClient
     /**
      * Получить список товаров
      *
+     * @param array|null $offer_ids
      * @param string|null $last_id
      * @param int $limit
      * @return mixed
@@ -2473,11 +2474,11 @@ class Ozon extends OzonClient
     }
 
     /**
-     * Получить информацию о текущих рейтингах продавца
+     * Отчёт о реализации товаров
      *
-     * @return mixed
      * @param int $month
      * @param int $year
+     * @return mixed
      */
     public function getRealization($month, $year): mixed
     {
@@ -2495,8 +2496,8 @@ class Ozon extends OzonClient
     /**
      * Получить связанные sku
      *
-     * @return mixed
      * @param array $sku
+     * @return mixed
      */
     public function getSkuList(array $sku): mixed
     {
@@ -2554,12 +2555,12 @@ class Ozon extends OzonClient
     }
 
     /**
-     * Получить связанные sku
+     * Получить состав отправлений в заявке на поставку
      *
-     * @return mixed
      * @param int $page
      * @param int $page_size
      * @param int $supply_order_id
+     * @return mixed
      */
     public function getSupplyOrdersItems(int $page, int $page_size, int $supply_order_id): mixed
     {
@@ -2590,8 +2591,8 @@ class Ozon extends OzonClient
     /**
      * Получить информацию о заявках на поставку
      *
-     * @return mixed
      * @param array $order_ids MAX 50!
+     * @return mixed
      */
     public function getSupplyOrders(array $order_ids): mixed
     {
@@ -2606,12 +2607,12 @@ class Ozon extends OzonClient
     }
 
     /**
-     * Получить информацию о заявках на поставку
+     * Получить информацию о заявках на поставку (bundle)
      *
-     * @return mixed
-     * @param array $order_ids
+     * @param array $bundle_ids
      * @param int $limit
      * @param string $last_id
+     * @return mixed
      */
     public function getSupplyOrdersBundle(array $bundle_ids, int $limit, string $last_id): mixed
     {
@@ -2629,8 +2630,8 @@ class Ozon extends OzonClient
     /**
      * Получить кластеры
      *
-     * @return mixed
      * @param string $cluster_type
+     * @return mixed
      */
     public function getClusters(string $cluster_type): mixed
     {
@@ -2648,12 +2649,11 @@ class Ozon extends OzonClient
     /**
      * Получить отзывы
      *
-     * @return mixed
      * @param int $limit
      * @param string $last_id
      * @param string $status
      * @param string $sort_dir
-
+     * @return mixed
      */
     public function getFeedbacks(int $limit, string $last_id = '', string $status = 'ALL', string $sort_dir = 'DESC'): mixed
     {
@@ -2741,6 +2741,12 @@ class Ozon extends OzonClient
         )->data;
     }
 
+    /**
+     * Получить информацию об отзыве
+     *
+     * @param string $reviewId
+     * @return mixed
+     */
     public function getFeedbackDetails(string $reviewId): mixed
     {
         return (
@@ -2758,8 +2764,8 @@ class Ozon extends OzonClient
      * Возвратная отгрузка становится активной после сканирования штрихкода.
      * После сканирования штрихкода второй раз активная выдача переходит в статус неактивной.
      *
-     * @param int|null $last_id = null Идентификатор последнего значения на странице.
-     * @param int $limit = 100 Количество элементов в ответе.
+     * @param int|null $last_id Идентификатор последнего значения на странице.
+     * @param int $limit Количество элементов в ответе.
      * @return mixed
      */
     public function getGiveOutList(?int $last_id = null, int $limit = 100): mixed

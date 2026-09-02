@@ -93,13 +93,6 @@ class OzonPerformance extends OzonPerformanceClient
         return (new OzonData($this->getResponse('api/client/statistics/campaign/product/json', $params)))->data;
     }
     /**
-     * Список рекламируемых объектов в кампании
-     *
-     * @param int $campaign_id Идентификатор кампании
-     * @return mixed
-     */
-
-    /**
      * Список товаров в кампании
      *
      * @param  string $from
@@ -114,6 +107,12 @@ class OzonPerformance extends OzonPerformanceClient
         return $this->postResponseWithJson('api/client/statistic/products/generate/json', $params);
     }
 
+    /**
+     * Список рекламируемых объектов в кампании
+     *
+     * @param int $campaign_id Идентификатор кампании
+     * @return mixed
+     */
     public function getCampaignObjects(int $campaign_id): mixed
     {
         return (
@@ -274,7 +273,6 @@ class OzonPerformance extends OzonPerformanceClient
      * Получить файл отчета по внешнему трафику
      *
      * @param string $url
-     * @param int $quantityOfCampaigns
      * @return mixed
      */
     public function getVendorsReport(
@@ -287,7 +285,6 @@ class OzonPerformance extends OzonPerformanceClient
      * Статус отчета
      *
      * @param string $url
-     * @param int $quantityOfCampaigns
      * @return mixed
      */
     public function getJsonReport(
@@ -308,12 +305,12 @@ class OzonPerformance extends OzonPerformanceClient
         return $this->postResponseWithJson('api/client/statistics/orders/generate/json', $params);
     }
 
-/**
+    /**
      * Отчёт по заказам в оплате за заказ — все товары
      *
      * @param Carbon $From
      * @param Carbon $To
-     * @return array
+     * @return mixed
      * @throws Exception
      */
     public function getAllSkuPromoOrders(Carbon $From, Carbon $To): mixed

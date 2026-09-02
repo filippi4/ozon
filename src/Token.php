@@ -10,12 +10,12 @@ class Token extends OzonPerformanceClient
     private static array $token = [];
 
     /**
-     * @var array<float, float>
+     * @var array<string, float>
      */
     private static array $createTime = [];
 
     /**
-     * @var array<int, int>
+     * @var array<string, int>
      */
     private static array $expiresIn = [];
 
