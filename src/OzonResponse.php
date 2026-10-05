@@ -70,4 +70,34 @@ class OzonResponse
     {
         return $this->output;
     }
+
+    public function getResponse(): ResponseInterface
+    {
+        return $this->response;
+    }
+
+    public function getHeaders(): array
+    {
+        return $this->response ? $this->response->getHeaders() : [];
+    }
+
+    public function getHeader(string $name): array
+    {
+        return $this->response ? $this->response->getHeader($name) : [];
+    }
+
+    public function getHeaderLine(string $name): string
+    {
+        return $this->response ? $this->response->getHeaderLine($name) : '';
+    }
+
+    public function getRatelimitRemaining(): ?int
+    {
+        if ($this->response && $this->response->hasHeader('Ratelimit-Remaining')) {
+            $value = trim($this->response->getHeaderLine('Ratelimit-Remaining'));
+            return is_numeric($value) ? (int) $value : null;
+        }
+
+        return null;
+    }
 }

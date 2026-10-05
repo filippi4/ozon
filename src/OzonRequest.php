@@ -69,8 +69,21 @@ class OzonRequest
     {
         try {
             return self::getInstance()->getHttpClient()->get($url, $options);
+        } catch (\GuzzleHttp\Exception\ClientException $exception) {
+            $response = $exception->getResponse();
+            $body     = $response ? (string) $response->getBody() : null;
+            throw new OzonHttpException(
+                $exception->getMessage() . PHP_EOL . 'Full response: ' . $body,
+                $exception->getCode(),
+                $exception,
+                $response
+            );
         } catch (Throwable $exception) {
-            throw new OzonHttpException($exception);
+            throw new OzonHttpException(
+                $exception->getMessage(),
+                (int) $exception->getCode(),
+                $exception
+            );
         }
     }
 
@@ -84,7 +97,6 @@ class OzonRequest
      */
     private static function runPostRequest(string $url, array $options): ResponseInterface
     {
-
         try {
             return self::getInstance()->getHttpClient()->post($url, $options);
         } catch (\GuzzleHttp\Exception\ClientException $exception) {
@@ -93,10 +105,16 @@ class OzonRequest
             throw new OzonHttpException(
                 $exception->getMessage() . PHP_EOL . 'Full response: ' . $body,
                 $exception->getCode(),
+                $exception,
+                $response
+            );
+        } catch (Throwable $exception) {
+            throw new OzonHttpException(
+                $exception->getMessage(),
+                (int) $exception->getCode(),
                 $exception
             );
         }
-
     }
 
     private function getHttpClient(): Client

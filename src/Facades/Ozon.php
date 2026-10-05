@@ -7,6 +7,9 @@ use DateTime;
 /**
  * Custom config
  * @method static \Filippi4\Ozon\Ozon config(array $keys)
+ * @method static \Filippi4\Ozon\OzonResponse|null getLastResponse()
+ * @method static int|null getLastRatelimitRemaining()
+ * @method static array getLastHeaders()
  * 
  * Атрибуты и характеристики Ozon
  * @method static mixed getCategoryTree(int $category_id = null, string $language = 'DEFAULT');

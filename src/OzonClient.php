@@ -19,6 +19,7 @@ class OzonClient
     ];
 
     protected $config;
+    protected static ?OzonResponse $lastResponse = null;
 
     /**
      * ClientHint constructor.
@@ -52,7 +53,7 @@ class OzonClient
      */
     protected function getResponse(string $uri = null, array $params = []): OzonResponse
     {
-        $full_path = self::SELLER_URL . $uri;
+        $full_path = self::SELLER_URL . ltrim((string) $uri, '/');
         $options = self::DEFAULT_OPTIONS;
 
         $options['headers']['Client-Id'] = $this->config['client_id'];
@@ -62,7 +63,10 @@ class OzonClient
             $full_path .= '?' . http_build_query($params);
         }
 
-        return OzonRequest::makeRequest($full_path, $options, 'get');
+        $response = OzonRequest::makeRequest($full_path, $options, 'get');
+        static::$lastResponse = $response;
+
+        return $response;
     }
 
     /**
@@ -74,7 +78,7 @@ class OzonClient
      */
     protected function postResponse(string $uri = null, array $params = []): OzonResponse
     {
-        $full_path = self::SELLER_URL . $uri;
+        $full_path = self::SELLER_URL . ltrim((string) $uri, '/');
         $options = self::DEFAULT_OPTIONS;
 
         $options['headers']['Client-Id'] = $this->config['client_id'];
@@ -84,6 +88,29 @@ class OzonClient
             $options['json'] = $params;
         }
 
-        return OzonRequest::makeRequest($full_path, $options, 'post');
+        $response = OzonRequest::makeRequest($full_path, $options, 'post');
+        static::$lastResponse = $response;
+
+        return $response;
+    }
+
+    public static function getLastResponse(): ?OzonResponse
+    {
+        return static::$lastResponse;
+    }
+
+    public static function setLastResponse(?OzonResponse $response): void
+    {
+        static::$lastResponse = $response;
+    }
+
+    public static function getLastRatelimitRemaining(): ?int
+    {
+        return static::$lastResponse?->getRatelimitRemaining();
+    }
+
+    public static function getLastHeaders(): array
+    {
+        return static::$lastResponse?->getHeaders() ?? [];
     }
 }
