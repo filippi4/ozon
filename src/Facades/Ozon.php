@@ -43,6 +43,8 @@ use DateTime;
  * @method static mixed getActions();
  * @method static mixed getActionsCandidates(float $action_id, string|null $last_id, ?float $limit = 100);
  * @method static mixed getActionsProducts(float $action_id, string $last_id = "", ?float $limit = 100);
+ * @method static mixed updateActionsProducts(float $action_id, array $products);
+ * @method static mixed deactivateActionsProducts(float $action_id, array $product_ids);
  * @method static mixed getActionsHotSalesList();
  * @method static mixed getActionsHotSalesProducts(float $hotsale_id, float $offset = null, float $limit = 100);
  * 

@@ -588,7 +588,7 @@ class Ozon extends OzonClient
         return (
             new OzonData(
                 $this->postResponse(
-                    'v1/actions/candidates',
+                    'v2/actions/candidates',
                     array_diff(compact('action_id', 'last_id', 'limit'), [''])
                 )
             )
@@ -601,8 +601,7 @@ class Ozon extends OzonClient
      * Метод для получения списка товаров, участвующих в акции, по её идентификатору.
      *
      * @param float $action_id <double> Идентификатор акции.
-     * @param float|null $offset <double> Количество элементов, которое будет пропущено в ответе.
-     * Например, если offset=10, ответ начнётся с 11-го найденного элемента.
+     * @param string $last_id <string> Идентификатор последнего значения на странице.
      * @param float|null $limit <double> Количество ответов на странице. По умолчанию — 100.
      * @return mixed
      */
@@ -611,8 +610,48 @@ class Ozon extends OzonClient
         return (
             new OzonData(
                 $this->postResponse(
-                    'v1/actions/products',
+                    'v2/actions/products',
                     array_diff(compact('action_id', 'last_id', 'limit'), [''])
+                )
+            )
+        )->data;
+    }
+
+    /**
+     * Добавление или удаление товаров из акции
+     *
+     * Метод позволяет как добавлять, так и исключать товары из акций.
+     *
+     * @param float $action_id Идентификатор акции.
+     * @param array $products Список товаров.
+     * @return mixed
+     */
+    public function updateActionsProducts(float $action_id, array $products): mixed
+    {
+        return (
+            new OzonData(
+                $this->postResponse(
+                    'v1/actions/products/update',
+                    compact('action_id', 'products')
+                )
+            )
+        )->data;
+    }
+
+    /**
+     * Удаление товаров из акции (Промокоды)
+     *
+     * @param float $action_id Идентификатор акции.
+     * @param array $product_ids Массив идентификаторов товаров (до 1000 шт).
+     * @return mixed
+     */
+    public function deactivateActionsProducts(float $action_id, array $product_ids): mixed
+    {
+        return (
+            new OzonData(
+                $this->postResponse(
+                    'v2/actions/products/deactivate',
+                    compact('action_id', 'product_ids')
                 )
             )
         )->data;
